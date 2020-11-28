@@ -1,0 +1,12 @@
+{
+  "name": "oneApp",
+  "displayName": "oneApp",
+  "expo": {
+    "name": "oneApp",
+    "slug": "oneApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
