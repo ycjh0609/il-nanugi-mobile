@@ -7,7 +7,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from './HomeScreen';
 import GroupScreen from './GroupScreen';
 import SettingScreen from './SettingScreen';
-import NotificationScreen from './NotificationScreen';
 import ChatScreen from './ChatScreen';
 /* 01) Start Style ***************************************************************************************************************/
 const styles = StyleSheet.create({
@@ -16,8 +15,7 @@ const styles = StyleSheet.create({
 /* 01) End Style ***************************************************************************************************************/
 /* 02) Start Others ***************************************************************************************************************/
 
-const Tab = createBottomTabNavigator();
-const getTabIconName = (routeName, focused) => {
+function getTabIconName(routeName, focused){
     let iconName;
     if (routeName === "HomeScreen") {
         iconName = focused ? 'ios-person-add' : 'ios-person';
@@ -34,10 +32,11 @@ const getTabIconName = (routeName, focused) => {
 }
 /* 02) End Others ***************************************************************************************************************/
 /* 03) Start View ***************************************************************************************************************/
+const Tab = createBottomTabNavigator();
 const MainScreen = ({ route, navigation }) => {
 
     useEffect(() => {
-
+       
     }, []);
 
     /* 03-1) Start View ***************************************************************************************************************/

@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
 /* 01) End Style ***************************************************************************************************************/
 /* 02) Start Others ***************************************************************************************************************/
 
-const navigateToScreen = async (screenName, navigation) => {
+async function navigateToScreen(screenName, navigation){
     //await commonAxios.get("/hello");
     // call data by screen type
     // screenName 에 필요한 데이터 先 호출!!
     navigation.navigate(screenName, {
-        navigation
+        
     })
 }
 /* 02) End Others ***************************************************************************************************************/
