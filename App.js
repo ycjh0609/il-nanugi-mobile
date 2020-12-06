@@ -3,8 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainLoadingScreen from './components/views/MainLoadingScreen';
-import MainScreen from './components/views/MainScreen';
+import MainLoadingScreen from './src/components/views/MainLoadingScreen';
+import MainScreen from './src/components/views/MainScreen';
 
 
 const Stack = createStackNavigator();

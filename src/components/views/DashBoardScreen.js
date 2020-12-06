@@ -28,9 +28,6 @@ const styles = StyleSheet.create({
 /* 02) End Others ***************************************************************************************************************/
 /* 03) Start View ***************************************************************************************************************/
 const DashBoardScreen = ({changeScreen}) => {
-
-console.log(changeScreen)
-
     useEffect(() => {
 
     }, []);
@@ -39,10 +36,10 @@ console.log(changeScreen)
         <ScrollView>
             <View style={styles.screenContainer}>
                 <View style={styles.topLogoContainer}>
-                    <Text style={styles.topLogo} onPress={() => Alert.alert('long')}>{globalConfig.brand.logo}</Text>
+                    <Text style={styles.topLogo}>{globalConfig.brand.logo}</Text>
                 </View>
                 <TopNav />
-                <Button title="test" onPress={()=>changeScreen(<SettingScreen/>)} ></Button>
+                {/* <Button title="test" onPress={()=>changeScreen(<SettingScreen/>)} ></Button> */}
                 <View style={styles.cardGroupContainer}>
                     <Card cardStyle={{backgroundColor:"#FF9AA2",height:100}}/>
                     <Card cardStyle={{backgroundColor:"#E2F0CB",height:100}}/>
