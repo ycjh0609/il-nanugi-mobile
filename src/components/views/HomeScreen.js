@@ -1,29 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Alert, StyleSheet, Text, View, Button } from "react-native";
-import commonStyle from "../../common/styles/commonStyle";
-import globalConfig from '../../common/config/globalConfig';
-import DashBoardScreen from './DashBoardScreen';
-import ChatScreen from './ChatScreen';
-
+import { StyleSheet, Text, View, Button } from "react-native";
+import HomeHeader from '../layouts/home/HomeHeader';
+import HomePersonalScreen from './HomePersonalScreen';
+import { ScrollView } from 'react-native-gesture-handler';
+import { Dimensions } from 'react-native';
+import HomeGroupScreen from './HomeGroupScreen';
 /* 01) Start Style ***************************************************************************************************************/
 const styles = StyleSheet.create({
 
 });
 /* 01) End Style ***************************************************************************************************************/
-/* 02) Start Others ***************************************************************************************************************/
+/* 02) Start Static Function Group ******************************************************************************************************/
 
-/* 02) End Others ***************************************************************************************************************/
+/* 02) End Static Function Group ***************************************************************************************************************/
 /* 03) Start View ***************************************************************************************************************/
 const HomeScreen = () => {
-    const changeScreen = (screen) => setScreen(screen);
-    const [screen,setScreen] = useState(<DashBoardScreen changeScreen={changeScreen}/>);
+    const { width, height } = Dimensions.get("window");
+    const [ pageNum, setPageNum ] = useState(0);
+
+    const onScrollEnd = e => {
+        let contentOffset = e.nativeEvent.contentOffset;
+        let viewSize = e.nativeEvent.layoutMeasurement;
+        let num = Math.floor(contentOffset.x / viewSize.width);
+        setPageNum(num);
+    }
+
     useEffect(() => {
-        
-    }, []);
+        console.log(pageNum)
+    }, [pageNum]);
     /* 03-1) End View ***************************************************************************************************************/
     return (
-        <View style={{height:"100%"}}>
-           {screen}
+        <View >
+            <HomeHeader pageNum={pageNum} />
+            <ScrollView
+                horizontal
+                pagingEnabled
+                onMomentumScrollEnd={onScrollEnd}
+                showsHorizontalScrollIndicator={false}
+                scrollEventThrottle={200}
+                decelerationRate="fast"
+            >
+                <View style={{ width }}>
+                    <HomePersonalScreen />
+                </View>
+                <View style={{ width }}>
+                    <HomeGroupScreen />
+                </View>
+            </ScrollView>
+
+
         </View>
     )
     /* 03-1) End View ***************************************************************************************************************/

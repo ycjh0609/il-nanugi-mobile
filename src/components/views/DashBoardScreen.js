@@ -6,7 +6,8 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import TopNav from '../layouts/dash_board/TopNav';
 import Card from '../layouts/dash_board/Card';
 import PlusCard from '../layouts/dash_board/PlusCard';
-import SettingScreen from './SettingScreen';
+
+import {useStoreState,defineStoreState} from '../../common/utils/store/commonStore';
 /* 01) Start Style ***************************************************************************************************************/
 const styles = StyleSheet.create({
     cardGroupContainer: {
@@ -23,27 +24,26 @@ const styles = StyleSheet.create({
     screenContainer: commonStyle.screenContainer
 });
 /* 01) End Style ***************************************************************************************************************/
-/* 02) Start Others ***************************************************************************************************************/
+/* 02) Start Static Function Group ******************************************************************************************************/
 
-/* 02) End Others ***************************************************************************************************************/
+/* 02) End Static Function Group ***************************************************************************************************************/
 /* 03) Start View ***************************************************************************************************************/
 const DashBoardScreen = ({changeScreen}) => {
+    const [userInfo,setUserInfo] = useStoreState("userInfo",useState)
     useEffect(() => {
-
+        
     }, []);
     /* 03-1) End View ***************************************************************************************************************/
     return (
         <ScrollView>
             <View style={styles.screenContainer}>
-                <View style={styles.topLogoContainer}>
-                    <Text style={styles.topLogo}>{globalConfig.brand.logo}</Text>
-                </View>
-                <TopNav />
+                <TopNav userInfo={userInfo}/>
+                
                 {/* <Button title="test" onPress={()=>changeScreen(<SettingScreen/>)} ></Button> */}
                 <View style={styles.cardGroupContainer}>
-                    <Card cardStyle={{backgroundColor:"#FF9AA2",height:100}}/>
-                    <Card cardStyle={{backgroundColor:"#E2F0CB",height:100}}/>
-                    <Card cardStyle={{backgroundColor:"#C7CEEA",height:100}}/>
+                    <Card cardStyle={{backgroundColor:"#FF9AA2"}}/>
+                    <Card cardStyle={{backgroundColor:"#E2F0CB"}}/>
+                    <Card cardStyle={{backgroundColor:"#C7CEEA"}}/>
                     <PlusCard />
                 </View>
             </View>

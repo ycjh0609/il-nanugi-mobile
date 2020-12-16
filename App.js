@@ -1,22 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainLoadingScreen from './src/components/views/MainLoadingScreen';
+import MainLoginScreen from './src/components/views/MainLoginScreen';
 import MainScreen from './src/components/views/MainScreen';
 
-
 const Stack = createStackNavigator();
+
 const App = () => {
-  let initialScreenName = "MainScreen"
-  
+
+  const INITINIAL_ROUTE_NAME = "MainLoginScreen";
+  let initialScreenName = "MainScreen";
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainLoadingScreen">
-        {/* Route 01) MainLoading Screen*/}
-        <Stack.Screen name="MainLoadingScreen"
-          component={MainLoadingScreen}
+      <Stack.Navigator initialRouteName={INITINIAL_ROUTE_NAME}>
+        {/* Route 01) MainLoginScreen*/}
+        <Stack.Screen name="MainLoginScreen"
+          component={MainLoginScreen}
           options={{ headerShown: false }}
           initialParams={{ initialScreenName }}
         />
