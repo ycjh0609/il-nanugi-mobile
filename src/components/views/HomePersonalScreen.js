@@ -58,21 +58,21 @@ const HomePersonalScreen = ({ }) => {
     }
     const reCollocateCards = (cards) => {
         let visible = cards.filter((card) => {
-            if (taskType == 0) {
+            if (taskType === 0) {
                 return true;
-            } else {
+            } else if (taskType === 1){
+                return card.taskStatus === "A"
+            } else if (taskType === 2){
                 return card.taskStatus === "E"
             }
         });
-        if (sortType !== 0) {
-            visible.sort((a, b) => {
-                if (sortType === 1) {
-                    return a.id < b.id ? -1 : a.name > b.name ? 1 : 0;
-                } else {
-                    return a.deadlineTime < b.deadlineTime ? -1 : a.deadlineTime > b.deadlineTime ? 1 : 0;
-                }
-            });
-        }
+        visible.sort((a, b) => {
+            if (sortType === 0) {
+                return a.id < b.id ? -1 : a.name > b.name ? 1 : 0;
+            } else {
+                return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+            }
+        });
         return visible;
     }
 

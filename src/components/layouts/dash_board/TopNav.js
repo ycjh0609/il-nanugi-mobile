@@ -17,11 +17,28 @@ const styles = StyleSheet.create({
 
 });
 const TopNav = ({collocate}) => {
-    
-    useEffect(() => {
-        
-    }, []);
 
+    const [taskTypeText,setTaskTypeText] = useState("");
+    const [sortTypeText,setSortTypeText] = useState("");
+    
+    const changeSortType = () =>{
+        if (collocate.sortType == 0) collocate.setSortType(1)
+        else if (collocate.sortType == 1) collocate.setSortType(0)
+    }
+    const changeTaskType = () =>{
+        if (collocate.taskType == 0) collocate.setTaskType(1)
+        else if (collocate.taskType == 1) collocate.setTaskType(2)
+        else if (collocate.taskType == 2) collocate.setTaskType(0)
+    }
+    useEffect(() => {
+        if (collocate.taskType === 0) setTaskTypeText("전체")
+        else if (collocate.taskType === 1) setTaskTypeText("진행")
+        else if (collocate.taskType === 2) setTaskTypeText("완료")
+
+        if (collocate.sortType === 0) setSortTypeText("마감")
+        else if (collocate.sortType === 1) setSortTypeText("중요")
+
+    }, [collocate.taskType,collocate.sortType]);
     return (
         <View style={styles.topNavContainer}>
             <View style={{
@@ -29,12 +46,17 @@ const TopNav = ({collocate}) => {
                 justifyContent: "space-between",
                 alignItems: "center"
             }}>
-                <Icon onPress={()=>collocate.setTaskType(1)} name="ios-list" size={30} />
-                <Text style={{ marginLeft: 5, fontSize: 15 }}>전체 할 일</Text>
+                <Icon onPress={changeTaskType} name="ios-list" size={30} />
+                <Text style={{ marginLeft: 5, fontSize: 15 }}>{taskTypeText}</Text>
             </View>
 
-            <View>
-                <Icon onPress={()=>collocate.setSortType(2)} name="md-reorder" size={30} />
+            <View style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center"
+            }}>
+                <Icon onPress={changeSortType} name="md-reorder" size={30} />
+                <Text style={{ marginLeft: 5, fontSize: 15 }}>{sortTypeText}</Text>
             </View>
         </View>
     )
