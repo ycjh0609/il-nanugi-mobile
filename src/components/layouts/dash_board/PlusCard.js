@@ -5,14 +5,16 @@ import Animated from 'react-native-reanimated';
 /* 01) Start Style ***************************************************************************************************************/
 const styles = StyleSheet.create({
     cardContainer: {
-        borderRadius: 15,
+        borderRadius: 10,
         marginBottom: 20,
+        paddingTop: 10,
         paddingLeft: 20,
         paddingRight: 20,
-        paddingTop:10,
+        marginTop:20,
         height: 60,
-        width: "100%",
-        backgroundColor: "#ced1c2"
+        backgroundColor:"#bec4c4"
+
+
     }
 });
 /* 01) End Style ***************************************************************************************************************/

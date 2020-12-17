@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     },
     screenContainer: {
         ...commonStyle.screenContainer
-        , marginBottom: 200
+        , marginBottom: 350
     }
 });
 /* 01) End Style ***************************************************************************************************************/
@@ -31,15 +31,10 @@ function getGroupCards() {
     console.log("get")
     let temp = [
 
-        { id: "6", title: "경영과학 과제하기", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
-        { id: "7", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
-        { id: "8", title: "어플 개발하기2", cardStyle: { backgroundColor: "#FF9AA2" }, isOpen: false },
-        { id: "1", title: "자차카타파타하", cardStyle: { backgroundColor: "#F287f5" }, isOpen: false },
-        { id: "2", title: "경영과학 과제하기", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
-        { id: "3", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
-        { id: "4", title: "어플 개발하기2", cardStyle: { backgroundColor: "#FF9AA2" }, isOpen: false },
-        { id: "5", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
-        { id: "9", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false }
+        { id: "6", taskStatus: "E", title: "일나누기 프로젝트", deadlineTime: "202012311341", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
+        { id: "2", taskStatus: "E", title: "SweetHome", deadlineTime: "202011212341", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
+        { id: "3", taskStatus: "A", title: "경영과학 2조", deadlineTime: "202012312341", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
+       
     ]
     return temp;
 }
@@ -92,19 +87,22 @@ const HomeGroupScreen = ({ }) => {
     /* 03-1) End View ***************************************************************************************************************/
     return (
         <View style={styles.screenContainer}>
-            <TopNav collocate={{ sortType, setSortType, taskType, setTaskType }} />
-            <PlusCard/>
-            <ScrollView style={styles.cardGroupContainer}>
-                {reCollocateCards(cards).map((card, idx) => {
-                    return <Card
-                        idx={idx}
-                        key={card.id}
-                        card={card}
-                        onPress={null}
-                        setCard={getSetterEachCard(card)} />
-                })}
+            
+            <View style={styles.cardGroupContainer}>
+                <PlusCard/>
+                <ScrollView >
+                    {reCollocateCards(cards).map((card, idx) => {
+                        return <Card
+                            idx={idx}
+                            key={card.id}
+                            card={card}
+                            onPress={null}
+                            setCard={getSetterEachCard(card)} />
+                    })}
 
-            </ScrollView>
+                </ScrollView>
+            </View>
+           
 
         </View>
     )

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     },
     screenContainer: {
         ...commonStyle.screenContainer
-        , marginBottom: 200
+        , marginBottom: 250
     }
 });
 /* 01) End Style ***************************************************************************************************************/
@@ -32,15 +32,12 @@ const styles = StyleSheet.create({
 function getPersonalCards() {
     console.log("get")
     let temp = [
-        { id: "1", title: "자차카타파타하", cardStyle: { backgroundColor: "#F287f5" }, isOpen: false },
-        { id: "2", title: "경영과학 과제하기", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
-        { id: "3", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
-        { id: "4", title: "어플 개발하기2", cardStyle: { backgroundColor: "#FF9AA2" }, isOpen: false },
-        { id: "5", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
-        { id: "6", title: "경영과학 과제하기", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
-        { id: "7", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
-        { id: "8", title: "어플 개발하기2", cardStyle: { backgroundColor: "#FF9AA2" }, isOpen: false },
-        { id: "9", title: "어플 개발하기", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false }
+        { id: "1", taskStatus: "A", title: "모바일 개발", deadlineTime: "201912312341", cardStyle: { backgroundColor: "#53b5b5" }, isOpen: false },
+        { id: "2", taskStatus: "E", title: "꽃님이 산책", deadlineTime: "202011212341", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
+        { id: "3", taskStatus: "A", title: "백엔드 개발", deadlineTime: "202012312341", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
+        { id: "6", taskStatus: "E", title: "경영과학 과제", deadlineTime: "202012311341", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
+        { id: "8", taskStatus: "E", title: "화면개발", deadlineTime: "202012312331", cardStyle: { backgroundColor: "#FF9AA2" }, isOpen: false },
+
     ]
     return temp;
 }
@@ -64,7 +61,7 @@ const HomePersonalScreen = ({ }) => {
             if (taskType == 0) {
                 return true;
             } else {
-                return card.title === "어플 개발하기"
+                return card.taskStatus === "E"
             }
         });
         if (sortType !== 0) {
@@ -72,7 +69,7 @@ const HomePersonalScreen = ({ }) => {
                 if (sortType === 1) {
                     return a.id < b.id ? -1 : a.name > b.name ? 1 : 0;
                 } else {
-                    return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
+                    return a.deadlineTime < b.deadlineTime ? -1 : a.deadlineTime > b.deadlineTime ? 1 : 0;
                 }
             });
         }
@@ -90,19 +87,22 @@ const HomePersonalScreen = ({ }) => {
     /* 03-1) End View ***************************************************************************************************************/
     return (
         <View style={styles.screenContainer}>
-            <TopNav collocate={{ sortType, setSortType, taskType, setTaskType }} />
+             <TopNav collocate={{ sortType, setSortType, taskType, setTaskType }} />
+            <View style={styles.cardGroupContainer}>
+                <ScrollView >
+                    {reCollocateCards(cards).map((card, idx) => {
+                        return <Card
+                            idx={idx}
+                            key={card.id}
+                            card={card}
+                            onPress={null}
+                            setCard={getSetterEachCard(card)} />
+                    })}
 
-            <ScrollView style={styles.cardGroupContainer}>
-                {reCollocateCards(cards).map((card, idx) => {
-                    return <Card
-                        idx={idx}
-                        key={card.id}
-                        card={card}
-                        onPress={null}
-                        setCard={getSetterEachCard(card)} />
-                })}
+                </ScrollView>
+            </View>
+           
 
-            </ScrollView>
 
         </View>
     )

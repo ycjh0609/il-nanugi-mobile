@@ -8,9 +8,7 @@ import { useStoreState, deleteStoreWatcher } from '../../../common/utils/store/c
 import { Icon } from 'react-native-elements'
 /* 01) Start Style ***************************************************************************************************************/
 const styles = StyleSheet.create({
-    userInfo: {
-
-    }
+    userInfoWrapper: { marginTop: 9, marginLeft: 5, color: commonStyle.oneTextInColor, fontSize: 15 }
 });
 /* 01) End Style ***************************************************************************************************************/
 /* 02) Start Static Function Group ******************************************************************************************************/
@@ -23,12 +21,10 @@ const HomeHeader = ({ pageNum }) => {
     
     
     useEffect(() => {
-        let currDotsStatus = dotsStatus
-        .fill(false, 0, dotsStatus.length);
-        currDotsStatus[pageNum] = true;
-        console.log(currDotsStatus,"##")
+        let currDotsStatus = dotsStatus.fill(false, 0, dotsStatus.length);
+        let currPageNum = pageNum < 0 ? 0 : pageNum; 
+        currDotsStatus[currPageNum] = true;
         setDotsStatus(currDotsStatus);
-
     }, [pageNum]);
 
     /* 03-1) End View ***************************************************************************************************************/
@@ -40,18 +36,17 @@ const HomeHeader = ({ pageNum }) => {
                 justifyContent: 'center',
                 alignItems: 'stretch',
             }}>
-                <CommonAvartar />
-                <Text style={{ marginTop: 9, marginLeft: 5, color: commonStyle.oneTextInColor, fontSize: 15 }}>{userInfo.name}</Text>
+                <CommonAvartar size="small" title="곽"/>
+                <Text style={styles.userInfoWrapper}>{userInfo.name}</Text>
             </View>
             <View style={{
                 marginTop: -15,
                 flexDirection: 'row',
                 justifyContent: 'center',
             }}>
-                {dotsStatus.map((status) => {
+                {dotsStatus.map((status,idx) => {
                     let color = status ? "#7b83c7" : commonStyle.oneTextInColor;
-                    let random = Math.random();
-                    return <Text key={random} style={{ fontSize: 60, color }}>.</Text>
+                    return <Text key={idx} style={{ fontSize: 60, color }}>.</Text>
                 })}
             </View>
         </View>
