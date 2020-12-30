@@ -15,7 +15,7 @@ function registerWatcher(key, setState) {
 function deleteWatcher(setter) {
     Object.keys(STORE_WATCHER).forEach((key) => {
         STORE_WATCHER[key] = STORE_WATCHER[key].filter(watcher => watcher !== setter.setState)
-    })
+    }) 
 }
 const commonStore = {
     define: (key, value, handler) => {
@@ -62,6 +62,15 @@ const deleteStoreWatcher = (setState) => {
     deleteWatcher(setState);
 }
 /**
+ * 공통 Store 에서 item 을 조회한다 (상태 체크는 하지 않음 const 로 이용해야함)
+ *
+ * @param key {String}
+ * @return value
+ * */
+const getStoreItem = (key) =>{
+    return commonStore.getter(key);
+}
+/**
  * 공통 Store 에 Key, Value 를 선언한다, (value를 선언하지 않으면 value = null)
  *
  * @param key {String}
@@ -94,4 +103,4 @@ const useStoreState = (key, useState) => {
 }
 
 
-export { defineStoreItem, useStoreState, deleteStoreWatcher };
+export { defineStoreItem, useStoreState, deleteStoreWatcher,getStoreItem };

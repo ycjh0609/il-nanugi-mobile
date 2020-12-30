@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from "react-native";
-import commonStyle from "../../common/styles/commonStyle";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import TopNav from '../layouts/dash_board/TopNav';
-import Card from '../layouts/dash_board/Card';
-import PlusCard from '../layouts/dash_board/PlusCard';
-import { useStoreState, defineStoreItem } from '../../common/utils/store/commonStore';
+
+import commonStyle from "../../../common/styles/commonStyle";
+import { useStoreState, defineStoreItem } from '../../../common/utils/store/commonStore';
+import GroupCard from './card/GroupCard';
 /* 01) Start Style ***************************************************************************************************************/
 const styles = StyleSheet.create({
     cardGroupContainer: {
@@ -31,24 +30,25 @@ function getGroupCards() {
     console.log("get")
     let temp = [
 
-        { id: "6", taskStatus: "E", title: "일나누기 프로젝트", deadlineTime: "202012311341", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
-        { id: "2", taskStatus: "E", title: "SweetHome", deadlineTime: "202011212341", cardStyle: { backgroundColor: "#E2F0CB" }, isOpen: false },
-        { id: "3", taskStatus: "A", title: "경영과학 2조", deadlineTime: "202012312341", cardStyle: { backgroundColor: "#C7CEEA" }, isOpen: false },
+        { id: "6", taskStatus: "E", title: "일나누기 프로젝트", deadlineTime: "202012311341", cardStyle: { backgroundColor: "#E2F0CB" } },
+        { id: "2", taskStatus: "E", title: "SweetHome", deadlineTime: "202011212341", cardStyle: { backgroundColor: "#E2F0CB" } },
+        { id: "3", taskStatus: "A", title: "경영과학 2조", deadlineTime: "202012312341", cardStyle: { backgroundColor: "#C7CEEA" } },
        
     ]
     return temp;
 }
-function sort(a, b) {
 
-}
 /* 02) End Static Function Group ***************************************************************************************************************/
 /* 03) Start View ***************************************************************************************************************/
-const HomeGroupScreen = ({ }) => {
+const GroupDashboard = ({ }) => {
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
-    const [sortType, setSortType] = useState(0);
-    const [taskType, setTaskType] = useState(0);
     const [cards, setCards] = useState([]);
+
+    /***************************
+     * 렌더링 될 각 카드에 전달할 각 카드 setter 생성 
+    ***************************/
     const getSetterEachCard = passedCard => {
+        // 각 카드가 변경되어 setCard가 호출되면 카드 전체를 setter로 변경
         const setCard = (card) => {
             let changedIdx = (cards.findIndex((card) => card.id === passedCard.id));
             cards[changedIdx] = card;
@@ -56,43 +56,21 @@ const HomeGroupScreen = ({ }) => {
         }
         return setCard;
     }
-    const reCollocateCards = (cards) => {
-        let visible = cards.filter((card) => {
-            if (taskType == 0) {
-                return true;
-            } else {
-                return card.title === "어플 개발하기"
-            }
-        });
-        if (sortType !== 0) {
-            visible.sort((a, b) => {
-                if (sortType === 1) {
-                    return a.id < b.id ? -1 : a.name > b.name ? 1 : 0;
-                } else {
-                    return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-                }
-            });
-        }
-        return visible;
-    }
 
+    //ComponentWillMount
     useEffect(() => {
         let cards = getGroupCards();
         setCards(cards);
     }, []);
-    useEffect(function afterChangedCollocateType() {
-
-    }, [sortType, taskType]);
 
     /* 03-1) End View ***************************************************************************************************************/
     return (
         <View style={styles.screenContainer}>
             
             <View style={styles.cardGroupContainer}>
-                <PlusCard/>
                 <ScrollView >
-                    {reCollocateCards(cards).map((card, idx) => {
-                        return <Card
+                    {cards.map((card, idx) => {
+                        return <GroupCard
                             idx={idx}
                             key={card.id}
                             card={card}
@@ -110,4 +88,4 @@ const HomeGroupScreen = ({ }) => {
 }
 
 /* 03) End View ***************************************************************************************************************/
-export default HomeGroupScreen;
+export default GroupDashboard;

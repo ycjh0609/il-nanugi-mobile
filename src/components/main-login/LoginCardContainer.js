@@ -1,9 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View, Animated } from "react-native";
-import SNSLoginTab from './SNSLoginTab';
+import LoginCard from './LoginCard';
 import _ from 'lodash';
-import { deleteStoreWatcher, useStoreState } from '../../../common/utils/store/commonStore'
-/* 01) Start Style ***************************************************************************************************************/
+import { deleteStoreWatcher, useStoreState } from '../../common/utils/store/commonStore'
+/*------------------------------------------------------------------------------------
+ * Edit Date   : 2020.12.30
+ * Edit By     : kwak ji hoon 
+ * Description : SNS Login Container
+ *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
     container: {
         width: "80%"
@@ -20,7 +24,7 @@ function animateMarginTop(target,toValue){
 }
 /* 02) End Static Function Group *************************************************************************************************/
 /* 03) Start React ***************************************************************************************************************/
-const SNSLoginGroup = ({ loginGroupTabVisiable }) => {
+const LoginCardContainer = ({ }) => {
 
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
     const containerMarginTop = useRef(new Animated.Value(100)).current;
@@ -36,18 +40,18 @@ const SNSLoginGroup = ({ loginGroupTabVisiable }) => {
             deleteStoreWatcher(setUserInfo);
         }
     }, [userInfo]);
-    const NAVER = () => {
+    const NAVER = useCallback(() => {
         setUserInfo({ name: "Kwak Tom" })
-    }
+    });
     /* 03-1) Start View ***************************************************************************************************************/
     if (_.isEmpty(userInfo)) { // if has not userInfo
         return (
             <Animated.View style={{ marginTop: containerMarginTop, ...styles.container }}>
 
-                <SNSLoginTab iconName="md-subway" title="NAVER" color="green" onPress={NAVER} ></SNSLoginTab>
-                <SNSLoginTab iconName="md-swap" title="KAKAO" color="#f7ce16"></SNSLoginTab>
-                <SNSLoginTab iconName="logo-google" title="Google" color="white"></SNSLoginTab>
-                <SNSLoginTab iconName="logo-facebook" title="FaceBook" color="#2469e0"></SNSLoginTab>
+                <LoginCard iconName="md-subway" title="NAVER" color="green" onPress={NAVER} ></LoginCard>
+                <LoginCard iconName="md-swap" title="KAKAO" color="#f7ce16"></LoginCard>
+                <LoginCard iconName="logo-google" title="Google" color="white"></LoginCard>
+                <LoginCard iconName="logo-facebook" title="FaceBook" color="#2469e0"></LoginCard>
 
             </Animated.View>
         )
@@ -62,6 +66,6 @@ const SNSLoginGroup = ({ loginGroupTabVisiable }) => {
 
 }
 /* 03) End React ***************************************************************************************************************/
-export default SNSLoginGroup;
+export default LoginCardContainer;
 
 

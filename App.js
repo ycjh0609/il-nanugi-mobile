@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import MainLoginScreen from './src/components/views/MainLoginScreen';
-import MainScreen from './src/components/views/MainScreen';
+
+import MainLoginScreen from './src/screens/MainLoginScreen';
+import MainTabScreen from "./src/screens/MainTabScreen";
 
 const Stack = createStackNavigator();
 
 const App = () => {
 
   const INITINIAL_ROUTE_NAME = "MainLoginScreen";
-  let initialScreenName = "MainScreen";
+  let initialScreenName = "MainTabScreen";
+  
+  useEffect(()=>{
+    
+  })
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={INITINIAL_ROUTE_NAME}>
@@ -19,9 +25,11 @@ const App = () => {
           options={{ headerShown: false }}
           initialParams={{ initialScreenName }}
         />
-        {/* Route 02) Main Screen*/}
-        <Stack.Screen name="MainScreen"
-          component={MainScreen}
+  
+
+        {/* Route 03) For New Home Screen */}
+        <Stack.Screen name="MainTabScreen"
+          component={MainTabScreen}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
