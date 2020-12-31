@@ -40,7 +40,7 @@ function getGroupCards() {
 
 /* 02) End Static Function Group ***************************************************************************************************************/
 /* 03) Start View ***************************************************************************************************************/
-const GroupDashboard = ({ }) => {
+const GroupDashboard = ({ groups}) => {
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
     const [cards, setCards] = useState([]);
 
@@ -59,9 +59,8 @@ const GroupDashboard = ({ }) => {
 
     //ComponentWillMount
     useEffect(() => {
-        let cards = getGroupCards();
-        setCards(cards);
-    }, []);
+        setCards(groups);
+    }, [groups]);
 
     /* 03-1) End View ***************************************************************************************************************/
     return (
@@ -77,11 +76,8 @@ const GroupDashboard = ({ }) => {
                             onPress={null}
                             setCard={getSetterEachCard(card)} />
                     })}
-
                 </ScrollView>
             </View>
-           
-
         </View>
     )
     /* 03-1) End View ***************************************************************************************************************/

@@ -38,23 +38,11 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-function getPersonalCards() {
-    console.log("get")
-    let temp = [
-        { id: "1", groupId:"1", taskStatus: "A", title: "모바일 개발", deadlineTime: "202012200000", cardStyle: { backgroundColor: "#53b5b5" } },
-        { id: "3", groupId:"1", taskStatus: "A", title: "백엔드 개발", deadlineTime: "202112112341", cardStyle: { backgroundColor: "#53b5b5" } },
-        { id: "2", groupId:"2", taskStatus: "E", title: "꽃님이 산책", deadlineTime: "201911212341", cardStyle: { backgroundColor: "#FFE5B4" } },
-        { id: "6", groupId:"3", taskStatus: "E", title: "경영과학 과제", deadlineTime: "201812311341", cardStyle: { backgroundColor: "#FFE5B4" } },
-        { id: "8", groupId:"1", taskStatus: "E", title: "화면개발", deadlineTime: "201312312331", cardStyle: { backgroundColor: "#53b5b5" } },
-        { id: "9", groupId:"4", taskStatus: "A", title: "테스트 하기", deadlineTime: "202312312331", cardStyle: { backgroundColor: "#FF8C00" } },
 
-    ]
-    return temp;
-}
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const PersonalDashboard = ({ navigation }) => {
+const PersonalDashboard = ({ navigation ,tasks}) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -101,9 +89,8 @@ const PersonalDashboard = ({ navigation }) => {
     })
 
     useEffect(() => {
-        let cards = getPersonalCards();
-        setCards(cards);
-    }, []);
+        setCards(tasks);
+    }, [tasks]);
 
     /*-------------------------------------------------------------------------------
     * 03-2) View
@@ -112,6 +99,7 @@ const PersonalDashboard = ({ navigation }) => {
         <View style={styles.screenContainer}>
             <TopNavigation collocate={{ sortType, setSortType, taskStatus, setTaskStatus }} />
             <View style={styles.cardGroupContainer}>
+                {cards.length > 0 &&
                 <ScrollView >
                     {reCollocateCards(cards).map((card, idx) => {
                         return <TaskCard
@@ -119,9 +107,11 @@ const PersonalDashboard = ({ navigation }) => {
                             key={card.id}
                             card={card}
                             onPress={null}
+                            navigation={navigation}
                             setCard={getSetterEachCard(card)} />
                     })}
                 </ScrollView>
+                }
             </View>
         </View>
     )

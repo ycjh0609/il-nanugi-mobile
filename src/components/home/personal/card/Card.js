@@ -42,7 +42,7 @@ function anmaiteCardHeight(target, toValue, duration) {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const Card = ({ onPress, card, setCard, idx ,children}) => {
+const Card = ({ onPress, card, setCard,idx ,children}) => {
     const cardHeight = useRef(new Animated.Value(20)).current;
     
     /***************************
@@ -78,7 +78,7 @@ const Card = ({ onPress, card, setCard, idx ,children}) => {
         <Animated.View style={{ ...styles.cardContainer, ...card.cardStyle, height: cardHeight }}>
             <View style={{...commonStyle.rowAlignment}}>
                 <View style={{...styles.circle}}>
-                <CommonAvartar />
+                <CommonAvartar title={card.group.name.substring(0,1)}/>
                 </View>
                 <View onPress={onPress} style={{ width: 250}}>
                     <Text style={{ fontSize: 18 }} >{card.title}</Text>

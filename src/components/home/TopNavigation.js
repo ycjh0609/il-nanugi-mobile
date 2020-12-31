@@ -18,7 +18,7 @@ import CommonBtn from '../common/CommonBtn';
 const styles = StyleSheet.create({
     container:{
         paddingTop:55, //for ios, 안드로이드를 어떻게 할지 고민해야함 (todo)
-        height:130,
+        height:140,
         backgroundColor: commonStyle.oneBackgroundColor,
     },
     navigatorMenus:{
@@ -48,6 +48,16 @@ const styles = StyleSheet.create({
     alramBtnContainer:{
         ...commonStyle.rowCenter,
         flex:1,
+    },
+    dots:{
+        ...commonStyle.columnCenterAlignment
+        ,marginTop:7
+    },
+    dot:{
+        height:8,
+        width:8,
+        borderRadius:8*2,
+        margin:4
     }
 });
 
@@ -58,7 +68,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TopNavigation = () => {
+const TopNavigation = ({currentPage}) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -82,6 +92,12 @@ const TopNavigation = () => {
                 </View>
                 <View style={styles.alramBtnContainer}>
                     <CommonBtn onPress={_onPressAlarmBtn} btnStyle={{btnSize:40,type:0}} iconStyle={{name:"md-bulb"}}/>
+                </View>
+            </View>
+            <View style={styles.dots}>
+                <View style={commonStyle.rowAlignment}>
+                    <View style={{...styles.dot,backgroundColor:currentPage==0? commonStyle.oneTextInColor:"#bfc3c7",}}></View>
+                    <View style={{...styles.dot,backgroundColor:currentPage==1? commonStyle.oneTextInColor:"#bfc3c7",}}></View>
                 </View>
             </View>
         </View>

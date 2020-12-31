@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { StyleSheet, Text, View, Button } from "react-native";
 import { ScrollView } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
@@ -17,17 +17,23 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-const { width:WINDOW_WIDTH, height:WINDOW_HEIGHT } = Dimensions.get("window");
-    
+const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
+
+function usePrevious(value) {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    }, [value])
+    return ref.current;
+}
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const Dashboard = ({ navigation, route }) => {
+const Dashboard = ({ navigation, route, tasks, groups, currentPage, setCurrentPage }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    const [pageNum, setPageNum] = useState(0);
-
+    const scrollPosition = useRef();
     /***************************
      * 수평 스크롤 페이징 처리 (Personal, Group)
     ***************************/
@@ -35,27 +41,36 @@ const Dashboard = ({ navigation, route }) => {
         let contentOffset = e.nativeEvent.contentOffset;
         let viewSize = e.nativeEvent.layoutMeasurement;
         let num = Math.floor(contentOffset.x / viewSize.width); //offset을 스크롤 View 의 Width 로 나눠 pagenumber 계산
-        setPageNum(num);
-    })
-
+        num = num < 0 ? 0 : num;
+        setCurrentPage(num);
+    });
+    useEffect(() => {
+        if (currentPage == 0) {
+            scrollPosition.current.scrollTo({ y: 0, x: 0, animated: true });
+        } else if (currentPage == 1) {
+            scrollPosition.current.scrollToEnd({ animated: true });
+        }
+    }, [currentPage])
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
-   return (
+    return (
         <View >
             <ScrollView
+                ref={scrollPosition}
                 horizontal
                 pagingEnabled
                 onMomentumScrollEnd={onScrollEnd}
                 showsHorizontalScrollIndicator={false}
                 scrollEventThrottle={200}
                 decelerationRate="fast"
+
             >
-                <View style={{ width:WINDOW_WIDTH }}>
-                    <PersonalDashboard />
+                <View style={{ width: WINDOW_WIDTH }}>
+                    <PersonalDashboard navigation={navigation} tasks={tasks} groups={groups} />
                 </View>
-                <View style={{ width:WINDOW_WIDTH }}>
-                    <GroupDashboard />
+                <View style={{ width: WINDOW_WIDTH }}>
+                    <GroupDashboard groups={groups} />
                 </View>
             </ScrollView>
         </View>)
