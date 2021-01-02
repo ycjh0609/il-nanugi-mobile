@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
         paddingRight: 20,
     },
     circle: {
-        width: 37,
-        height: 37,
-        borderRadius: 37 / 2,
+        width: 38,
+        height: 38,
+        borderRadius: 38 / 2,
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "white"
@@ -32,19 +32,26 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-function anmaiteCardHeight(target, toValue, duration) {
+function anmaite(target, toValue, duration) {
     Animated.timing(target, {
         toValue,
         duration,
         useNativeDriver: false //뭔지 모르겠는데, 없으면 에러남
     }).start();
 }
+function createContentName(name){
+    if (name.split(" ").length == 1){
+        return name.split(" ")[0].substring(0,2);
+    }else if (name.split(" ").length > 1){
+        return name.split(" ")[0].substring(0,1) + name.split(" ")[1].substring(0,1);
+    }
+}
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
 const Card = ({ onPress, card, setCard,idx ,children}) => {
     const cardHeight = useRef(new Animated.Value(20)).current;
-    
+    const btnSpinValue = useRef(new Animated.Value(0)).current;
     /***************************
      * Card 열림/닫힘 제어 (부모 Component에서 수신받은 setter 로 적용)
     ***************************/
@@ -55,12 +62,15 @@ const Card = ({ onPress, card, setCard,idx ,children}) => {
     /***************************
      * 카드 열림/닫힘에 따른 애니메이션 제어 Hook
     ***************************/
-    useEffect(function handleCardHeight() {
+    useEffect(function handleCardShape() {
         if (card.isOpen) {
-            anmaiteCardHeight(cardHeight, 210, 400);
+            anmaite(cardHeight, 210, 400);
+            anmaite(btnSpinValue,1,400);
         } else {
-            anmaiteCardHeight(cardHeight, 60, 400);
+            anmaite(cardHeight, 60, 400);
+            anmaite(btnSpinValue,0,400);
         }
+        
     }, [card.isOpen]);
 
     /***************************
@@ -75,17 +85,22 @@ const Card = ({ onPress, card, setCard,idx ,children}) => {
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <Animated.View style={{ ...styles.cardContainer, ...card.cardStyle, height: cardHeight }}>
+        <Animated.View style={{ ...styles.cardContainer, backgroundColor: card.color, height: cardHeight }}>
             <View style={{...commonStyle.rowAlignment}}>
                 <View style={{...styles.circle}}>
-                <CommonAvartar title={card.group.name.substring(0,1)}/>
+                <CommonAvartar title={createContentName(card.group.name)}/>
                 </View>
                 <View onPress={onPress} style={{ width: 250}}>
                     <Text style={{ fontSize: 18 }} >{card.title}</Text>
                 </View>
-                <View style={{ alignItems: "flex-end" }} >
-                    <Icon onPress={changeOpenStatus} name="md-add-circle" size={20} />
-                </View>
+                <Animated.View style={{ alignItems: "flex-end",
+                                        marginRight:5,
+                                        transform: [{rotate:btnSpinValue.interpolate({
+                                            inputRange:[0,1],
+                                            outputRange:["0deg","360deg"]
+                                        })}] }} >
+                    <Icon onPress={changeOpenStatus} name="md-add-circle" size={30} />
+                </Animated.View>
             </View>
             {children}
         </Animated.View >

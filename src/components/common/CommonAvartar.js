@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
 * 03) React
 *----------------------------------------------------------------------------------*/
-const CommonAvartar = ({ size, title, onPress, onLongPress }) => {
+const CommonAvartar = ({ containerStyle, size, title, onPress, onLongPress }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -45,7 +45,7 @@ const CommonAvartar = ({ size, title, onPress, onLongPress }) => {
             <Avatar
                 activeOpacity={0.2}
                 avatarStyle={{}}
-                containerStyle={{}}
+                containerStyle={containerStyle}
                 iconStyle={{}}
                 imageProps={{}}
                 onAccessoryPress={() => alert("onAccessoryPress")}

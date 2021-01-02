@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     screenContainer: {
-        margin:10
-        , marginTop:0
-        , marginBottom: 560
+        marginLeft:10
+        , marginRight:10
+        , marginBottom: 600
     }
 });
 /*------------------------------------------------------------------------------------
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const PersonalDashboard = ({ navigation ,tasks}) => {
+const PersonalDashboard = ({ navigation, tasks }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -79,9 +79,9 @@ const PersonalDashboard = ({ navigation ,tasks}) => {
         }).sort((a, b) => {
             if (sortType === 0) {
                 return a.deadlineTime < b.deadlineTime ? 1 : a.deadlineTime > b.deadlineTime ? -1 : 0;
-            } else if (sortType === 1){
+            } else if (sortType === 1) {
                 return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-            }else {
+            } else {
                 return a.groupId < b.groupId ? -1 : a.groupId > b.groupId ? 1 : 0;
             }
         });
@@ -95,22 +95,22 @@ const PersonalDashboard = ({ navigation ,tasks}) => {
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
-   return (
+    return (
         <View style={styles.screenContainer}>
             <TopNavigation collocate={{ sortType, setSortType, taskStatus, setTaskStatus }} />
             <View style={styles.cardGroupContainer}>
                 {cards.length > 0 &&
-                <ScrollView >
-                    {reCollocateCards(cards).map((card, idx) => {
-                        return <TaskCard
-                            idx={idx}
-                            key={card.id}
-                            card={card}
-                            onPress={null}
-                            navigation={navigation}
-                            setCard={getSetterEachCard(card)} />
-                    })}
-                </ScrollView>
+                    <ScrollView  style={{height:"100%"}}>
+                        {reCollocateCards(cards).map((card, idx) => {
+                            return <TaskCard
+                                idx={idx}
+                                key={card.id}
+                                card={card}
+                                onPress={null}
+                                navigation={navigation}
+                                setCard={getSetterEachCard(card)} />
+                        })}
+                    </ScrollView>
                 }
             </View>
         </View>

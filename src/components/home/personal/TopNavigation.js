@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-native";
 import { Icon } from 'react-native-elements';
+import commonStyle from '../../../common/styles/commonStyle';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
  * Edit By     : kwak ji hoon 
@@ -65,19 +66,11 @@ const TopNavigation = ({collocate}) => {
     *-------------------------------------------------------------------------------*/
     return (
         <View style={styles.topNavContainer}>
-            <View style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center"
-            }}>
+            <View style={commonStyle.rowAlignment}>
                 <Icon onPress={changetaskStatus} name="filter-list" size={30} />
                 <Text style={{ marginLeft: 5, fontSize: 15 }}>{taskStatusText}</Text>
             </View>
-            <View style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center"
-            }}>
+            <View style={commonStyle.rowAlignment}>
                 <Icon onPress={changeSortType} name="sort" size={30} />
                 <Text style={{ marginLeft: 5, fontSize: 15 }}>{sortTypeText}</Text>
             </View>

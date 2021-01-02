@@ -70,7 +70,7 @@ const Dashboard = ({ navigation, route, tasks, groups, currentPage, setCurrentPa
                     <PersonalDashboard navigation={navigation} tasks={tasks} groups={groups} />
                 </View>
                 <View style={{ width: WINDOW_WIDTH }}>
-                    <GroupDashboard groups={groups} />
+                    <GroupDashboard navigation={navigation} groups={groups} />
                 </View>
             </ScrollView>
         </View>)

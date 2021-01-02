@@ -1,87 +1,121 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button } from "react-native";
+import React, { useState, useEffect, useCallback } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, View, Button } from "react-native";
+import { Badge } from 'react-native-elements';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-
+import Icon from 'react-native-vector-icons/Ionicons';
 import commonStyle from "../../../common/styles/commonStyle";
 import { useStoreState, defineStoreItem } from '../../../common/utils/store/commonStore';
-import GroupCard from './card/GroupCard';
-/* 01) Start Style ***************************************************************************************************************/
+import TopNavigation from './TopNavigation';
+/*------------------------------------------------------------------------------------
+ * Edit Date   : 2021.01.01
+ * Edit By     : kwak ji hoon 
+ * Description : Group Dashboard
+ *----------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------------------
+ * 01) Styles
+ *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
-    cardGroupContainer: {
-        marginLeft: 10,
-        marginRight: 10
-    },
-    topLogoContainer: {
-        margin: 20
-    },
-    topLogo: {
-        color: commonStyle.oneTextColor,
-        fontSize: 70,
-        textAlign: "center"
-    },
     screenContainer: {
-        ...commonStyle.screenContainer
-        , marginBottom: 350
+        marginLeft: 10
+        , marginRight: 10
+        , marginBottom: 560
+    },
+    cardRow: {
+        ...commonStyle.rowAlignment,
+        ...commonStyle.rowCenter,
+        marginBottom: 20,
+    },
+    cardContainer: {
+        justifyContent: "center",
+        alignItems: 'center',
+        height: 100,
+        width: 100,
+        borderRadius: 25,
+        marginLeft: 15,
+        marginRight: 15,
+    },
+    cardContent: {
+        fontSize: 25,
+        fontWeight: "500"
+    },
+    cardName: {
+        textAlign: "center",
+        fontSize: 15,
+        marginTop: 5
     }
 });
-/* 01) End Style ***************************************************************************************************************/
-/* 02) Start Static Function Group ******************************************************************************************************/
-function getGroupCards() {
-    console.log("get")
-    let temp = [
-
-        { id: "6", taskStatus: "E", title: "일나누기 프로젝트", deadlineTime: "202012311341", cardStyle: { backgroundColor: "#E2F0CB" } },
-        { id: "2", taskStatus: "E", title: "SweetHome", deadlineTime: "202011212341", cardStyle: { backgroundColor: "#E2F0CB" } },
-        { id: "3", taskStatus: "A", title: "경영과학 2조", deadlineTime: "202012312341", cardStyle: { backgroundColor: "#C7CEEA" } },
-       
-    ]
-    return temp;
+/*------------------------------------------------------------------------------------
+ * 02) Static Variables
+ *----------------------------------------------------------------------------------*/
+const CNT_BY_ROW = 3;
+function createContentName(name) {
+    if (name.split(" ").length == 1) {
+        return name.split(" ")[0].substring(0, 2);
+    } else if (name.split(" ").length > 1) {
+        return name.split(" ")[0].substring(0, 1) + " " + name.split(" ")[1].substring(0, 1);
+    }
 }
-
-/* 02) End Static Function Group ***************************************************************************************************************/
-/* 03) Start View ***************************************************************************************************************/
-const GroupDashboard = ({ groups}) => {
-    const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
-    const [cards, setCards] = useState([]);
+/*------------------------------------------------------------------------------------
+ * 03) React
+ *----------------------------------------------------------------------------------*/
+const GroupDashboard = ({ groups,navigation }) => {
+    /*-------------------------------------------------------------------------------
+    * 03-1) Hooks
+    *-------------------------------------------------------------------------------*/
 
     /***************************
-     * 렌더링 될 각 카드에 전달할 각 카드 setter 생성 
+     * 렌더링 될 각 카드 배열 형식 변경
     ***************************/
-    const getSetterEachCard = passedCard => {
-        // 각 카드가 변경되어 setCard가 호출되면 카드 전체를 setter로 변경
-        const setCard = (card) => {
-            let changedIdx = (cards.findIndex((card) => card.id === passedCard.id));
-            cards[changedIdx] = card;
-            setCards([...cards]);
+    const reCollacatedGroups = useCallback(() => {
+        let groupCards = [];
+        let rowCnt = parseInt(groups.length / CNT_BY_ROW) + (groups.length % CNT_BY_ROW == 0 ? 0 : 1);
+        for (let i = 0; i < rowCnt; i++) {
+            // CNT_BY_ROW 만큼 배열 자르기
+            let temp = groups.slice((i * CNT_BY_ROW), (i * CNT_BY_ROW) + 3);
+            for (let j = temp.length; j < CNT_BY_ROW; j++)
+                // 개수보다 작으면 빈 카드 푸시~
+                if (temp.length !== CNT_BY_ROW) {
+                    temp.push({ id: "empty"+j, empty: true })
+                }
+            groupCards.push(temp);
         }
-        return setCard;
-    }
+        return groupCards;
+    })
+    const goGroupDetailScreen = useCallback((group) => {
+        navigation.navigate("GroupDetail", { group })
+    })
 
-    //ComponentWillMount
-    useEffect(() => {
-        setCards(groups);
-    }, [groups]);
-
-    /* 03-1) End View ***************************************************************************************************************/
+    /*-------------------------------------------------------------------------------
+    * 03-2) View
+    *-------------------------------------------------------------------------------*/
     return (
         <View style={styles.screenContainer}>
-            
-            <View style={styles.cardGroupContainer}>
-                <ScrollView >
-                    {cards.map((card, idx) => {
-                        return <GroupCard
-                            idx={idx}
-                            key={card.id}
-                            card={card}
-                            onPress={null}
-                            setCard={getSetterEachCard(card)} />
-                    })}
-                </ScrollView>
-            </View>
+            <TopNavigation />
+            <ScrollView style={{ height: "100%" }}>
+                {reCollacatedGroups().map((row, rowIdx) => (
+                    <View key={`row-${rowIdx}`} style={styles.cardRow}>
+                        {row.map((group) => {
+                            if (group.empty) {
+                                return <View key={group.id} style={{ ...styles.cardContainer}}></View>;
+                            } else {
+                                return (
+                                    <View key={group.id}>
+                                        <TouchableOpacity onPress={()=>goGroupDetailScreen(group)} style={{ ...styles.cardContainer, backgroundColor: group.color }}>
+                                            <Text style={styles.cardContent} >
+                                                {createContentName(group.name)}
+                                            </Text>
+                                            <View style={{ borderBottomWidth: 2, width: 15, marginTop: 10 }}></View>
+                                        </TouchableOpacity>
+                                        <Text style={styles.cardName}>{group.name}</Text>
+                                    </View>
+                                )
+                            }
+                        })}
+                    </View>
+                ))}
+            </ScrollView>
         </View>
     )
-    /* 03-1) End View ***************************************************************************************************************/
 }
-
-/* 03) End View ***************************************************************************************************************/
 export default GroupDashboard;
