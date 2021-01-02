@@ -41,16 +41,13 @@ const TaskCard = ({ card, setCard, idx, onPress, navigation }) => {
      * 카드 현재상태(완료/진행/마감) 상태를 국문으로 변경
     ***************************/
     const convertTaskStatusToText = useCallback(() => {
-        if (card.taskStatus === "E") return "완료";
+        if (card.status === "E") return "완료";
         else return "진행";
     });
     const goTaskDetailScreen = useCallback(() => {
         navigation.navigate("TaskDetail", { task: card })
     })
-    const openCard = useCallback(()=>{
-        //if (!card.isOpen) setCard({ ...card, isOpen: true })
-        
-    })
+
     return (
         
             <Card card={card} setCard={setCard} idx={idx}>
@@ -65,7 +62,7 @@ const TaskCard = ({ card, setCard, idx, onPress, navigation }) => {
                             {/* ------------------------------------------------------------------------------ 
                           * task status
                           *------------------------------------------------------------------------------*/}
-                            <TaskTimer deadlineTime={card.deadlineTime} />
+                            <TaskTimer endTime={card.endTime} />
                             {/* ------------------------------------------------------------------------------ 
                           * task status
                           *------------------------------------------------------------------------------*/}

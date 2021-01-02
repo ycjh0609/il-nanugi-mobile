@@ -72,9 +72,9 @@ const PersonalDashboard = ({ navigation, tasks }) => {
             if (taskStatus === 0) {
                 return true;
             } else if (taskStatus === 1) {
-                return card.taskStatus === "A"
+                return card.status === "A"
             } else if (taskStatus === 2) {
-                return card.taskStatus === "E"
+                return card.status === "E"
             }
         }).sort((a, b) => {
             if (sortType === 0) {

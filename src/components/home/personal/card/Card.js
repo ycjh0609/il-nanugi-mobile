@@ -85,7 +85,7 @@ const Card = ({ onPress, card, setCard,idx ,children}) => {
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <Animated.View style={{ ...styles.cardContainer, backgroundColor: card.color, height: cardHeight }}>
+        <Animated.View style={{ ...styles.cardContainer, backgroundColor: card.group.color, height: cardHeight }}>
             <View style={{...commonStyle.rowAlignment}}>
                 <View style={{...styles.circle}}>
                 <CommonAvartar title={createContentName(card.group.name)}/>

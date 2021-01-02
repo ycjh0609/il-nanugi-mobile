@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View } from "react-native";
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
+import commonAxios from "../../common/utils/axios/commonAxios"
 import { deleteStoreWatcher, useStoreState } from '../../common/utils/store/commonStore';
 import TopNavigation from "./TopNavigation";
 import TopDashboard from './TopDashboard';
 import Dashboard from "./Dashboard";
+import { take } from 'lodash';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
  * Edit By     : Kwak ji hoon 
@@ -24,12 +26,12 @@ const styles = StyleSheet.create({
 function getTasks() {
 
     let temp = [
-        { id: 1, groupId:1 ,group:{id:1,name:"일 나누기 개발"}, taskStatus: "A", title: "모바일 개발", deadlineTime: "202012200000", color:"#32a85d",participants:[{userid:1,name:"곽지훈"},{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}] },
-        { id: 3, groupId:1 ,group:{id:1,name:"일 나누기 개발"}, taskStatus: "A", title: "백엔드 개발", deadlineTime: "202112112341", color:"#32a85d",participants:[{userid:1,name:"Kwak Tom"}]  },
-        { id: 2, groupId:2 ,group:{id:2,name:"Sweet Home"}, taskStatus: "E", title: "꽃님이 산책", deadlineTime: "201911212341", color:"#a88132",participants:[{userid:1,name:"Choi Flower"}]  },
-        { id: 6, groupId:3, group:{id:2,name:"Sweet Home"}, taskStatus: "E", title: "저녁 상 차리기", deadlineTime: "201812311341", color:"#a88132",participants:[{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}]  },
-        { id: 8, groupId:1, group:{id:1,name:"일 나누기 개발"},taskStatus: "E", title: "화면개발", deadlineTime: "201312312331", color:"#32a85d",participants:[{userid:1,name:"Kwak Tom"}] },
-        { id: 9, groupId:4, group:{id:4,name:"개인 프로젝트"},taskStatus: "A", title: "테스트 하기", deadlineTime: "202312312331", color:"#7f71e3",participants:[{userid:1,name:"Kwak Tom"}] },
+        { id: 1, groupId:1 ,group:{id:1,name:"일 나누기 개발", color:"#32a85d"}, status: "A", title: "모바일 개발", endTime: "202012200000",participants:[{userid:1,name:"곽지훈"},{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}] },
+        { id: 3, groupId:1 ,group:{id:1,name:"일 나누기 개발", color:"#32a85d"}, status: "A", title: "백엔드 개발", endTime: "202112112341",participants:[{userid:1,name:"Kwak Tom"}]  },
+        { id: 2, groupId:2 ,group:{id:2,name:"Sweet Home", color:"#a88132"}, status: "E", title: "꽃님이 산책", endTime: "201911212341",participants:[{userid:1,name:"Choi Flower"}]  },
+        { id: 6, groupId:3, group:{id:2,name:"Sweet Home", color:"#a88132"}, status: "E", title: "저녁 상 차리기", endTime: "201812311341",participants:[{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}]  },
+        { id: 8, groupId:1, group:{id:1,name:"일 나누기 개발", color:"#32a85d"},status: "E", title: "화면개발", endTime: "201312312331",participants:[{userid:1,name:"Kwak Tom"}] },
+        { id: 9, groupId:4, group:{id:4,name:"개인 프로젝트", color:"#7f71e3"},status: "A", title: "테스트 하기", endTime: "202312312331",participants:[{userid:1,name:"Kwak Tom"}] },
     ]
     return temp;
 }
@@ -55,10 +57,20 @@ const Home = ({ route, navigation }) => {
     const [groups,setGroups] = useState([]);
     const [currentPage,setCurrentPage] = useState(0);
 
-    useEffect(function fetchTasks(){
-        setTasks(getTasks());
-        setGroups(getGroups());
-    }, []);
+    const fetchData = useCallback(()=>{
+        (async ()=>{
+            try{
+                let t = await commonAxios.get("/tasks");
+                let g = await commonAxios.get("/groups");
+                setTasks(t.data);
+                setGroups(g.data);
+            }catch(e){
+                setTasks(getTasks());
+                setGroups(getGroups());
+            }
+        })();   
+    })
+    useEffect(fetchData, []);
 
     /*-------------------------------------------------------------------------------
     * 03-2) View

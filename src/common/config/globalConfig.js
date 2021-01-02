@@ -6,8 +6,8 @@ export default globalConfig = {
         logo:"1÷"
     },
     axios:{
-        ENV:"DEV",
-        BASE_HOST:"localhost:8080",
+        ENV:"PROD",
+        BASE_HOST:"http://localhost:9999",
         TIME_OUT: 3000
     }
 

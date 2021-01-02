@@ -41,7 +41,7 @@ commonAxios.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (globalConfig.axios.ENV == 'LOCAL' || ENglobalConfig.axios.ENVV == 'DEV') {
+        if (globalConfig.axios.ENV == 'LOCAL' || globalConfig.axios.ENV == 'DEV') {
             printErrorDebug(error);
         }
 

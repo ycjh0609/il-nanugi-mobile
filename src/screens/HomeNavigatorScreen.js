@@ -113,7 +113,7 @@ const HomeStackScreen = ({ route, navigation }) => {
                     headerTitle: (props) => (<TaskDetailHeaderTitle {...props} task={task} />),
                     headerStyle: {
                         ...styles.commonHeaderStyle,
-                        backgroundColor: task.color,
+                        backgroundColor: task.group.color,
                     },
                 }
             }} />

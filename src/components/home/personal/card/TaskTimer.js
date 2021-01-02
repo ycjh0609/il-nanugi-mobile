@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
 
 /* 02) End Static Function Group ***************************************************************************************************************/
 /* 03) Start View ***************************************************************************************************************/
-const TaskTimer = ({deadlineTime}) => {
+const TaskTimer = ({endTime}) => {
     const [remainTime,setRemainTime] = useState({remainMinutes:"00",remainHours:"00",remainDays:"00",remainMonths:"00"});
     
     const calcurateRemainTime = useCallback(() =>{
-        let endDate = moment(deadlineTime,"YYYYMMDDHHmm");
+        let endDate = moment(endTime,"YYYYMMDDHHmm");
         // timezone 설정 귀찮아서 일단 +9 시간을 하자 ..
         let now = new Date();
         now.setHours(now.getHours()+9);
@@ -67,14 +67,14 @@ const TaskTimer = ({deadlineTime}) => {
      * 30초에 한번씩 time 을 refresh
     ***************************/
     useEffect(() => {
-        setRemainTime(calcurateRemainTime(deadlineTime));
+        setRemainTime(calcurateRemainTime(endTime));
         let interval = setInterval(()=>{
             setRemainTime(calcurateRemainTime());
         },30 * 1000);
         return ()=>{
             clearInterval(interval);
         }
-    }, [deadlineTime]);
+    }, [endTime]);
     /* 03-1) End View ***************************************************************************************************************/
     return (
         <View style={{
