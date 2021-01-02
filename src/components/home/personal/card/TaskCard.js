@@ -50,7 +50,7 @@ const TaskCard = ({ card, setCard, idx, onPress, navigation }) => {
 
     return (
         
-            <Card card={card} setCard={setCard} idx={idx}>
+            <Card card={card} setCard={setCard} idx={idx} navigation={navigation}>
 
                 {card.isOpen &&
                     <View style={{ ...styles.cardDetail }}>

@@ -49,7 +49,7 @@ function createContentName(name){
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const Card = ({ onPress, card, setCard,idx ,children}) => {
+const Card = ({ onPress, card, setCard,idx ,children,navigation}) => {
     const cardHeight = useRef(new Animated.Value(20)).current;
     const btnSpinValue = useRef(new Animated.Value(0)).current;
     /***************************

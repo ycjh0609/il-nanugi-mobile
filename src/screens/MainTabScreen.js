@@ -48,7 +48,7 @@ const MainScreen = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
@@ -64,12 +64,7 @@ const MainScreen = ({ route, navigation }) => {
             tabBarOptions={{
                 activeTintColor: "#0c5063",
                 inactiveTintColor: '#c9c7c1',
-                style: {
-                    //borderTopLeftRadius: 30,
-                    //borderTopRightRadius: 30,
-                }
-            }}
-        >
+            }} >
             <BottomTab.Screen name="Home" component={HomeNavigatorScreen}
                 options={{
                     tabBarLabel: '',
@@ -83,13 +78,11 @@ const MainScreen = ({ route, navigation }) => {
             <BottomTab.Screen name="ilPlus" component={HomeNavigatorScreen}
                 options={{
                     tabBarLabel: '',
-                    tabBarButton: (props) => <CenterTabBtn {...props}/>
+                    tabBarButton: (props) => <CenterTabBtn {...props} />
                 }}
             />
-
             <BottomTab.Screen name="Task" component={TaskScreen}
                 options={{
-
                     tabBarLabel: '',
                     tabBarBadge: 3,
                 }}

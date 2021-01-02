@@ -8,43 +8,59 @@ import { deleteStoreWatcher, useStoreState } from '../../common/utils/store/comm
  * Edit By     : kwak ji hoon 
  * Description : SNS Login Container
  *----------------------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------------------------
+ * 01) Styles
+ *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
     container: {
         width: "80%"
     }
 });
-/* 01) End Style ***************************************************************************************************************/
-/* 02) Start Static Function Group *********************************************************************************************/
-function animateMarginTop(target,toValue){
+/*------------------------------------------------------------------------------------
+ * 02) Static Variables
+ *----------------------------------------------------------------------------------*/
+function animateMarginTop(target, toValue) {
     Animated.timing(target, {
         toValue: toValue,
         duration: 800,
         useNativeDriver: false
     }).start();
 }
-/* 02) End Static Function Group *************************************************************************************************/
-/* 03) Start React ***************************************************************************************************************/
+/*------------------------------------------------------------------------------------
+ * 03) React
+ *----------------------------------------------------------------------------------*/
 const LoginCardContainer = ({ }) => {
 
+    /*-------------------------------------------------------------------------------
+    * 03-1) Hooks
+    *-------------------------------------------------------------------------------*/
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
     const containerMarginTop = useRef(new Animated.Value(100)).current;
     const indicatorMarginTop = useRef(new Animated.Value(350)).current;
 
-    useEffect(() => {
+    /***************************
+     * 유저정보 Hook 을 이용해서 로그인 컨테이너 animation
+    ***************************/
+    useEffect(function handleAnimationByUserInfo() {
         if (_.isEmpty(userInfo)) {
-            animateMarginTop(containerMarginTop,250);
-        }else{
-            animateMarginTop(indicatorMarginTop,80);
+            animateMarginTop(containerMarginTop, 250);
+        } else {
+            animateMarginTop(indicatorMarginTop, 80);
         }
         return () => {
             deleteStoreWatcher(setUserInfo);
         }
     }, [userInfo]);
+
+    //todo
     const NAVER = useCallback(() => {
         setUserInfo({ name: "Kwak Tom" })
     });
-    /* 03-1) Start View ***************************************************************************************************************/
-    if (_.isEmpty(userInfo)) { // if has not userInfo
+    /*-------------------------------------------------------------------------------
+    * 03-2) View
+    *-------------------------------------------------------------------------------*/
+    if (_.isEmpty(userInfo)) {
         return (
             <Animated.View style={{ marginTop: containerMarginTop, ...styles.container }}>
 
@@ -56,16 +72,16 @@ const LoginCardContainer = ({ }) => {
             </Animated.View>
         )
     } else {
+        /***************************
+        * 유저정보가 있으면 loading 아이콘을 보여주자
+        ***************************/
         return (
             <Animated.View style={{ marginTop: indicatorMarginTop }}>
                 <ActivityIndicator size="large" color="white"></ActivityIndicator>
             </Animated.View>
         )
     }
-    /* 03-1) End View ***************************************************************************************************************/
-
 }
-/* 03) End React ***************************************************************************************************************/
 export default LoginCardContainer;
 
 

@@ -12,7 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 /*------------------------------------------------------------------------------------
  * 01) Styles
  *----------------------------------------------------------------------------------*/
- const styles = StyleSheet.create({
+const styles = StyleSheet.create({
     tabContainer: {
         borderRadius: 10,
         height: 45,
@@ -35,20 +35,19 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 /*------------------------------------------------------------------------------------
 * 03) React
 *----------------------------------------------------------------------------------*/
-TouchableOpacity.defaultProps = { activeOpacity: 0.8 };
- const LoginCard = ({ onPress, title, color, iconName }) => {
+const LoginCard = ({ onPress, title, color, iconName }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    
+
     useEffect(() => {
 
     }, []);
-    if (!color) color = "green"
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
-   return (
+    return (
         <TouchableOpacity onPress={onPress}>
             <View style={{ ...styles.tabContainer, ...{ backgroundColor: color } }}>
                 <Text style={{ fontSize: 13, fontWeight: "700" }}>

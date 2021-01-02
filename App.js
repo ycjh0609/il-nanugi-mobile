@@ -4,18 +4,27 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import MainLoginScreen from './src/screens/MainLoginScreen';
 import MainTabScreen from "./src/screens/MainTabScreen";
+/*------------------------------------------------------------------------------------
+ * Edit Date   : 2020.12.27
+ * Edit By     : kwak ji hoon 
+ * Description : App
+ *----------------------------------------------------------------------------------*/
 
+/*------------------------------------------------------------------------------------
+* 02) Static Variables
+*----------------------------------------------------------------------------------*/
 const Stack = createStackNavigator();
-
+const INITINIAL_ROUTE_NAME = "MainLoginScreen";
+/*------------------------------------------------------------------------------------
+ * 03) React
+ *----------------------------------------------------------------------------------*/
 const App = () => {
+  /*-------------------------------------------------------------------------------
+  * 03-1) Hooks
+  *-------------------------------------------------------------------------------*/
+  const [initialScreenName,setInitialScreenName] = useState("MainTabScreen");
 
-  const INITINIAL_ROUTE_NAME = "MainLoginScreen";
-  let initialScreenName = "MainTabScreen";
-  
-  useEffect(()=>{
-    
-  })
-  
+
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={INITINIAL_ROUTE_NAME}>
@@ -25,7 +34,7 @@ const App = () => {
           options={{ headerShown: false }}
           initialParams={{ initialScreenName }}
         />
-  
+
 
         {/* Route 03) For New Home Screen */}
         <Stack.Screen name="MainTabScreen"

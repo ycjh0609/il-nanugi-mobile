@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
     guageContainer: {
         flex: 6
     },
-    guageTitle:{
-        fontSize:18,paddingBottom:10,textAlign:"center"
+    guageTitle: {
+        fontSize: 18, paddingBottom: 10, textAlign: "center"
     },
     guage: {
         ...commonStyle.rowAlignment,
@@ -42,49 +42,50 @@ const styles = StyleSheet.create({
         backgroundColor: "#0c5063",
         //borderTopLeftRadius: 18,
         //borderBottomLeftRadius: 18,
-        borderRadius:10,
+        borderRadius: 10,
         ...commonStyle.rowAlignment,
-        
+
     },
-    leftGuageText:{
-        flex:1,
-        textAlign:"right",
-        fontSize:14,
-        color:commonStyle.oneTextInColor,
-        paddingRight:10
+    leftGuageText: {
+        flex: 1,
+        textAlign: "right",
+        fontSize: 14,
+        color: commonStyle.oneTextInColor,
+        paddingRight: 10
     },
     rightGuage: {
-    
+
     }
 });
 
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-
+const DEFAULT_BTN_SIZE = 63;
+const ACTIVATE_BTN_SIZE = 70
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TopDashboard = ({items,currentPage,setCurrentPage}) => {
+const TopDashboard = ({ items, currentPage, setCurrentPage }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
     const guagePercentage = useRef(new Animated.Value(5)).current;
     const [remainTaskCnt, setRemainTaskCnt] = useState(0);
     const [joinedGroupCnt, setJoinedGroupCnt] = useState(0);
-    const [percentage,setPercentage] = useState(65);
-    
-    const changePage = useCallback((page)=>{
-        if (page != currentPage){
+    const [percentage, setPercentage] = useState(65);
+
+    const changePage = useCallback((page) => {
+        if (page != currentPage) {
             setCurrentPage(page);
         }
     })
-    useEffect(()=>{
+    useEffect(() => {
         setRemainTaskCnt(items.tasks.length);
         setJoinedGroupCnt(items.groups.length);
-        let temp = items.tasks.filter((t)=>t.taskStatus == "E").length/items.tasks.length * 100;
+        let temp = items.tasks.filter((t) => t.taskStatus == "E").length / items.tasks.length * 100;
         setPercentage(parseInt(temp))
-    },[items]);
+    }, [items]);
 
 
     useEffect(() => {
@@ -95,9 +96,6 @@ const TopDashboard = ({items,currentPage,setCurrentPage}) => {
         }).start();
     }, []);
 
-    useEffect(function handleCurrentVisivleDashbaord(){
-        
-    },[currentPage])
 
     /*-------------------------------------------------------------------------------
     * 03-2) View
@@ -105,12 +103,12 @@ const TopDashboard = ({items,currentPage,setCurrentPage}) => {
     return (
         <View style={styles.container}>
             <View style={styles.taskCntContainer}>
-                <CommonBtn onPress={()=>changePage(0)} style={commonStyle.shodow} btnStyle={{ btnSize:currentPage == 0? 70: 63, type: 1 }} 
-                titleStyle={{ name: remainTaskCnt , subName: "할일" }} />
+                <CommonBtn onPress={() => changePage(0)} style={commonStyle.shodow} btnStyle={{ btnSize: currentPage == 0 ? ACTIVATE_BTN_SIZE : DEFAULT_BTN_SIZE, type: 1 }}
+                    titleStyle={{ name: remainTaskCnt, subName: "할일" }} />
             </View>
             <View style={styles.taskCntContainer}>
-                <CommonBtn onPress={()=>changePage(1)} style={commonStyle.shodow} btnStyle={{ btnSize: currentPage == 1? 70: 63, type: 1 }} 
-                titleStyle={{ name: joinedGroupCnt, subName: "그룹" }} />
+                <CommonBtn onPress={() => changePage(1)} style={commonStyle.shodow} btnStyle={{ btnSize: currentPage == 1 ? ACTIVATE_BTN_SIZE : DEFAULT_BTN_SIZE, type: 1 }}
+                    titleStyle={{ name: joinedGroupCnt, subName: "그룹" }} />
             </View>
 
             <View style={styles.guageContainer}>

@@ -71,11 +71,12 @@ const MainLoginScreen = ({ route, navigation }) => {
         if (!_.isEmpty(userInfo)) {
             let initialTabName = "HomeNavigatorScreen"; // 임시로 하드코딩 처리        
             timer = setTimeout(() => {
+                //로그인 요청은 3rd Party 에 요청할 것이니 시간이 걸릴것임, 임시로 timer 걸자
                 navigateToScreen(initialScreenName, navigation, { userInfo, initialTabName });
             }, 1000);
         }
         return () => {
-            deleteStoreWatcher(setUserInfo);
+            deleteStoreWatcher(setUserInfo); // 로그인 화면은 다시 이용하지 않을것이니 삭제
             clearTimeout(timer);
         }
     }, [userInfo]);
