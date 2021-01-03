@@ -47,7 +47,7 @@ const commonStore = {
         }
     },
     getter: (key) => {
-        return STORE[key];
+        return STORE[key+"_"];
     }
 }
 

@@ -55,7 +55,7 @@ const LoginCardContainer = ({ }) => {
 
     //todo
     const NAVER = useCallback(() => {
-        setUserInfo({ name: "Kwak Tom" })
+        setUserInfo({ name: "Kwak Tom" ,id:1})
     });
     /*-------------------------------------------------------------------------------
     * 03-2) View

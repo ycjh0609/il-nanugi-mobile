@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View } from "react-native";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
 import commonAxios from "../../common/utils/axios/commonAxios"
 import { deleteStoreWatcher, useStoreState } from '../../common/utils/store/commonStore';
 import TopNavigation from "./TopNavigation";
 import TopDashboard from './TopDashboard';
 import Dashboard from "./Dashboard";
-import { take } from 'lodash';
+import GroupService from '../../common/utils/service/GroupService';
+import TaskService from '../../common/utils/service/TaskService';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
  * Edit By     : Kwak ji hoon 
@@ -60,11 +59,12 @@ const Home = ({ route, navigation }) => {
     const fetchData = useCallback(()=>{
         (async ()=>{
             try{
-                let t = await commonAxios.get("/tasks");
-                let g = await commonAxios.get("/groups");
-                setTasks(t.data);
+                let g= await GroupService.getMyGroups();
+                let t= await TaskService.getMyTasks();
                 setGroups(g.data);
+                setTasks(t.data);
             }catch(e){
+                console.log(e)
                 setTasks(getTasks());
                 setGroups(getGroups());
             }

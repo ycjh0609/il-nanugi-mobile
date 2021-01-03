@@ -1,4 +1,4 @@
-const { exp } = require("react-native-reanimated")
+
 
 export default globalConfig = {
     brand:{
@@ -6,7 +6,7 @@ export default globalConfig = {
         logo:"1÷"
     },
     axios:{
-        ENV:"PROD",
+        ENV:"LOCAL",
         BASE_HOST:"http://localhost:9999",
         TIME_OUT: 3000
     }

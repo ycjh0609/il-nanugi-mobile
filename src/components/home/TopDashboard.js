@@ -83,18 +83,18 @@ const TopDashboard = ({ items, currentPage, setCurrentPage }) => {
     useEffect(() => {
         setRemainTaskCnt(items.tasks.length);
         setJoinedGroupCnt(items.groups.length);
-        let temp = items.tasks.filter((t) => t.taskStatus == "E").length / items.tasks.length * 100;
+        let temp = items.tasks.filter((t) => t.status == "E").length / items.tasks.length * 100;
         setPercentage(parseInt(temp))
-    }, [items]);
+    }, [items]); 
 
-
+  
     useEffect(() => {
         Animated.timing(guagePercentage, {
             toValue: percentage,
             duration: 1000,
             useNativeDriver: false
-        }).start();
-    }, []);
+        }).start(); 
+    }, []); 
 
 
     /*-------------------------------------------------------------------------------
