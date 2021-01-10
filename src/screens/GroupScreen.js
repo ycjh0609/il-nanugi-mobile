@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { SafeAreaView } from 'react-native';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 
 /*------------------------------------------------------------------------------------
@@ -34,9 +35,9 @@ const GroupScreen = () => {
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <View >
+        <SafeAreaView >
             <Text >GroupScreen</Text>
-        </View>
+        </SafeAreaView>
     )
 }
 export default GroupScreen;

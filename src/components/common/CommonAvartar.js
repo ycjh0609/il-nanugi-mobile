@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
 * 03) React
 *----------------------------------------------------------------------------------*/
-const CommonAvartar = ({ containerStyle, size, title, onPress, onLongPress }) => {
+const CommonAvartar = ({ containerStyle, size, title, onPress, onLongPress,titleStyle }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -58,7 +58,7 @@ const CommonAvartar = ({ containerStyle, size, title, onPress, onLongPress }) =>
                 size={"small"}
                 source={{ uri: "https://www.google.com/search?q=anything+image&client=safari&rls=en&sxsrf=ALeKk00TYIrn18YnXWz0e1SAfpnh5vxvHg:1607433259677&tbm=isch&source=iu&ictx=1&fir=7OqzUxRaQDgK2M%252Ctug9DXJEB-r_SM%252C_&vet=1&usg=AI4_-kS9H_5QhBHY15JN1kTBDLnIPRC0Cg&sa=X&ved=2ahUKEwjLssXDu77tAhXWEqYKHYwzAC4Q9QF6BAgJEAE#imgrc=7OqzUxRaQDgK2M" }}
                 title={title ? title : "T"}
-                titleStyle={{color:commonStyle.oneTextInColor,fontWeight:"700"}}
+                titleStyle={titleStyle? titleStyle : {color:commonStyle.oneTextInColor,fontWeight:"700"}}
             />
         </View>
 

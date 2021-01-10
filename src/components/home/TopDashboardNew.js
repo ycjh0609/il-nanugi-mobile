@@ -14,7 +14,7 @@ import CommonBtn from '../common/CommonBtn';
  *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
     container: {
-        height: 100,
+        height: 80,
         ...commonStyle.rowAlignment,
         paddingLeft: 15,
         paddingRight: 15,
@@ -27,14 +27,14 @@ const styles = StyleSheet.create({
         flex: 6
     },
     guageTitle: {
-        fontSize: 18, paddingBottom: 10, textAlign: "center"
+        fontSize: 17, paddingBottom: 10, textAlign: "center"
     },
     guage: {
-        ...commonStyle.rowAlignment,
-        borderRadius: 15,
-        height: 35,
-        backgroundColor: "#d4d6d6",
+        marginTop:20,
         ...commonStyle.shodow,
+        borderRadius: 15,
+        height: 45,
+        backgroundColor: "#d4d6d6",
         paddingLeft: 5,
     },
     leftGuage: {
@@ -61,12 +61,12 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-const DEFAULT_BTN_SIZE = 63;
-const ACTIVATE_BTN_SIZE = 70
+const DEFAULT_BTN_SIZE = 65;
+const ACTIVATE_BTN_SIZE = 65;
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TopDashboard = ({ items, currentPage, setCurrentPage }) => {
+const TopDashboardNew = ({ items, currentPage, setCurrentPage }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -112,7 +112,7 @@ const TopDashboard = ({ items, currentPage, setCurrentPage }) => {
             </View>
 
             <View style={styles.guageContainer}>
-                <Text style={styles.guageTitle}>머라 적어야함</Text>
+                
                 <View style={styles.guage}>
                     <Animated.View style={{
                         ...styles.leftGuage,
@@ -129,4 +129,4 @@ const TopDashboard = ({ items, currentPage, setCurrentPage }) => {
         </View>
     )
 }
-export default TopDashboard;
+export default TopDashboardNew;

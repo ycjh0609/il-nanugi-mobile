@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from '../components/home/Home';
+import HomeNew from '../components/home/HomeNew';
 import TaskDetail from "../components/task-detail/TaskDetail"
 import GroupDetail from '../components/group-detail/GroupDetail';
 import Icon from "react-native-vector-icons/Ionicons";
@@ -105,7 +105,9 @@ const HomeStackScreen = ({ route, navigation }) => {
     *-------------------------------------------------------------------------------*/
     return (
         <HomeStack.Navigator initialRouteName={currentScreen}>
-            <HomeStack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            
+            <HomeStack.Screen name="Home" component={HomeNew} options={{ headerShown: false }} />
+            
             <HomeStack.Screen name="TaskDetail" component={TaskDetail} options={({ route }) => {
                 let task = route.params.task;
                 return {
