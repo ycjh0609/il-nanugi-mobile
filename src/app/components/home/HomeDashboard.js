@@ -72,7 +72,7 @@ const HomeDashboard = ({ items, currentPage, setCurrentPage }) => {
     const guagePercentage = useRef(new Animated.Value(5)).current;
     const [remainTaskCnt, setRemainTaskCnt] = useState(0);
     const [joinedGroupCnt, setJoinedGroupCnt] = useState(0);
-    const [percentage, setPercentage] = useState(65);
+    const [percentage, setPercentage] = useState(0);
 
     const changePage = useCallback((page) => {
         if (page != currentPage) {
@@ -90,10 +90,10 @@ const HomeDashboard = ({ items, currentPage, setCurrentPage }) => {
     useEffect(() => {
         Animated.timing(guagePercentage, {
             toValue: percentage,
-            duration: 1000,
+            duration: 500,
             useNativeDriver: false
         }).start(); 
-    }, []);
+    }, [percentage]);
 
 
     /*-------------------------------------------------------------------------------

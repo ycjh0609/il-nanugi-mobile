@@ -28,7 +28,6 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get("window");
 function createGroupName(name) {
     if (name.split(" ").length == 1) {
         return name.split(" ")[0].substring(0, 2);
@@ -39,15 +38,21 @@ function createGroupName(name) {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const ToDoList = ({ navigation, route,setTasks ,tasks, groups, currentPage, setCurrentPage }) => {
+const ToDoList = ({ navigation, items, setItems }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    const updateTasks = useCallback((idx,task)=>{
-        console.log(123)
-        tasks[idx] = task;
-        console.log(1)
-        setTasks(tasks);
+    /***************************
+     * 렌더링 될 각 카드에 전달할 각 카드 setter 생성 
+    ***************************/
+    const getTaskUpdater = useCallback(passedTask => {
+        // 각 카드가 변경되어 setCard가 호출되면 카드 전체를 setter로 변경
+        const updateTask = (_task) => {
+            let updatedTaskIdx = (items.tasks.findIndex((task) => task.id === passedTask.id));
+            items.tasks[updatedTaskIdx] = _task;
+            setItems.setTasks([...items.tasks]);
+        }
+        return updateTask;
     })
     /*-------------------------------------------------------------------------------
     * 03-2) View
@@ -62,17 +67,17 @@ const ToDoList = ({ navigation, route,setTasks ,tasks, groups, currentPage, setC
             </View>
             <View style={{ borderBottomWidth: 1, width: 170, marginTop: 10 }}></View>
             {/* 02. toolbar */}
-            <ToolBar />
+            <ToolBar items={items} />
             {/* 03. content */}
             <ScrollView style={{ marginBottom: 200 }}>
-
-                {tasks &&
-                    tasks.filter((task_) => true)
-                        .map((task, idx) => {
-                            return (
-                                <ToDoCard key={"to-do-card-"+idx} idx={idx} task={task} updateTasks={updateTasks} groupName={createGroupName(task.group.name)}></ToDoCard>
-                            )
-                        })}
+                {items.tasks.map((task, idx) => {
+                    return (
+                        <ToDoCard key={"to-do-card-" + idx}
+                            task={task}
+                            updateTask={getTaskUpdater(task)}
+                            groupName={createGroupName(task.group.name)} />
+                    )
+                })}
             </ScrollView>
 
 
