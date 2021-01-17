@@ -6,6 +6,7 @@ import { deleteStoreWatcher, useStoreState } from '../../utils/store/commonStore
 import CommonAvartar from '../common/CommonAvartar';
 import commonStyle from '../../styles/commonStyle';
 import CommonBtn from '../common/CommonBtn';
+import commonConfig from '../../config/commonConfig';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.26 
  * Edit By     : kwak ji hoon 
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const HomeTop = ({currentPage}) => {
+const HomeTop = ({}) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -84,7 +85,7 @@ const HomeTop = ({currentPage}) => {
             <View style={styles.navigatorMenus}>
                 {/* Logo Text */}
                 <View style={styles.logoContainer}>
-                    <Text style={styles.logoText}>1÷</Text>
+                    <Text style={styles.logoText}>{commonConfig.brand.logo}</Text>
                 </View>
                 <View style={styles.userNameContainer}>
                     <CommonAvartar title={userInfo.name.substring(0,1)} />

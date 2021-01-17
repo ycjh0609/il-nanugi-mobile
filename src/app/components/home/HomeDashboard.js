@@ -65,36 +65,32 @@ const ACTIVATE_BTN_SIZE = 65;
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const HomeDashboard = ({ items, currentPage, setCurrentPage }) => {
+const HomeDashboard = ({ items }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    const guagePercentage = useRef(new Animated.Value(5)).current;
+    const guagePercentage = useRef(new Animated.Value(0)).current;
     const [remainTaskCnt, setRemainTaskCnt] = useState(0);
     const [joinedGroupCnt, setJoinedGroupCnt] = useState(0);
     const [percentage, setPercentage] = useState(0);
 
-    const changePage = useCallback((page) => {
-        if (page != currentPage) {
-            setCurrentPage(page);
-        }
-    })
+  
     useEffect(() => {
         setRemainTaskCnt(items.tasks.length);
         setJoinedGroupCnt(items.groups.length);
         let temp = items.tasks.filter((t) => t.status == "E").length / items.tasks.length * 100;
-        setPercentage(parseInt(temp))
+        setPercentage(parseInt(temp));
     }, [items]); 
-
- 
+    
     useEffect(() => {
+
+       
         Animated.timing(guagePercentage, {
-            toValue: percentage,
-            duration: 500,
+            toValue: Number.isNaN(percentage)? 0: percentage,
+            duration:1000,
             useNativeDriver: false
         }).start(); 
     }, [percentage]);
-
 
     /*-------------------------------------------------------------------------------
     * 03-2) View
@@ -102,17 +98,17 @@ const HomeDashboard = ({ items, currentPage, setCurrentPage }) => {
     return (
         <View style={styles.container}>
             <View style={styles.taskCntContainer}>
-                <CommonBtn onPress={() => changePage(0)} style={commonStyle.shodow} btnStyle={{ btnSize: currentPage == 0 ? ACTIVATE_BTN_SIZE : DEFAULT_BTN_SIZE, type: 1 }}
+                <CommonBtn onPress={() => null} style={commonStyle.shodow} btnStyle={{ btnSize: DEFAULT_BTN_SIZE, type: 1 }}
                     titleStyle={{ name: remainTaskCnt, subName: "할일" }} />
             </View>
             <View style={styles.taskCntContainer}>
-                <CommonBtn onPress={() => changePage(1)} style={commonStyle.shodow} btnStyle={{ btnSize: currentPage == 1 ? ACTIVATE_BTN_SIZE : DEFAULT_BTN_SIZE, type: 1 }}
+                <CommonBtn onPress={() => null} style={commonStyle.shodow} btnStyle={{ btnSize: DEFAULT_BTN_SIZE , type: 1 }}
                     titleStyle={{ name: joinedGroupCnt, subName: "그룹" }} />
             </View>
 
             <View style={styles.guageContainer}>
                 
-                <Text style={{textAlign:"center",fontSize:18,fontWeight:"600",marginBottom:5}}>오늘 할일</Text>
+                <Text style={{textAlign:"center",fontSize:18,fontWeight:"600",marginBottom:5}}>마무리한 일</Text>
                 <View style={styles.guage}>
                     <Animated.View style={{
                         ...styles.leftGuage,

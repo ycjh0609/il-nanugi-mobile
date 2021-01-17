@@ -28,12 +28,12 @@ const styles = StyleSheet.create({
 function getTasks() {
 
     let temp = [
-        { id: 1, groupId:1 ,group:{id:1,name:"일 나누기 개발", color:"#32a85d"}, status: "T", title: "모바일 개발", endTime: "202012200000",participants:[{userid:1,name:"곽지훈"},{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}] },
-        { id: 3, groupId:1 ,group:{id:1,name:"일 나누기 개발", color:"#32a85d"}, status: "D", title: "백엔드 개발", endTime: "202112112341",participants:[{userid:1,name:"Kwak Tom"}]  },
-        { id: 2, groupId:2 ,group:{id:2,name:"Sweet Home", color:"#a88132"}, status: "E", title: "꽃님이 산책", endTime: "201911212341",participants:[{userid:1,name:"Choi Flower"}]  },
+        { id: 1, groupId:1 ,group:{id:1,name:"일 나누기 개발", color:"#32a85d"}, status: "T", title: "모바일 개발", endTime:   "20201220000",participants:[{userid:1,name:"곽지훈"},{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}] },
+        { id: 3, groupId:1 ,group:{id:1,name:"일 나누기 개발", color:"#32a85d"}, status: "D", title: "백엔드 개발", endTime:   "202112112341",participants:[{userid:1,name:"Kwak Tom"}]  },
+        { id: 2, groupId:2 ,group:{id:2,name:"Sweet Home", color:"#a88132"}, status: "E", title: "꽃님이 산책", endTime:    "201911212341",participants:[{userid:1,name:"Choi Flower"}]  },
         { id: 6, groupId:3, group:{id:2,name:"Sweet Home", color:"#a88132"}, status: "D", title: "저녁 상 차리기", endTime: "201812311341",participants:[{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}]  },
-        { id: 8, groupId:1, group:{id:1,name:"일 나누기 개발", color:"#32a85d"},status: "E", title: "화면개발", endTime: "201312312331",participants:[{userid:1,name:"Kwak Tom"}] },
-        { id: 9, groupId:4, group:{id:4,name:"개인 프로젝트", color:"#7f71e3"},status: "T", title: "테스트 하기", endTime: "202312312331",participants:[{userid:1,name:"Kwak Tom"}] },
+        { id: 8, groupId:1, group:{id:1,name:"일 나누기 개발", color:"#32a85d"},status: "E", title: "화면개발", endTime:        "201312312331",participants:[{userid:1,name:"Kwak Tom"}] },
+        { id: 9, groupId:4, group:{id:4,name:"개인 프로젝트", color:"#7f71e3"},status: "T", title: "테스트 하기", endTime:       "202312312331",participants:[{userid:1,name:"Kwak Tom"}] },
     ]
     return temp;
 }
@@ -57,7 +57,6 @@ const ToDoListScreen = ({ route, navigation }) => {
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
     const [tasks,setTasks] = useState([]);
     const [groups,setGroups] = useState([]);
-    const [currentPage,setCurrentPage] = useState(0);
 
     const fetchData = useCallback(()=>{
         (async ()=>{
@@ -73,14 +72,14 @@ const ToDoListScreen = ({ route, navigation }) => {
         })();   
     })
     useEffect(fetchData, []);
-   
+    
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
         <View>
-            <HomeTop currentPage={currentPage} />
-            <HomeDashboard items={{tasks,groups}} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <HomeTop />
+            <HomeDashboard items={{tasks,groups}} />
             <ToDoList items={{tasks,groups}} setItems={{setTasks,setGroups}} navigation={navigation} />
         </View>
     )
