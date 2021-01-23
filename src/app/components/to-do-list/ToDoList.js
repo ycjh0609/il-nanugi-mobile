@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { StyleSheet, Text, View, Button } from "react-native";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { Dimensions } from 'react-native';
 import _ from "lodash";
 import ToolBar from './ToolBar';
 import ToDoCard from './ToDoCard';
@@ -18,7 +17,6 @@ const styles = StyleSheet.create({
     container: {
         margin: 20
     },
-
 });
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
@@ -33,15 +31,15 @@ function createGroupName(name) {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TaskList = ({ tasksState, filterBy, getTaskUpdater, title }) => {
+const TaskList = ({ tasksState,sortType ,filterBy, getTaskUpdater, title }) => {
 
     return (
         <View>
-
             {tasksState.tasks.filter(filterBy).map((task, idx) => {
                 return (
                     <ToDoCard key={"to-do-card-" + idx}
                         task={task}
+                        sortType={sortType}
                         updateTask={getTaskUpdater(task)}
                         groupName={createGroupName(task.group.name)} />
                 )
@@ -104,7 +102,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                     {/* 02-2. 마감 순 리스트 */}
                     {sortType === CodeUtil.TASK_SORT_TYPE.BY_ENDTIME &&
                         <View>
-                            <TaskList getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
+                            <TaskList sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                 filterBy={() => true} />
                         </View>
                     }
@@ -126,8 +124,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                                     <Icon name={"check"} size={20}></Icon>
                                                     <Text style={{ fontSize: 18, margin: 5 }}>{statusText}</Text>
                                                 </View>
-
-                                                <TaskList getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
+                                                <TaskList sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                                     filterBy={filterByStatus} />
                                             </View>
                                         )
@@ -148,7 +145,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                             <Icon name={"group"} size={20}></Icon>
                                             <Text style={{ fontSize: 18, margin: 5 }}>{groupName}</Text>
                                         </View>
-                                        <TaskList getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
+                                        <TaskList sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                             filterBy={filterByGroupId} />
                                     </View>
                                 )

@@ -87,7 +87,7 @@ const HomeDashboard = ({ items }) => {
        
         Animated.timing(guagePercentage, {
             toValue: Number.isNaN(percentage)? 0: percentage,
-            duration:1000,
+            duration:500,
             useNativeDriver: false
         }).start(); 
     }, [percentage]);
@@ -108,7 +108,7 @@ const HomeDashboard = ({ items }) => {
 
             <View style={styles.guageContainer}>
                 
-                <Text style={{textAlign:"center",fontSize:18,fontWeight:"600",marginBottom:5}}>마무리한 일</Text>
+                <Text style={{textAlign:"center",fontSize:18,fontWeight:"600",marginBottom:5}}>달성률</Text>
                 <View style={styles.guage}>
                     <Animated.View style={{
                         ...styles.leftGuage,
