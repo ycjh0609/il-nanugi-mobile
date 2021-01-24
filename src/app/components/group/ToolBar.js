@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const ToolBar = ({ itemStates }) => {
+const ToolBar = ({ groupsState }) => {
     
     /*-------------------------------------------------------------------------------
     * 03-2) View
@@ -57,8 +57,8 @@ const ToolBar = ({ itemStates }) => {
             </View>
             <View>
             <TouchableOpacity activeOpacity={0.6} style={commonStyle.rowAlignment}>
-                {/* <Icon name="sort" size={30} /> */}
-                {/* <Text style={{ marginLeft: 5, fontSize: 16 }}>{TASK_SORT_TYPES[sortState.sortType]}</Text> */}
+                <Icon name="group" size={30} />
+                <Text style={{ marginLeft: 5, fontSize: 16 }}>{groupsState.groups.length + ""}</Text>
             </TouchableOpacity>
             <View style={{  marginTop: 10 }}></View>
             </View>
