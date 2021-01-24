@@ -107,9 +107,9 @@ const CommonBtn = ({ style, btnStyle, iconStyle, titleStyle, onPress }) => {
                 }
                 {titleName !== null &&
                     <View styles={commonStyle.columnCenterAlignment}>
-                        <Text style={{ color: titleColor, textAlign: "center", fontSize: (btnSize * 0.45) }} >{titleName}</Text>
+                        <Text style={{ color: titleColor, textAlign: "center", fontSize: (btnSize * 0.40) }} >{titleName}</Text>
                         {subTitleName !== null &&
-                            <Text style={{ color: titleColor, textAlign: "center", fontSize: (btnSize * 0.23) }} >{subTitleName}</Text>
+                            <Text style={{ color: titleColor, textAlign: "center", fontSize: (btnSize * 0.25) }} >{subTitleName}</Text>
                         }
                     </View>
                 }

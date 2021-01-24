@@ -3,17 +3,18 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { deleteStoreWatcher, useStoreState } from '../utils/store/commonStore';
 
-import HomeTop from "../components/home/HomeTop";
-import ToDoDashboard from "../components/to-do-list/ToDoDashboard";
+import CommonTop from "../components/common/CommonTop";
+import GroupDashboard from "../components/group/GroupDashboard";
 import ToDoList from "../components/to-do-list/ToDoList";
-import CommonTop from "../components/common/CommonTop"
+
 import GroupService from "../services/GroupService"
 import TaskService from "../services/TaskService"
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import GroupList from '../components/group/GroupList';
 /*------------------------------------------------------------------------------------
- * Edit Date   : 2020.12.27
+ * Edit Date   : 2021.01.22
  * Edit By     : Kwak ji hoon 
- * Description : Todo List
+ * Description : Group List Screen
  *----------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------
@@ -50,7 +51,7 @@ function getGroups(){
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const ToDoListScreen = ({ route, navigation }) => {
+const GroupListScreen = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -79,9 +80,9 @@ const ToDoListScreen = ({ route, navigation }) => {
     return (
         <View>
             <CommonTop />
-            <ToDoDashboard items={{tasks,groups}} />
-            <ToDoList items={{tasks,groups}} setItems={{setTasks,setGroups}} navigation={navigation} />
+            {/* <GroupDashboard items={{tasks,groups}} /> */}
+            <GroupList groupsState={{groups,setGroups}} navigation={navigation} />
         </View>
     )
 }
-export default ToDoListScreen;
+export default GroupListScreen;

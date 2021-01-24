@@ -8,6 +8,7 @@ import CenterTabBtn from "../components/main-navigation/CenterTapBtn"
 import ChatScreen from '../containers/ChatScreen';
 import GroupScreen from '../containers/GroupScreen';
 import SettingScreen from '../containers/SettingScreen';
+import GroupNavigation from './GroupNavigation';
 import HomeNavigation from './HomeNavigation';
 
 /*------------------------------------------------------------------------------------
@@ -67,13 +68,12 @@ const MainNavigation = ({ route, navigation }) => {
                 inactiveTintColor: '#c9c7c1',
             }} >
 
-
             <MainTab.Screen name="Home" component={HomeNavigation}
                 options={{
                     tabBarLabel: '',
                 }}
             />
-            <MainTab.Screen name="Group" component={GroupScreen}
+            <MainTab.Screen name="Group" component={GroupNavigation}
                 options={{
                     tabBarLabel: '',
                 }}

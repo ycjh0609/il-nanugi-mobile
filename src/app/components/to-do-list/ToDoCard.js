@@ -86,7 +86,7 @@ const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
     }, [task]);
     useEffect(function handleEndTimeText(){
         if (sortType === 0){
-            let temp = moment(task.endTime, 'YYYYMMDDhhmm').format('YYYY.MM.DD hh:mm') +" 마감";
+            let temp = moment(task.endTime, 'YYYYMMDDhhmm').format('YYYY.MM.DD hh:mm');
             setEndTimeText(temp);
         }
     },[task])
@@ -104,7 +104,6 @@ const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
                             <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{CodeUtil.GET_STATUS_TEXT(task.status)}</Text>
                         </View>
                     </View>
-
                 </View>
 
                 {/* CheckBox Container */}
@@ -135,7 +134,8 @@ const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
             </View>
             {sortType === 0 &&
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end',marginRight:10 }}>
-                    <Icon name="md-calendar" size={20}/> 
+                    {/* <Icon name="md-calendar" style={{marginRight:5}} size={20}/>  */}
+                    <Text> ~</Text>
                     <Text style={{marginLeft:5,fontSize:15}}>{endTimeText}</Text>
                 </View>
             }
