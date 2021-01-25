@@ -7,6 +7,7 @@ import ToDoCard from './ToDoCard';
 import CodeUtil from '../../utils/code/CodeUtil';
 import commonStyle from '../../styles/commonStyle';
 import { Icon } from 'react-native-elements';
+
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.30
  * Edit By     : kwak ji hoon 
@@ -31,7 +32,7 @@ function createGroupName(name) {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TaskList = ({ tasksState,sortType ,filterBy, getTaskUpdater, title }) => {
+const TaskList = ({ tasksState, sortType, filterBy, getTaskUpdater, title }) => {
 
     return (
         <View>
@@ -88,7 +89,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
         } else if (sortType === CodeUtil.TASK_SORT_TYPE.BY_GROUP_ID) {
             setReCollacatedTasks(_.sortBy([...items.tasks], ["groupId", "endTime"]));
         }
-    }, [sortType,items.tasks]);
+    }, [sortType, items.tasks]);
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
@@ -144,9 +145,18 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 5 }}>
                                             <Icon name={"group"} size={20}></Icon>
                                             <Text style={{ fontSize: 18, margin: 5 }}>{groupName}</Text>
+                                            
                                         </View>
+                                        {reCollacatedTasks.filter(filterByGroupId).length == 0 &&
+                                            <View style={{ marginLeft:30}}>
+                                                <Text style={{ color: commonStyle.oneTextColor, marginTop: 5, fontSize: 15, marginLeft: 2 }}>
+                                                    할당된 일이 없습니다.
+                                                </Text>
+                                            </View>
+                                        }
                                         <TaskList sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                             filterBy={filterByGroupId} />
+                                        
                                     </View>
                                 )
                             })}

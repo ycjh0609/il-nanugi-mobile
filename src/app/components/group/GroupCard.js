@@ -12,7 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
  * Edit By     : kwak ji hoon 
  * Description : Group Card 
  *----------------------------------------------------------------------------------*/
-
+   
 /*------------------------------------------------------------------------------------
  * 01) Styles
  *----------------------------------------------------------------------------------*/
@@ -47,7 +47,7 @@ const GroupCard = ({ group, title }) => {
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <View>
+        <TouchableOpacity onPress={()=>Alert.alert("detail")}>
             <View style={styles.cardContainer}>
                 {/* (left) group avatar container */}
                 <View style={styles.groupAvatarContainer}>
@@ -77,15 +77,15 @@ const GroupCard = ({ group, title }) => {
                         {/* 3명 초과의 참여자가 있으면 ... 아바타로 대체 */}
                         {group.participants.length > 3 &&
                             <View key={"participant-more"} style={{ marginRight: 5 }}>
-                                <CommonAvartar title={"..."} />
+                                <CommonAvartar containerStyle={{opacity:0.5}} title={"..."} />
                             </View>
                         }
 
                     </View>
                 </View>
             </View>
-            <View style={{ borderBottomColor: group.color, borderBottomWidth: 1, marginBottom: 5 }}></View>
-        </View>
+            <View style={{ borderBottomColor: group.color, borderBottomWidth: 1 }}></View>
+        </TouchableOpacity>
     )
 }
 

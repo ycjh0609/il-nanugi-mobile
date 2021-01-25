@@ -78,6 +78,7 @@ const ToolBar = ({ itemStates, sortState }) => {
                 <Icon name="sort" size={30} />
                 <Text style={{ marginLeft: 5, fontSize: 16 }}>{TASK_SORT_TYPES[sortState.sortType]}</Text>
             </TouchableOpacity>
+            
             <View style={{  marginTop: 10 }}></View>
             </View>
         </View>
