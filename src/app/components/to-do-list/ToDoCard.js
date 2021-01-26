@@ -130,7 +130,7 @@ const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
                 </View>
                 {/* group Label Container */}
                 <View style={{ ...styles.groupLabelContainer, backgroundColor: task.group.color, borderColor: task.group.color }}
-                    onTouchStart={() => navigation.navigate("TaskDetailScreen")}>
+                    onTouchStart={() => navigation.navigate("TaskDetailScreen",{task})}>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View style={{ ...commonStyle.columnCenterAlignment }}>
                             <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{groupName}</Text>

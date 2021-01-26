@@ -4,7 +4,7 @@ import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.26 
  * Edit By     : kwak ji hoon 
- * Description : Chat Container Screen
+ * Description : GroupDetail Container Screen
  *----------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------

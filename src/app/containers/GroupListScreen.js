@@ -81,7 +81,7 @@ const GroupListScreen = ({ route, navigation }) => {
         <View>
             <CommonTop />
             {/* <GroupDashboard items={{tasks,groups}} /> */}
-            <GroupList groupsState={{groups,setGroups}} navigation={navigation} />
+            <GroupList navigation={navigation} groupsState={{groups,setGroups}} navigation={navigation} />
         </View>
     )
 }

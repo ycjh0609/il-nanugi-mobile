@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View } from "react-native";
-import { createStackNavigator } from '@react-navigation/stack';
-import GroupListScreen from '../containers/GroupListScreen';
-import GroupDetailScreen from '../containers/GroupDetailScreen';
-//import GroupDetailOptions from "./screen-options/GroupDetailOptions";
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+
 /*------------------------------------------------------------------------------------
- * Edit Date   : 2020.12.27
+ * Edit Date   : 2021.01.26 
  * Edit By     : kwak ji hoon 
- * Description : Honme Stack Screen
+ * Description : GroupDetailScreen Container Screen
  *----------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------
@@ -16,40 +13,30 @@ import GroupDetailScreen from '../containers/GroupDetailScreen';
 const styles = StyleSheet.create({
 
 });
+
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-const GroupStack = createStackNavigator();
-const GroupDetailOptions = ({ route }) => {
 
-    return {
-        title: route.params.group.name,
-        headerStyle: {
-            backgroundColor: route.params.group.color,
-        },
-        leftLabel:"test",
-        headerTintColor: '#fff',
-        headerTitleStyle: {
-            fontWeight: 'bold',
-        },
-    }
-}
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const GroupNavigation = ({ route, navigation }) => {
+const GroupDetailScreen = () => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
     
+    useEffect(() => {
+
+    }, []);
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <GroupStack.Navigator >
-            <GroupStack.Screen name="GroupListScreen" component={GroupListScreen} options={{ headerShown: false }} />
-            <GroupStack.Screen name="GroupDetailScreen" component={GroupDetailScreen} options={GroupDetailOptions} />
-        </GroupStack.Navigator>
+        <View >
+            <Text >GroupDetailScreen</Text>
+        </View>
     )
 }
-export default GroupNavigation;
+export default GroupDetailScreen;

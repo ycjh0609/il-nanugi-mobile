@@ -28,6 +28,20 @@ const styles = StyleSheet.create({
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
 const HomeStack = createStackNavigator();
+const TaskDetailOptions = ({ route }) => {
+
+    return {
+        title: route.params.task.title,
+        headerStyle: {
+            backgroundColor: route.params.task.group.color,
+        },
+        leftLabel:"test",
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    }
+}
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
@@ -43,7 +57,7 @@ const HomeNavigation = ({ route, navigation }) => {
     return (
         <HomeStack.Navigator initialRouteName={currentScreen}>
             <HomeStack.Screen name="ToDoListScreen" component={ToDoListScreen} options={{ headerShown: false }} />
-            <HomeStack.Screen name="TaskDetailScreen" component={TaskDetailScreen} options={{ headerShown: true }} />
+            <HomeStack.Screen name="TaskDetailScreen" component={TaskDetailScreen} options={TaskDetailOptions} />
         </HomeStack.Navigator>
     )
 }

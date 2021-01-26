@@ -92,7 +92,7 @@ const GroupList = ({ navigation, groupsState }) => {
             <ScrollView>
                 <View style={{ marginBottom: 550 }}>
                     {reCollocatedCards.map((group, idx) => (
-                        <GroupCard group={group} key={"group-" + idx} />
+                        <GroupCard navigation={navigation} group={group} key={"group-" + idx} />
                     ))}
                 </View>
             </ScrollView>

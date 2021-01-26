@@ -8,6 +8,7 @@ import CenterTabBtn from "../components/main-navigation/CenterTapBtn"
 import ChatScreen from '../containers/ChatScreen';
 import GroupScreen from '../containers/GroupScreen';
 import SettingScreen from '../containers/SettingScreen';
+import commonStyle from '../styles/commonStyle';
 import GroupNavigation from './GroupNavigation';
 import HomeNavigation from './HomeNavigation';
 
@@ -36,7 +37,7 @@ function getTabIconName(routeName, focused) {
     } else if (routeName === "Chat") {
         iconName = focused ? 'ios-chatboxes' : 'ios-chatboxes';
     } else if (routeName === "Group") {
-        iconName = focused ? 'md-calendar' : 'md-calendar';
+        iconName = focused ? 'md-people' : 'md-people';
     } else if (routeName === "Setting") {
         iconName = focused ? 'ios-list-box' : 'ios-list';
     }
@@ -64,7 +65,7 @@ const MainNavigation = ({ route, navigation }) => {
                 },
             })}
             tabBarOptions={{
-                activeTintColor: "#0c5063",
+                activeTintColor: commonStyle.oneTextColor,
                 inactiveTintColor: '#c9c7c1',
             }} >
 

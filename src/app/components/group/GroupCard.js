@@ -54,17 +54,17 @@ const AVATAR_VIEW_CNT = 3;
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const GroupCard = ({ group, title }) => {
+const GroupCard = ({ navigation,group, title }) => {
 
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <TouchableOpacity onPress={()=>Alert.alert("detail")}>
+        <TouchableOpacity onPress={()=>null}>
             <View style={styles.cardContainer}>
                 {/* (left) group avatar container */}
                 <View style={styles.groupAvatarContainer}>
-                    <CommonBtn onPress={() => null} style={commonStyle.shodow}
+                    <CommonBtn onPress={() => navigation.navigate("GroupDetailScreen",{group})} style={commonStyle.shodow}
                         btnStyle={{ btnSize: 70, type: 0, btnBackgroundColor: group.color }}
                         titleStyle={{ name: createGroupName(group.name) }} />
                 </View>
