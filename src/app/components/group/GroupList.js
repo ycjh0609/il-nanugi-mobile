@@ -7,7 +7,8 @@ import { Icon } from 'react-native-elements';
 
 import ToolBar from "./ToolBar"
 import GroupCard from "./GroupCard"
-import commonStyle from '../../../common/styles/commonStyle';
+
+import commonStyle from '../../styles/commonStyle';
 import CommonAvartar from '../common/CommonAvartar';
 import CommonBtn from '../common/CommonBtn';
 import { SearchBar } from 'react-native-elements';
@@ -36,12 +37,16 @@ const GroupList = ({ navigation, groupsState }) => {
     *-------------------------------------------------------------------------------*/
     const [searchText, setSearchText] = useState("");
     const [reCollocatedCards, setReCollocatedCards] = useState([]);
+
+    //search Input 가 변경될때 이벤트
     const updateSearchText = useCallback((text) => {
         setSearchText(text);
     });
-    useEffect(()=>{
+
+    useEffect(function initCards(){
         setReCollocatedCards(groupsState.groups)
     },[groupsState.groups])
+
     useEffect(function handleSearchText() {
         if (!searchText|| searchText ==null || searchText.trim().length == 0){
             setReCollocatedCards(groupsState.groups);
@@ -74,6 +79,7 @@ const GroupList = ({ navigation, groupsState }) => {
                 onChangeText={updateSearchText}
                 value={searchText}
             />
+            {/* 조회된 내역이 없으면 아래 텍스트를 보여주자 */}
             {searchText.length > 0 &&
                 <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: "center" }}>
                     <Icon style={{marginTop:5}} color={commonStyle.oneTextColor} name={"check"} size={16}></Icon>
@@ -82,6 +88,7 @@ const GroupList = ({ navigation, groupsState }) => {
                     </Text>
                 </View>
             }
+            {/* Group Cards List */}
             <ScrollView>
                 <View style={{ marginBottom: 550 }}>
                     {reCollocatedCards.map((group, idx) => (

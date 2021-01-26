@@ -3,7 +3,7 @@ import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-
 import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSafeArea } from 'react-native-safe-area-context';
-import commonStyle from '../../../common/styles/commonStyle';
+import commonStyle from '../../styles/commonStyle';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2021.01.22
  * Edit By     : kwak ji hoon 

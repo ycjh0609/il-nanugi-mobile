@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-native";
 import moment from "moment";
 import Icon from "react-native-vector-icons/Ionicons";
-import commonStyle from '../../../common/styles/commonStyle';
+import commonStyle from '../../styles/commonStyle';
 import { CheckBox } from 'react-native-elements';
 import CodeUtil from '../../utils/code/CodeUtil';
 
@@ -46,7 +46,9 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-
+const TASK_STATUS_COLOR = {
+    TODO:"#999793",DOING:"#f5ad42",END:commonStyle.oneTextColor
+}
 
 /*------------------------------------------------------------------------------------
  * 03) React
@@ -56,7 +58,8 @@ const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
     const [groupLabelContainerStyle, setGroupLabelContainerStyle] = useState({});
     const [checkBoxTextStyle, setCheckBoxTextStyle] = useState({});
     const [endTimeText,setEndTimeText] = useState("");
-    const isFinished = useCallback((status) => {
+    
+    const isEndStatus = useCallback((status) => {
         return (status === CodeUtil.TASK_STATUS.END)
     });
 
@@ -74,10 +77,10 @@ const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
 
     useEffect(function handleContainerStyle() {
         if (task.status === CodeUtil.TASK_STATUS.TODO) {
-            setStatusLabelContainerStyle({ backgroundColor: "#999793", borderColor: "#999793" });
-            setCheckBoxTextStyle({ color: "#999793" });
+            setStatusLabelContainerStyle({ backgroundColor: TASK_STATUS_COLOR.TODO, borderColor: TASK_STATUS_COLOR.TODO });
+            setCheckBoxTextStyle({ color: TASK_STATUS_COLOR.TODO });
         } else if (task.status === CodeUtil.TASK_STATUS.DOING) {
-            setStatusLabelContainerStyle({ backgroundColor: "#f5ad42", borderColor: "#f5ad42" });
+            setStatusLabelContainerStyle({ backgroundColor: TASK_STATUS_COLOR.DOING, borderColor: TASK_STATUS_COLOR.DOING });
             setCheckBoxTextStyle({});
         } else if (task.status === CodeUtil.TASK_STATUS.END) {
             setStatusLabelContainerStyle({ backgroundColor: commonStyle.oneBackgroundColor, borderColor: commonStyle.oneBackgroundColor });
@@ -112,9 +115,9 @@ const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
                     textStyle={{
                         ...checkBoxTextStyle,
                         fontSize: 16,
-                        textDecorationLine: isFinished(task.status) ? 'line-through' : null
+                        textDecorationLine: isEndStatus(task.status) ? 'line-through' : null
                     }}
-                    checked={isFinished(task.status) ? true : false}
+                    checked={isEndStatus(task.status) ? true : false}
                     title={task.title}
                     onPress={() => changeTaskStatus(task)}
                 />

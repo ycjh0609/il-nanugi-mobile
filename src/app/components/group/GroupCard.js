@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-native";
 import moment from "moment";
 
-import commonStyle from '../../../common/styles/commonStyle';
+import commonStyle from '../../styles/commonStyle';
 import CommonAvartar from '../common/CommonAvartar';
 import CommonBtn from '../common/CommonBtn';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -23,7 +23,19 @@ const styles = StyleSheet.create({
     },
     groupAvatarContainer: {
         flex: 1, alignItems: "center", justifyContent: "center", marginRight: 20
-    }
+    },
+    groupIntroContainer:{
+        flex: 5, justifyContent: "center", padding: 5 
+    },
+    groupNameText:{
+        fontSize: 20
+    },
+    lastModifiedText:{
+        fontSize: 13, fontWeight: "600", marginTop: 5, color: commonStyle.oneTextColor
+    },
+    participantAvartarsContainer:{
+        paddingTop: 10, flexDirection: "row" 
+    },
 });
 
 /*------------------------------------------------------------------------------------
@@ -37,6 +49,7 @@ function createGroupName(name) {
         return name.split(" ")[0].substring(0, 1) + "" + name.split(" ")[1].substring(0, 1);
     }
 }
+const AVATAR_VIEW_CNT = 3;
 
 /*------------------------------------------------------------------------------------
  * 03) React
@@ -57,25 +70,24 @@ const GroupCard = ({ group, title }) => {
                 </View>
 
                 {/* (right) group avatar container */}
-                <View style={{ flex: 5, justifyContent: "center", padding: 5 }}>
-                    <Text style={{ fontSize: 20 }}>
+                <View style={styles.groupIntroContainer}>
+                    <Text style={styles.groupNameText}>
                         {group.name}
                     </Text>
 
-                    <Text style={{ fontSize: 13, fontWeight: "600", marginTop: 5, color: commonStyle.oneTextColor }}>
+                    <Text style={styles.lastModifiedText}>
                         마지막 수정일: 2021.01.21
                     </Text>
 
-                    <View style={{ paddingTop: 10, flexDirection: "row" }}>
-
+                    <View style={styles.participantAvartarsContainer}>
                         {/* 3명의 아바타만 나옴*/}
-                        {group.participants.filter((p, idx) => idx < 3).map((participant, idx) => (
+                        {group.participants.filter((p, idx) => idx < AVATAR_VIEW_CNT).map((participant, idx) => (
                             <View key={"participant-" + idx} style={{ marginRight: 5 }}>
-                                <CommonAvartar title={participant.name.substring(0, 2)} />
+                                <CommonAvartar title={createGroupName(participant.name)} />
                             </View>
                         ))}
                         {/* 3명 초과의 참여자가 있으면 ... 아바타로 대체 */}
-                        {group.participants.length > 3 &&
+                        {group.participants.length > AVATAR_VIEW_CNT &&
                             <View key={"participant-more"} style={{ marginRight: 5 }}>
                                 <CommonAvartar containerStyle={{opacity:0.5}} title={"..."} />
                             </View>
