@@ -61,10 +61,10 @@ const ToDoListScreen = ({ route, navigation }) => {
     const fetchData = useCallback(()=>{
         (async ()=>{
             try{
-                let g= await GroupService.getMyGroups();
-                let t= await TaskService.getMyTasks();
-                setGroups(g.data);
-                setTasks(t.data);
+                let groupsRes= await GroupService.getMyGroups();
+                let tasksRes= await TaskService.getMyTasks();
+                setGroups(groupsRes.data);
+                setTasks(tasksRes.data);
             }catch(e){
                 setTasks(getTasks());
                 setGroups(getGroups());
@@ -79,7 +79,7 @@ const ToDoListScreen = ({ route, navigation }) => {
     return (
         <View>
             <CommonTop />
-            <ToDoDashboard items={{tasks,groups}} />
+            <ToDoDashboard navigation={navigation} items={{tasks,groups}} />
             <ToDoList items={{tasks,groups}} setItems={{setTasks,setGroups}} navigation={navigation} />
         </View>
     )

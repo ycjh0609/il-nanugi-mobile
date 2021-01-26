@@ -32,7 +32,7 @@ function createGroupName(name) {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TaskList = ({ tasksState, sortType, filterBy, getTaskUpdater, title }) => {
+const TaskList = ({ navigation,tasksState, sortType, filterBy, getTaskUpdater, title }) => {
 
     return (
         <View>
@@ -41,6 +41,7 @@ const TaskList = ({ tasksState, sortType, filterBy, getTaskUpdater, title }) => 
                     <ToDoCard key={"to-do-card-" + idx}
                         task={task}
                         sortType={sortType}
+                        navigation={navigation}
                         updateTask={getTaskUpdater(task)}
                         groupName={createGroupName(task.group.name)} />
                 )
@@ -103,7 +104,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                     {/* 02-2. 마감 순 리스트 */}
                     {sortType === CodeUtil.TASK_SORT_TYPE.BY_ENDTIME &&
                         <View>
-                            <TaskList sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
+                            <TaskList navigation={navigation} sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                 filterBy={() => true} />
                         </View>
                     }
@@ -125,7 +126,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                                     <Icon name={"check"} size={20}></Icon>
                                                     <Text style={{ fontSize: 18, margin: 5 }}>{statusText}</Text>
                                                 </View>
-                                                <TaskList sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
+                                                <TaskList navigation={navigation} sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                                     filterBy={filterByStatus} />
                                             </View>
                                         )
@@ -154,7 +155,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                                 </Text>
                                             </View>
                                         }
-                                        <TaskList sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
+                                        <TaskList navigation={navigation} sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                             filterBy={filterByGroupId} />
                                         
                                     </View>

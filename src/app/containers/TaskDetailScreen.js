@@ -1,50 +1,42 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View } from "react-native";
-import { createStackNavigator } from '@react-navigation/stack';
-import Icon from "react-native-vector-icons/Ionicons";
-import { Alert } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import ToDoListScreen from '../containers/ToDoListScreen';
-import TaskDetailScreen from "../containers/TaskDetailScreen";
+import React, { useState, useEffect } from 'react';
+import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 
 /*------------------------------------------------------------------------------------
- * Edit Date   : 2020.12.27
+ * Edit Date   : 2020.12.26 
  * Edit By     : kwak ji hoon 
- * Description : Honme Stack Screen
+ * Description : Chat Container Screen
  *----------------------------------------------------------------------------------*/
 
 /*------------------------------------------------------------------------------------
  * 01) Styles
  *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
-    commonHeaderStyle: {
-        height: 240
-    },
-    commonHeaderTitleStyle: {
-        fontSize: 20
-    }
+
 });
+
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-const HomeStack = createStackNavigator();
+
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const HomeNavigation = ({ route, navigation }) => {
+const TaskDetailScreen = () => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    const [currentScreen, setCurrenScreen] = useState("ToDoListScreen");
+    
+    useEffect(() => {
+
+    }, []);
 
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <HomeStack.Navigator initialRouteName={currentScreen}>
-            <HomeStack.Screen name="ToDoListScreen" component={ToDoListScreen} options={{ headerShown: false }} />
-            <HomeStack.Screen name="TaskDetailScreen" component={TaskDetailScreen} options={{ headerShown: true }} />
-        </HomeStack.Navigator>
+        <View >
+            <Text >TaskDetailScreen</Text>
+        </View>
     )
 }
-export default HomeNavigation;
+export default TaskDetailScreen;

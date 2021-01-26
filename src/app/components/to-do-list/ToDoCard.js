@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import commonStyle from '../../styles/commonStyle';
 import { CheckBox } from 'react-native-elements';
 import CodeUtil from '../../utils/code/CodeUtil';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2021.01.01
@@ -40,7 +41,8 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 15,
         borderBottomRightRadius: 15,
         width: "100%", height: 55
-    }
+    },
+
 });
 
 /*------------------------------------------------------------------------------------
@@ -53,7 +55,7 @@ const TASK_STATUS_COLOR = {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
+const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
     const [statusLabelContainerStyle, setStatusLabelContainerStyle] = useState({});
     const [groupLabelContainerStyle, setGroupLabelContainerStyle] = useState({});
     const [checkBoxTextStyle, setCheckBoxTextStyle] = useState({});
@@ -117,23 +119,24 @@ const ToDoCard = ({ task, updateTask, groupName, sortType }) => {
                         fontSize: 16,
                         textDecorationLine: isEndStatus(task.status) ? 'line-through' : null
                     }}
+                    checkedColor={commonStyle.oneBackgroundColor}
                     checked={isEndStatus(task.status) ? true : false}
                     title={task.title}
                     onPress={() => changeTaskStatus(task)}
                 />
-
+                {/* group Label Container */}
+                <View style={{ ...styles.goDetailContainer}}>
+                    {/* Todo dev 과제 */}
+                </View>
                 {/* group Label Container */}
                 <View style={{ ...styles.groupLabelContainer, backgroundColor: task.group.color, borderColor: task.group.color }}
-                    onTouchStart={() => {
-                    }}>
+                    onTouchStart={() => navigation.navigate("TaskDetailScreen")}>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View style={{ ...commonStyle.columnCenterAlignment }}>
                             <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{groupName}</Text>
                         </View>
                     </View>
-
                 </View>
-
             </View>
             {sortType === 0 &&
                 <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end',marginRight:10 }}>

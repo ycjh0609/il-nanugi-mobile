@@ -64,7 +64,7 @@ const ACTIVATE_BTN_SIZE = 65;
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const HomeDashboard = ({ items }) => {
+const HomeDashboard = ({ items,navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -99,7 +99,7 @@ const HomeDashboard = ({ items }) => {
                     titleStyle={{ name: remainTaskCnt, subName: "할일" }} />
             </View>
             <View style={styles.taskCntContainer}>
-                <CommonBtn onPress={() => null} style={commonStyle.shodow} btnStyle={{ btnSize: DEFAULT_BTN_SIZE, type: 1 }}
+                <CommonBtn onPress={() => navigation.navigate("Group")} style={commonStyle.shodow} btnStyle={{ btnSize: DEFAULT_BTN_SIZE, type: 1 }}
                     titleStyle={{ name: joinedGroupCnt, subName: "그룹" }} />
             </View>
 
