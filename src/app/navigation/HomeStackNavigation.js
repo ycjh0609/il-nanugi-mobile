@@ -28,16 +28,31 @@ const styles = StyleSheet.create({
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
 const HomeStack = createStackNavigator();
-const TaskDetailOptions = ({ route }) => {
+const TaskDetailHeaderOptions = ({ route }) => {
+    //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
+    const forFade = ({ current }) => ({
+        cardStyle: {
+          opacity: current.progress,
+        },
+      });
     return {
         title: route.params.task.title,
         headerStyle: {
             backgroundColor: route.params.task.group.color,
+            height: 120
         },
-        leftLabel:"test",
+        headerLeftContainerStyle: {
+            marginLeft: 15
+        },
+        headerBackTitleStyle: {
+            fontSize: 18, fontWeight: "bold"
+        },
+        headerBackTitle: "할일",
         headerTintColor: '#fff',
+        cardStyleInterpolator: forFade, 
         headerTitleStyle: {
+            fontSize: 20,
             fontWeight: 'bold',
         },
     }
@@ -45,20 +60,24 @@ const TaskDetailOptions = ({ route }) => {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const HomeNavigation = ({ route, navigation }) => {
+const HomeStackNavigation = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
     const [currentScreen, setCurrenScreen] = useState("ToDoListScreen");
-
+    useEffect(() => {
+        const unsubscribe = navigation.addListener("transitionStart", (e) => {
+            console.log("123123")
+        })
+    }, [navigation])
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
         <HomeStack.Navigator initialRouteName={currentScreen}>
             <HomeStack.Screen name="ToDoListScreen" component={ToDoListScreen} options={{ headerShown: false }} />
-            <HomeStack.Screen name="TaskDetailScreen" component={TaskDetailScreen} options={TaskDetailOptions} />
+            <HomeStack.Screen name="TaskDetailScreen" component={TaskDetailScreen} options={TaskDetailHeaderOptions} />
         </HomeStack.Navigator>
     )
 }
-export default HomeNavigation;
+export default HomeStackNavigation;

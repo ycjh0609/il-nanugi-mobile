@@ -48,6 +48,7 @@ const GroupDashboard = ({ items }) => {
     useEffect(() => {
         setRemainTaskCnt(items.tasks.length);
         setJoinedGroupCnt(items.groups.length);
+        
         let temp = items.tasks.filter((t) => t.status == "E").length / items.tasks.length * 100;
         setPercentage(parseInt(temp));
     }, [items]); 

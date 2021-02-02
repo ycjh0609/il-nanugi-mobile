@@ -84,7 +84,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
     ***************************/
     useEffect(function handleSortType() {
         if (sortType === CodeUtil.TASK_SORT_TYPE.BY_ENDTIME) {
-            setReCollacatedTasks(_.sortBy([...items.tasks], "endTime"));
+            setReCollacatedTasks(_.sortBy([...items.tasks], [{"endTime":"asc"}]));
         } else if (sortType === CodeUtil.TASK_SORT_TYPE.BY_STATUS) {
             setReCollacatedTasks(_.sortBy([...items.tasks], ["status", "groupId"]));
         } else if (sortType === CodeUtil.TASK_SORT_TYPE.BY_GROUP_ID) {

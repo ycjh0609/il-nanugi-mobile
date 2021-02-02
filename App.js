@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from "./src/app/containers/LoginScreen";
-import MainNavigation from "./src/app/navigation/MainNavigation";
+import MainTabNavigation from "./src/app/navigation/MainTabNavigation";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
@@ -26,7 +26,7 @@ const App = () => {
   /*-------------------------------------------------------------------------------
   * 03-1) Hooks
   *-------------------------------------------------------------------------------*/
-  const [initialScreenName,setInitialScreenName] = useState("MainNavigation");
+  const [initialScreenName,setInitialScreenName] = useState("MainTabNavigation");
 
 
   return (
@@ -41,8 +41,8 @@ const App = () => {
         />
 
         {/* Route 03) For New Home Screen */}
-        <AppStack.Screen name="MainNavigation"
-          component={MainNavigation}
+        <AppStack.Screen name="MainTabNavigation"
+          component={MainTabNavigation}
           options={{ headerShown: false }}
         />
       </AppStack.Navigator>

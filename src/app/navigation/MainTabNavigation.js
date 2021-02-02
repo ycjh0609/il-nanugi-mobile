@@ -10,7 +10,7 @@ import GroupScreen from '../containers/GroupScreen';
 import SettingScreen from '../containers/SettingScreen';
 import commonStyle from '../styles/commonStyle';
 import GroupNavigation from './GroupNavigation';
-import HomeNavigation from './HomeNavigation';
+import HomeStackNavigation from './HomeStackNavigation';
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
@@ -47,7 +47,7 @@ function getTabIconName(routeName, focused) {
  * 03) React
  *----------------------------------------------------------------------------------*/
 const Blank = () => <View></View>;
-const MainNavigation = ({ route, navigation }) => {
+const MainTabNavigation = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -69,7 +69,7 @@ const MainNavigation = ({ route, navigation }) => {
                 inactiveTintColor: '#c9c7c1',
             }} >
 
-            <MainTab.Screen name="Home" component={HomeNavigation}
+            <MainTab.Screen name="Home" component={HomeStackNavigation}
                 options={{
                     tabBarLabel: '',
                 }}
@@ -99,4 +99,4 @@ const MainNavigation = ({ route, navigation }) => {
         </MainTab.Navigator>
     );
 }
-export default MainNavigation;
+export default MainTabNavigation;

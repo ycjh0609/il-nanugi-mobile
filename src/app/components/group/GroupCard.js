@@ -68,17 +68,14 @@ const GroupCard = ({ navigation,group, title }) => {
                         btnStyle={{ btnSize: 70, type: 0, btnBackgroundColor: group.color }}
                         titleStyle={{ name: createGroupName(group.name) }} />
                 </View>
-
                 {/* (right) group avatar container */}
                 <View style={styles.groupIntroContainer}>
                     <Text style={styles.groupNameText}>
                         {group.name}
                     </Text>
-
                     <Text style={styles.lastModifiedText}>
                         마지막 수정일: 2021.01.21
                     </Text>
-
                     <View style={styles.participantAvartarsContainer}>
                         {/* 3명의 아바타만 나옴*/}
                         {group.participants.filter((p, idx) => idx < AVATAR_VIEW_CNT).map((participant, idx) => (
@@ -92,7 +89,6 @@ const GroupCard = ({ navigation,group, title }) => {
                                 <CommonAvartar containerStyle={{opacity:0.5}} title={"..."} />
                             </View>
                         }
-
                     </View>
                 </View>
             </View>
