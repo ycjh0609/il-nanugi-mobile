@@ -31,6 +31,10 @@ const styles = StyleSheet.create({
 const HomeStack = createStackNavigator();
 const TaskDetailHeaderOptions = ({ route }) => {
     //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
+    
+    //태스크 하나 불러와야함(todo)
+    const taskParam = route.params.task;
+
 
     const forFade = ({ current }) => ({
         cardStyle: {

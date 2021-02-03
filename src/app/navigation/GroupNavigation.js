@@ -20,6 +20,8 @@ const styles = StyleSheet.create({
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
 const GroupStack = createStackNavigator();
+
+
 const GroupDetailOptions = ({ route }) => {
     const forFade = ({ current }) => ({
         cardStyle: {
@@ -38,9 +40,9 @@ const GroupDetailOptions = ({ route }) => {
         headerBackTitleStyle: {
             fontSize: 18, fontWeight: "bold"
         },
-        headerBackTitle: "할일",
+        headerBackTitle: "그룹",
         headerTintColor: '#fff',
-        cardStyleInterpolator: forFade, 
+        cardStyleInterpolator: forFade,
         headerTitleStyle: {
             fontSize: 20,
             fontWeight: 'bold',
@@ -55,7 +57,7 @@ const GroupNavigation = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/

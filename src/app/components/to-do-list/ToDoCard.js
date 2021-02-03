@@ -75,16 +75,19 @@ const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
     })
 
     useEffect(function handleContainerStyle() {
+        let statusColor = ""
+        let checkBoxTextColor = "";
         if (task.status === CodeUtil.TASK_STATUS.TODO) {
-            setStatusLabelContainerStyle({ backgroundColor: CodeUtil.TASK_STATUS_COLOR.TODO, borderColor: CodeUtil.TASK_STATUS_COLOR.TODO });
-            setCheckBoxTextStyle({ color: CodeUtil.TASK_STATUS_COLOR.TODO });
+            statusColor = checkBoxTextColor = CodeUtil.TASK_STATUS_COLOR.TODO;
         } else if (task.status === CodeUtil.TASK_STATUS.DOING) {
-            setStatusLabelContainerStyle({ backgroundColor: CodeUtil.TASK_STATUS_COLOR.DOING, borderColor: CodeUtil.TASK_STATUS_COLOR.DOING });
-            setCheckBoxTextStyle({});
+            statusColor = CodeUtil.TASK_STATUS_COLOR.DOING;
         } else if (task.status === CodeUtil.TASK_STATUS.END) {
-            setStatusLabelContainerStyle({ backgroundColor: commonStyle.oneBackgroundColor, borderColor: commonStyle.oneBackgroundColor });
-            setCheckBoxTextStyle({});
+            statusColor = CodeUtil.TASK_STATUS_COLOR.END;
         }
+        setStatusLabelContainerStyle({ backgroundColor: statusColor, borderColor: statusColor});
+        //TODO 상태일때만 텍스크 칼라 연하게 주자
+        setCheckBoxTextStyle(checkBoxTextColor ===""?{}:{color:checkBoxTextColor});
+   
     }, [task]);
     useEffect(function handleEndTimeText(){
         if (sortType === 0){
