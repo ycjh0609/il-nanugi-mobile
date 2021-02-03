@@ -21,19 +21,33 @@ const styles = StyleSheet.create({
  *----------------------------------------------------------------------------------*/
 const GroupStack = createStackNavigator();
 const GroupDetailOptions = ({ route }) => {
-
+    const forFade = ({ current }) => ({
+        cardStyle: {
+          opacity: current.progress,
+        },
+      });
     return {
         title: route.params.group.name,
         headerStyle: {
             backgroundColor: route.params.group.color,
+            height: 120
         },
-        leftLabel:"test",
+        headerLeftContainerStyle: {
+            marginLeft: 15
+        },
+        headerBackTitleStyle: {
+            fontSize: 18, fontWeight: "bold"
+        },
+        headerBackTitle: "할일",
         headerTintColor: '#fff',
+        cardStyleInterpolator: forFade, 
         headerTitleStyle: {
+            fontSize: 20,
             fontWeight: 'bold',
         },
     }
 }
+
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/

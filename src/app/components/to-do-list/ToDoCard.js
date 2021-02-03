@@ -48,9 +48,6 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-const TASK_STATUS_COLOR = {
-    TODO:"#999793",DOING:"#f5ad42",END:commonStyle.oneTextColor
-}
 
 /*------------------------------------------------------------------------------------
  * 03) React
@@ -79,10 +76,10 @@ const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
 
     useEffect(function handleContainerStyle() {
         if (task.status === CodeUtil.TASK_STATUS.TODO) {
-            setStatusLabelContainerStyle({ backgroundColor: TASK_STATUS_COLOR.TODO, borderColor: TASK_STATUS_COLOR.TODO });
-            setCheckBoxTextStyle({ color: TASK_STATUS_COLOR.TODO });
+            setStatusLabelContainerStyle({ backgroundColor: CodeUtil.TASK_STATUS_COLOR.TODO, borderColor: CodeUtil.TASK_STATUS_COLOR.TODO });
+            setCheckBoxTextStyle({ color: CodeUtil.TASK_STATUS_COLOR.TODO });
         } else if (task.status === CodeUtil.TASK_STATUS.DOING) {
-            setStatusLabelContainerStyle({ backgroundColor: TASK_STATUS_COLOR.DOING, borderColor: TASK_STATUS_COLOR.DOING });
+            setStatusLabelContainerStyle({ backgroundColor: CodeUtil.TASK_STATUS_COLOR.DOING, borderColor: CodeUtil.TASK_STATUS_COLOR.DOING });
             setCheckBoxTextStyle({});
         } else if (task.status === CodeUtil.TASK_STATUS.END) {
             setStatusLabelContainerStyle({ backgroundColor: commonStyle.oneBackgroundColor, borderColor: commonStyle.oneBackgroundColor });

@@ -6,6 +6,7 @@ import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ToDoListScreen from '../containers/ToDoListScreen';
 import TaskDetailScreen from "../containers/TaskDetailScreen";
+import CodeUtil from '../utils/code/CodeUtil';
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
@@ -36,10 +37,16 @@ const TaskDetailHeaderOptions = ({ route }) => {
           opacity: current.progress,
         },
       });
+    const getColorByStatus = (status)=>{
+        if (status === CodeUtil.TASK_STATUS.TODO) return CodeUtil.TASK_STATUS_COLOR.TODO;
+        if (status === CodeUtil.TASK_STATUS.DOING) return CodeUtil.TASK_STATUS_COLOR.DOING;
+        if (status === CodeUtil.TASK_STATUS.END) return CodeUtil.TASK_STATUS_COLOR.END;
+
+    }
     return {
         title: route.params.task.title,
         headerStyle: {
-            backgroundColor: route.params.task.group.color,
+            backgroundColor: getColorByStatus(route.params.task.status),
             height: 120
         },
         headerLeftContainerStyle: {

@@ -17,10 +17,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var GroupService = {
   getMyGroups: function getMyGroups() {
-    var userInfo = (0, _commonStore.getStoreItem)("userInfo");
-    return _commonAxios["default"].get("/groups");
+    //let userInfo = getStoreItem("userInfo");
+    return _commonAxios["default"].get("/groups/me");
   },
-  getGroupDetail: function getGroupDetail(groupId) {
+  getGroupOne: function getGroupOne(groupId) {
     return _commonAxios["default"].get("/groups?id=".concat(groupId));
   },
   updateGroup: function updateGroup(group) {

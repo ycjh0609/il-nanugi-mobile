@@ -1,3 +1,4 @@
+import commonStyle from "../../styles/commonStyle";
 
 
 const CodeUtil ={
@@ -18,7 +19,11 @@ const CodeUtil ={
     },
     TASK_SORT_TYPE:{
         BY_ENDTIME:0,BY_STATUS:1,BY_GROUP_ID:2,
+    },
+    TASK_STATUS_COLOR:{
+        TODO:"#999793",DOING:"#f5ad42",END:commonStyle.oneTextColor
     }
+    
 }
 
 export default CodeUtil;

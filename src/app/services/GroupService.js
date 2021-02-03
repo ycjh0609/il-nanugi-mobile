@@ -7,12 +7,13 @@ import {getStoreItem} from "../utils/store/commonStore";
 const GroupService = {
 
     getMyGroups: () =>{
-        let userInfo = getStoreItem("userInfo");
-        return commonAxios.get(`/groups`);
+        //let userInfo = getStoreItem("userInfo");
+        return commonAxios.get(`/groups/me`);
     },
-    getGroupDetail: (groupId)=>{
+    getGroupOne: (groupId)=>{
         return commonAxios.get(`/groups?id=${groupId}`)  
     },
+
     updateGroup: (group) =>{
         return commonAxios.put("/groups")
     },
