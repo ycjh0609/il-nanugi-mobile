@@ -41,16 +41,11 @@ const TaskDetailHeaderOptions = ({ route }) => {
           opacity: current.progress,
         },
       });
-    const getColorByStatus = (status)=>{
-        if (status === CodeUtil.TASK_STATUS.TODO) return CodeUtil.TASK_STATUS_COLOR.TODO;
-        if (status === CodeUtil.TASK_STATUS.DOING) return CodeUtil.TASK_STATUS_COLOR.DOING;
-        if (status === CodeUtil.TASK_STATUS.END) return CodeUtil.TASK_STATUS_COLOR.END;
 
-    }
     return {
-        title: route.params.task.title,
+        title: taskParam.title,
         headerStyle: {
-            backgroundColor: getColorByStatus(route.params.task.status),
+            backgroundColor: CodeUtil.getTaskColorByStatus(taskParam.status),
             height: 120
         },
         headerLeftContainerStyle: {

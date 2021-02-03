@@ -106,7 +106,7 @@ const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
                 <View style={{ ...styles.statusLabelContainer, ...statusLabelContainerStyle }}>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View style={{ ...commonStyle.columnCenterAlignment, justifyContent: "center" }}>
-                            <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{CodeUtil.GET_STATUS_TEXT(task.status)}</Text>
+                            <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{CodeUtil.getTaskTextByStatus(task.status)}</Text>
                         </View>
                     </View>
                 </View>

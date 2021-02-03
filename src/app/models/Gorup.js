@@ -1,6 +1,7 @@
+import GroupParticipant from "./GroupParticipant";
 
 
-export default class Group {
+class Group {
     constructor(group){
         this.id = group.id || null;
         this.name = group.name;
@@ -11,11 +12,20 @@ export default class Group {
         this.groupParticipants = group.groupParticipants || [];
     }
     addParticipant(participant){
-    
+        if (participant instanceof GroupParticipant){
+            this.groupParticipants.add(new GroupParticipant(participant));
+        }else{
+            throw new Error("participant must GroupParticipant")
+        }
     }
-
     validator(){
         let valid = {message:"",field:"",result:true};
         
     }
 }
+Group.prototype.constraints = {
+    
+}
+
+
+export default Group;

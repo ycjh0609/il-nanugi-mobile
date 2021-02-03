@@ -114,7 +114,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                             {Object.values(CodeUtil.TASK_STATUS)
                                 .sort((a, b) => getOrderByTaskStatus(a) - getOrderByTaskStatus(b))
                                 .map((code, idx) => {
-                                    let statusText = CodeUtil.GET_STATUS_TEXT(code);
+                                    let statusText = CodeUtil.getTaskTextByStatus(code);
                                     let filterByStatus = (t) => t.status === code;
                                     // 현 상태코드의 태스크가 없으면 표시하지 않음
                                     if (reCollacatedTasks.filter(filterByStatus).length === 0) {
