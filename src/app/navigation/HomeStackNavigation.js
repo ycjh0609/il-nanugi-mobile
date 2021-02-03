@@ -6,6 +6,7 @@ import { Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ToDoListScreen from '../containers/ToDoListScreen';
 import TaskDetailScreen from "../containers/TaskDetailScreen";
+import CodeUtil from '../utils/code/CodeUtil';
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
@@ -30,16 +31,25 @@ const styles = StyleSheet.create({
 const HomeStack = createStackNavigator();
 const TaskDetailHeaderOptions = ({ route }) => {
     //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
+    
+    //태스크 하나 불러와야함(todo)
+    const taskParam = route.params.task;
+
 
     const forFade = ({ current }) => ({
         cardStyle: {
           opacity: current.progress,
         },
       });
+    const getStatusColor = (status) =>{
+        if (status === CodeUtil.TASK_STATUS.TODO) return CodeUtil.TASK_STATUS_COLOR.TODO;
+        if (status === CodeUtil.TASK_STATUS.DOING) return CodeUtil.TASK_STATUS_COLOR.DOING;
+        if (status === CodeUtil.TASK_STATUS.END) return CodeUtil.TASK_STATUS_COLOR.END;
+    }
     return {
         title: route.params.task.title,
         headerStyle: {
-            backgroundColor: route.params.task.group.color,
+            backgroundColor: getStatusColor(taskParam.status),
             height: 120
         },
         headerLeftContainerStyle: {

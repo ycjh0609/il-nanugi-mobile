@@ -20,16 +20,33 @@ const styles = StyleSheet.create({
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
 const GroupStack = createStackNavigator();
-const GroupDetailOptions = ({ route }) => {
 
+
+const GroupDetailOptions = ({ route }) => {
+    //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
+
+    const forFade = ({ current }) => ({
+        cardStyle: {
+            opacity: current.progress,
+        },
+    });
     return {
         title: route.params.group.name,
         headerStyle: {
             backgroundColor: route.params.group.color,
+            height: 120
         },
-        leftLabel:"test",
+        headerLeftContainerStyle: {
+            marginLeft: 15
+        },
+        headerBackTitleStyle: {
+            fontSize: 18, fontWeight: "bold"
+        },
+        headerBackTitle: "그룹",
         headerTintColor: '#fff',
+        cardStyleInterpolator: forFade,
         headerTitleStyle: {
+            fontSize: 20,
             fontWeight: 'bold',
         },
     }
@@ -41,7 +58,7 @@ const GroupNavigation = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
