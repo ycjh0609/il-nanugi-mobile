@@ -5,8 +5,26 @@ import {getStoreItem} from "../utils/store/commonStore";
 import validator from "validator";
 import CodeUtil from '../utils/code/CodeUtil';
 
-
-
+/*
+{
+    "name":"",
+    "startDate":yyyymmdd,
+    "endDate":yyyymmdd,
+    "status":TDE,
+    "color":"#060606",
+    "participants":[
+       {
+          "id":1,
+          "roleType":"LEADER"
+       }
+    ],
+    "tags":[
+       {
+          "name":"개발"
+       }
+    ]
+ }
+ */
 const GroupService = {
     /*-------------------------------------------------------------------------------
     * 1) Requests
@@ -54,6 +72,10 @@ const GroupService = {
         //let userInfo = getStoreItem("userInfo");
         return commonAxios.get(`/groups/me`);
     },
+    /**
+     * 
+     */
+
 
 
 }
