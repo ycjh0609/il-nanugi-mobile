@@ -10,7 +10,7 @@ const CodeUtil ={
         TODO:"T",DOING:"D",END:"E",
     },
     TASK_STATUS_TEXT:{
-        END:"종료",TODO:"예정",DOING:"진행"
+        END:"완료",TODO:"예정",DOING:"진행"
     },
     TASK_SORT_TYPE:{
         BY_ENDTIME:0,BY_STATUS:1,BY_GROUP_ID:2,

@@ -51,7 +51,7 @@ const GroupListScreen = ({ route, navigation }) => {
         (async ()=>{
             try{
                 let g= await GroupService.getMyGroups();
-                setGroups(g.data);
+                setGroups(g.data.data);
             }catch(e){
                 setGroups(getGroups());
             }

@@ -6,7 +6,8 @@ import ToolBar from './ToolBar';
 import ToDoCard from './ToDoCard';
 import CodeUtil from '../../utils/code/CodeUtil';
 import commonStyle from '../../styles/commonStyle';
-import { Icon } from 'react-native-elements';
+import { Badge, Icon } from 'react-native-elements';
+
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.30
@@ -32,7 +33,7 @@ function createGroupName(name) {
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TaskList = ({ navigation,tasksState, sortType, filterBy, getTaskUpdater, title }) => {
+const TaskList = ({ navigation, tasksState, sortType, filterBy, getTaskUpdater, title }) => {
 
     return (
         <View>
@@ -55,7 +56,6 @@ const ToDoList = ({ navigation, items, setItems }) => {
     *-------------------------------------------------------------------------------*/
     const [sortType, setSortType] = useState(0);
     const [reCollacatedTasks, setReCollacatedTasks] = useState([]);
-
     /***************************
     * 렌더링 될 각 카드에 전달할 각 카드 setter 생성 
     ***************************/
@@ -84,7 +84,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
     ***************************/
     useEffect(function handleSortType() {
         if (sortType === CodeUtil.TASK_SORT_TYPE.BY_ENDTIME) {
-            setReCollacatedTasks(_.sortBy([...items.tasks], [{"endTime":"asc"}]));
+            setReCollacatedTasks(_.sortBy([...items.tasks], [{ "endTime": "asc" }]));
         } else if (sortType === CodeUtil.TASK_SORT_TYPE.BY_STATUS) {
             setReCollacatedTasks(_.sortBy([...items.tasks], ["status", "groupId"]));
         } else if (sortType === CodeUtil.TASK_SORT_TYPE.BY_GROUP_ID) {
@@ -101,6 +101,8 @@ const ToDoList = ({ navigation, items, setItems }) => {
             {/* 02. List */}
             <ScrollView>
                 <View style={{ marginBottom: 550 }}>
+
+
                     {/* 02-2. 마감 순 리스트 */}
                     {sortType === CodeUtil.TASK_SORT_TYPE.BY_ENDTIME &&
                         <View>
@@ -122,9 +124,13 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                     } else {
                                         return (
                                             <View key={"task-set-" + idx}>
-                                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 5 }}>
+                                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin:5,marginTop:10 }}>
                                                     <Icon name={"check"} size={20}></Icon>
-                                                    <Text style={{ fontSize: 18, margin: 5 }}>{statusText}</Text>
+                                                    <Text style={{ fontSize: 18, marginLeft: 5,marginRight:5,}}>{statusText}</Text>
+                                                    <Badge
+                                                        value={reCollacatedTasks.filter(filterByStatus).length}
+                                                        badgeStyle={{backgroundColor:CodeUtil.getTaskColorByStatus(code)}}
+                                                    />
                                                 </View>
                                                 <TaskList navigation={navigation} sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                                     filterBy={filterByStatus} />
@@ -146,10 +152,13 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 5 }}>
                                             <Icon name={"group"} size={20}></Icon>
                                             <Text style={{ fontSize: 18, margin: 5 }}>{groupName}</Text>
-                                            
+                                            <Badge
+                                                        value={reCollacatedTasks.filter(filterByGroupId).length}
+                                                        badgeStyle={{backgroundColor:group.color}}
+                                                    />
                                         </View>
                                         {reCollacatedTasks.filter(filterByGroupId).length == 0 &&
-                                            <View style={{ marginLeft:30}}>
+                                            <View style={{ marginLeft: 30 }}>
                                                 <Text style={{ color: commonStyle.oneTextColor, marginTop: 5, fontSize: 15, marginLeft: 2 }}>
                                                     할당된 일이 없습니다.
                                                 </Text>
@@ -157,7 +166,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                         }
                                         <TaskList navigation={navigation} sortType={sortType} getTaskUpdater={getTaskUpdater} tasksState={{ tasks: reCollacatedTasks, setTasks: setItems.setTasks }}
                                             filterBy={filterByGroupId} />
-                                        
+
                                     </View>
                                 )
                             })}

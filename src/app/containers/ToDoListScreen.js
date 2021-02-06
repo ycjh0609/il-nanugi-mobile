@@ -63,8 +63,8 @@ const ToDoListScreen = ({ route, navigation }) => {
             try{
                 let groupsRes= await GroupService.getMyGroups();
                 let tasksRes= await TaskService.getMyTasks();
-                setGroups(groupsRes.data);
-                setTasks(tasksRes.data);
+                setGroups(groupsRes.data.data);
+                setTasks(tasksRes.data.data);
             }catch(e){
                 setTasks(getTasks());
                 setGroups(getGroups());

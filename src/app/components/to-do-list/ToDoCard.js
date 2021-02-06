@@ -5,6 +5,7 @@ import Icon from "react-native-vector-icons/Ionicons";
 import commonStyle from '../../styles/commonStyle';
 import { CheckBox } from 'react-native-elements';
 import CodeUtil from '../../utils/code/CodeUtil';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 /*------------------------------------------------------------------------------------
@@ -26,23 +27,35 @@ const styles = StyleSheet.create({
         marginRight: 0,
         height: 55,
         borderRadius: 0,
+        borderRightWidth: 0,
+        backgroundColor: "white"
 
     },
-    statusLabelContainer: {
-        flex: 0.5,
+    detailBtnContainer: {
+        flex: 1,
         borderWidth: 1,
-        borderTopLeftRadius: 15,
-        borderBottomLeftRadius: 15,
-        width: "100%", height: 55
+        borderLeftWidth: 0,
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 15,
+        height: 55,
+        backgroundColor: "white"
+
+    },
+    statusTextContainer: {
+        borderTopLeftRadius: 7,
+        borderTopRightRadius: 7,
+        height: 20,
+        width: 55,
+        justifyContent: "center",
+        borderLeftWidth: 1, borderRightWidth: 1, borderTopWidth: 1,
     },
     groupLabelContainer: {
         flex: 1,
         borderWidth: 1,
-        borderTopRightRadius: 15,
-        borderBottomRightRadius: 15,
-        width: "100%", height: 55
+        borderTopLeftRadius: 15,
+        borderBottomLeftRadius: 15,
+        height: 55
     },
-
 });
 
 /*------------------------------------------------------------------------------------
@@ -52,12 +65,9 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
-    const [statusLabelContainerStyle, setStatusLabelContainerStyle] = useState({});
-    const [groupLabelContainerStyle, setGroupLabelContainerStyle] = useState({});
-    const [checkBoxTextStyle, setCheckBoxTextStyle] = useState({});
-    const [endTimeText,setEndTimeText] = useState("");
-    
+const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
+    const [endTimeText, setEndTimeText] = useState("");
+
     const isEndStatus = useCallback((status) => {
         return (status === CodeUtil.TASK_STATUS.END)
     });
@@ -74,39 +84,41 @@ const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
         updateTask({ ...task, status });
     })
 
-    useEffect(function handleContainerStyle() {
-        let statusColor = ""
-        let checkBoxTextColor = "";
-        if (task.status === CodeUtil.TASK_STATUS.TODO) {
-            statusColor = checkBoxTextColor = CodeUtil.TASK_STATUS_COLOR.TODO;
-        } else if (task.status === CodeUtil.TASK_STATUS.DOING) {
-            statusColor = CodeUtil.TASK_STATUS_COLOR.DOING;
-        } else if (task.status === CodeUtil.TASK_STATUS.END) {
-            statusColor = CodeUtil.TASK_STATUS_COLOR.END;
-        }
-        setStatusLabelContainerStyle({ backgroundColor: statusColor, borderColor: statusColor});
-        //TODO 상태일때만 텍스크 칼라 연하게 주자
-        setCheckBoxTextStyle(checkBoxTextColor ===""?{}:{color:checkBoxTextColor});
-   
-    }, [task]);
-    useEffect(function handleEndTimeText(){
-        if (sortType === 0){
+
+    useEffect(function handleEndTimeText() {
+        if (sortType === 0) {
             let temp = moment(task.endTime, 'YYYYMMDDhhmm').format('YYYY.MM.DD hh:mm');
             setEndTimeText(temp);
         }
-    },[task])
+    }, [task])
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
 
-        <View style={{ flexDirection: "column" }}>
 
-            <View style={{ ...commonStyle.rowAlignment, marginTop: 5 }}>
-                <View style={{ ...styles.statusLabelContainer, ...statusLabelContainerStyle }}>
+        <View style={{ flexDirection: "column", ...commonStyle.shodow }}>
+
+            <View style={{
+                flexDirection: 'row', justifyContent: 'flex-end', marginBottom: -5
+            }}>
+                <View style={{
+                    borderColor: CodeUtil.getTaskColorByStatus(task.status),
+                    backgroundColor: CodeUtil.getTaskColorByStatus(task.status),
+                    ...styles.statusTextContainer
+                }}>
+                    <Text style={{ textAlign: "center", color: "white" }}>{CodeUtil.getTaskTextByStatus(task.status)}</Text>
+                </View>
+            </View>
+
+            <View style={{ ...commonStyle.rowAlignment, marginBottom: 3 }}>
+                {/* group Label Container */}
+
+                {/* group Label Container */}
+                <View style={{ ...styles.groupLabelContainer, backgroundColor: task.group.color, borderColor: task.group.color }}>
                     <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
-                        <View style={{ ...commonStyle.columnCenterAlignment, justifyContent: "center" }}>
-                            <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{CodeUtil.getTaskTextByStatus(task.status)}</Text>
+                        <View style={{ ...commonStyle.columnCenterAlignment }}>
+                            <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{groupName}</Text>
                         </View>
                     </View>
                 </View>
@@ -115,36 +127,33 @@ const ToDoCard = ({ navigation,task, updateTask, groupName, sortType }) => {
                 <CheckBox
                     containerStyle={{ ...styles.checkBoxContainer, borderColor: task.group.color, }}
                     textStyle={{
-                        ...checkBoxTextStyle,
+
                         fontSize: 16,
-                        textDecorationLine: isEndStatus(task.status) ? 'line-through' : null
+                        textDecorationLine: isEndStatus(task.status) ? 'line-through' : null,
+                        color: task.status === CodeUtil.TASK_STATUS.END ? "grey":null
                     }}
-                    checkedColor={commonStyle.oneBackgroundColor}
+                    checkedColor={commonStyle.oneBackxgroundColor}
                     checked={isEndStatus(task.status) ? true : false}
                     title={task.title}
                     onPress={() => changeTaskStatus(task)}
                 />
-                {/* group Label Container */}
-                <View style={{ ...styles.goDetailContainer}}>
-                    {/* Todo dev 과제 */}
-                </View>
-                {/* group Label Container */}
-                <View style={{ ...styles.groupLabelContainer, backgroundColor: task.group.color, borderColor: task.group.color }}
-                    onTouchStart={() => navigation.navigate("TaskDetailScreen",{task})}>
-                    <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
-                        <View style={{ ...commonStyle.columnCenterAlignment }}>
-                            <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{groupName}</Text>
+
+
+                <View style={{
+                    ...styles.detailBtnContainer,
+                    borderColor: task.group.color,
+                    borderTopColor: CodeUtil.getTaskColorByStatus(task.status)
+                }}>
+                    <View onTouchStart={() => navigation.navigate("TaskDetailScreen", { task })} style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
+                        <View style={{ ...commonStyle.columnCenterAlignment, justifyContent: "center" }}>
+                            {/* <Text style={{ color: "white", fontWeight: "600", fontSize: 17 }}>{CodeUtil.getTaskTextByStatus(task.status)}</Text> */}
+                            <Text style={{ fontWeight: "600", fontSize: 20 }}>...</Text>
                         </View>
                     </View>
                 </View>
+
             </View>
-            {sortType === 0 &&
-                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end',marginRight:10 }}>
-                    {/* <Icon name="md-calendar" style={{marginRight:5}} size={20}/>  */}
-                    <Text> ~</Text>
-                    <Text style={{marginLeft:5,fontSize:15}}>{endTimeText}</Text>
-                </View>
-            }
+
         </View>
 
     )

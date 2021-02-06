@@ -39,6 +39,18 @@ const TaskService = {
         return commonAxios.get(`/tasks/${taskId}`)  
     },
     /**
+     * Task를 조건별로 조회한다.
+     * @param {Number} taskId 
+     * @param {Object} payload condition object
+     * @return group
+     */
+    getTasksByParam: (taskId,payload)=>{
+        
+        let query =  StringUtil.toQuery(payload);
+        
+        return commonAxios.get(`/tasks/${taskId}?${query}`)  
+    },
+    /**
      * Task를 생성핟다
      * @param {Object} task 
      * @returns task
@@ -67,7 +79,7 @@ const TaskService = {
     *-------------------------------------------------------------------------------*/
     /**
      * 나에게 할당된 Task를 조회한다. (back-end signedUser 를 이용)
-     * @returns group
+     * @returns [task]
      */
     getMyTasks:() =>{
         //let userInfo = getStoreItem("userInfo");
