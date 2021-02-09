@@ -137,7 +137,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                             </View>
                                             {reCollacatedTasks.filter(filterByStatus).length === 0 &&
                                                 <View style={{ marginLeft: 30 }}>
-                                                    <Text style={{ color: commonStyle.oneTextColor, marginTop: 5, fontSize: 15, marginLeft: 2 }}>
+                                                    <Text style={{ color: commonStyle.oneTextColor, marginTop: 5,marginBottom:5, fontSize: 15, marginLeft: 2 }}>
                                                         <Icon name={"folder-open"} size={15}></Icon>
                                                         {code === CodeUtil.TASK_STATUS.TODO && "  현재 예정된 일이 없습니다."}
                                                         {code === CodeUtil.TASK_STATUS.DOING && "  현재 진행중인 일이 없습니다."}
@@ -174,7 +174,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                         </View>
                                         {reCollacatedTasks.filter(filterByGroupId).length == 0 &&
                                             <View style={{ marginLeft: 30 }}>
-                                                <Text style={{ color: commonStyle.oneTextColor, marginTop: 5, fontSize: 15, marginLeft: 2 }}>
+                                                <Text style={{ color: commonStyle.oneTextColor, marginTop: 5,marginBottom: 5, fontSize: 15, marginLeft: 2 }}>
                                                     할당된 일이 없습니다.
                                                 </Text>
                                             </View>

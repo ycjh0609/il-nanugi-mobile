@@ -175,9 +175,12 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
                             ...styles.detailBtnContainer,
                             borderColor: task.group.color,
                             borderTopColor: CodeUtil.getTaskColorByStatus(task.status) }}>
-                    <View style={{ justifyContent: "center", flex: 1, alignItems: "center" }}>
+                    <View style={{ borderBottomLeftRadius:10
+                                    //,borderLeftWidth:0.5
+                                    //borderLeftColor:CodeUtil.getTaskColorByStatus(task.status) 
+                                    ,justifyContent: "center", flex: 1, alignItems: "center" }}>
                         <View style={{ ...commonStyle.columnCenterAlignment, justifyContent: "center" }}>
-                            <Icon name="ellipsis-h" size={15}  color={"grey"}/>
+                            <Icon name="ellipsis-h" size={15} color={"#bec5d1"} />
                         </View>
                     </View>
                 </View>

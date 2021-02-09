@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-native";
-import { Icon } from 'react-native-elements';
+import Icon from "react-native-vector-icons/FontAwesome5";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSafeArea } from 'react-native-safe-area-context';
 import commonStyle from '../../styles/commonStyle';
@@ -75,8 +75,8 @@ const ToolBar = ({ itemStates, sortState }) => {
             </View>
             <View>
             <TouchableOpacity activeOpacity={0.6} style={commonStyle.rowAlignment} onPress={changeSortType}>
-                <Icon name="sort" size={30} />
-                <Text style={{ marginLeft: 5, fontSize: 16 }}>{TASK_SORT_TYPES[sortState.sortType]}</Text>
+                <Icon name="sort" size={20} />
+                <Text style={{ margin: 5, fontSize: 16 }}>{TASK_SORT_TYPES[sortState.sortType]}</Text>
             </TouchableOpacity>
             
             <View style={{  marginTop: 10 }}></View>
