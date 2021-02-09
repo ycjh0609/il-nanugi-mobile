@@ -126,9 +126,9 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                     // 현 상태코드의 태스크가 없으면 표시하지 않음
                                     return (
                                         <View key={"task-set-" + idx}>
-                                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 5, marginTop: 10 }}>
-                                                <Icon name={"check"} size={20}></Icon>
-                                                <Text style={{ fontSize: 18, marginLeft: 10,marginRight:10 }}>{statusText}</Text>
+                                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 10 }}>
+                                                <Icon name={"check"} size={20} color={CodeUtil.getTaskColorByStatus(code)}></Icon>
+                                                <Text style={{ fontSize: 18, marginLeft: 10,marginRight:10,fontWeight:"600" }}>{statusText}</Text>
                                                 <Badge
                                                     value={reCollacatedTasks.filter(filterByStatus).length}
                                                     badgeStyle={{ backgroundColor: CodeUtil.getTaskColorByStatus(code) ,width:30}}
@@ -163,8 +163,8 @@ const ToDoList = ({ navigation, items, setItems }) => {
 
                                 return (
                                     <View key={"task-set-" + idx}>
-                                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 5 }}>
-                                            <Icon name={"user-friends"} size={20}></Icon>
+                                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 10 }}>
+                                            <Icon name={"user-friends"} size={20} />
                                             <Text style={{ fontSize: 18, marginLeft: 10,marginRight:10 }}>{groupName}</Text>
                                             <Badge
                                                 value={reCollacatedTasks.filter(filterByGroupId).length}
