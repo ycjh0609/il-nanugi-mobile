@@ -55,27 +55,33 @@ const TaskDetailScreen = ({ route, navigation }) => {
                 </View>
 
                 <View style={{ marginTop: 5, flexDirection: "row" }}>
-                    <View style={{ flexDirection: "row", padding: 5 }}>
-                        <View style={{ margin: 5, ...commonStyle.columnCenterAlignment }}>
-                        <CommonBtn onPress={() => Alert.alert("멤머 추가")} style={commonStyle.shodow} btnStyle={{ btnSize: 50, type: 1 }}
-                            titleStyle={{ name: "+", subName: "멤버" }} />
+                    <View style={{ flexDirection: "row",flex:1 }}>
+                        <View style={{ padding:5,...commonStyle.columnCenterAlignment }}>
+                            <CommonBtn onPress={() => Alert.alert("멤버 추가")} style={commonStyle.shodow} btnStyle={{ btnSize: 50, type: 1 }}
+                                titleStyle={{ name: "+", subName: "멤버" }} />
                             {/* <Text style={{ fontSize: 11, marginTop: 3 }}>{participant.name}</Text> */}
                         </View>
                     </View>
-                    <ScrollView horizontal>
-                        <View style={{ flexDirection: "row", padding: 5 }}>
-                            {passedTask.participants &&
-                                passedTask.participants.map((participant, idx) => {
-                                    return (
-                                        <View key={"participant-" + idx} style={{ margin: 5, ...commonStyle.columnCenterAlignment }}>
-                                            <CommonAvartar title={StringUtil.createSummarizeName(participant.name)} />
-                                            <Text style={{ fontSize: 11, marginTop: 3 }}>{participant.name}</Text>
-                                        </View>
-                                    )
-                                })
-                            }
-                        </View>
-                    </ScrollView>
+                    <View style={{flex:5}} >
+                        <ScrollView  horizontal>
+                            <View style={{ flexDirection: "row", padding: 5 }}>
+                                {passedTask.participants &&
+                                    passedTask.participants.map((participant, idx) => {
+                                        return (
+                                            <View key={"participant-" + idx} style={{ margin: 5, ...commonStyle.columnCenterAlignment }}>
+                                                <CommonAvartar title={StringUtil.createSummarizeName(participant.name)} />
+                                                <Text style={{ fontSize: 11, marginTop: 3 }}>{participant.name}</Text>
+                                            </View>
+                                        )
+                                    })
+                                }
+                            </View>
+                        </ScrollView>
+                    </View>
+                    <View style={{flex:0.5,justifyContent:"center"}}>
+                        <Text>></Text>
+                    </View>
+
                 </View>
             </View>
         </View>
