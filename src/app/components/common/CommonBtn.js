@@ -63,7 +63,6 @@ const CommonBtn = ({ style, btnStyle, iconStyle, titleStyle, onPress }) => {
                 new Error("그런 타입 없다.")
             }
         }
-
     }, [btnStyle]);
 
     /***************************

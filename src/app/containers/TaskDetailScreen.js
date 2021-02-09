@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
 import CommonAvartar from '../components/common/CommonAvartar';
 import commonStyle from '../styles/commonStyle';
-
+import Icon from "react-native-vector-icons/FontAwesome5";
+import { Badge } from 'react-native-elements';
+import StringUtil from "../utils/string/StringUtil"
+import { ScrollView } from 'react-native-gesture-handler';
+import CommonBtn from '../components/common/CommonBtn';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.26 
  * Edit By     : kwak ji hoon 
@@ -13,7 +17,13 @@ import commonStyle from '../styles/commonStyle';
  * 01) Styles
  *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
-
+    subTitle: {
+        fontSize: 20,
+        fontWeight: "500"
+    },
+    subTitleContainer: {
+        flexDirection: "row"
+    }
 });
 
 /*------------------------------------------------------------------------------------
@@ -23,26 +33,49 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TaskDetailScreen = () => {
+const TaskDetailScreen = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    
+    const [passedTask, setPassedTsk] = useState({});
     useEffect(() => {
-
-    }, []);
+        setPassedTsk(route.params.task);
+    }, [route.params.task]);
 
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <View style={{margin:20}}>
+        <View style={{ margin: 20 }}>
             <View>
-                <Text style={{fontSize:18}}>MEMBERS</Text>
-                <View style={{flexDirection:"row"}}>
-                    <CommonAvartar/>
-                    <CommonAvartar/>
-                    <CommonAvartar/>
+                <View style={styles.subTitleContainer}>
+                    {/* <Icon name={"users"} size={25} style={{marginRight:8}} /> */}
+                    <Text style={styles.subTitle}>MEMBERS</Text>
+                    <Badge />
+                </View>
+
+                <View style={{ marginTop: 5, flexDirection: "row" }}>
+                    <View style={{ flexDirection: "row", padding: 5 }}>
+                        <View style={{ margin: 5, ...commonStyle.columnCenterAlignment }}>
+                        <CommonBtn onPress={() => Alert.alert("멤머 추가")} style={commonStyle.shodow} btnStyle={{ btnSize: 50, type: 1 }}
+                            titleStyle={{ name: "+", subName: "멤버" }} />
+                            {/* <Text style={{ fontSize: 11, marginTop: 3 }}>{participant.name}</Text> */}
+                        </View>
+                    </View>
+                    <ScrollView horizontal>
+                        <View style={{ flexDirection: "row", padding: 5 }}>
+                            {passedTask.participants &&
+                                passedTask.participants.map((participant, idx) => {
+                                    return (
+                                        <View key={"participant-" + idx} style={{ margin: 5, ...commonStyle.columnCenterAlignment }}>
+                                            <CommonAvartar title={StringUtil.createSummarizeName(participant.name)} />
+                                            <Text style={{ fontSize: 11, marginTop: 3 }}>{participant.name}</Text>
+                                        </View>
+                                    )
+                                })
+                            }
+                        </View>
+                    </ScrollView>
                 </View>
             </View>
         </View>

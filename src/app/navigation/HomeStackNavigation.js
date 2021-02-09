@@ -60,23 +60,18 @@ const TaskDetailHeaderOptions = ({ route }) => {
             fontSize: 20,
             fontWeight: 'bold',
         },
-        headerRight:()=>{
-            <View>
-                <Text>sadfsdfasdfsdafasfasdf</Text>
-            </View>
-        },
         headerTitle:()=>(
             <View style={commonStyle.columnCenterAlignment}>
                 <View style={{ ...commonStyle.rowAlignment }}>
-                    {/* <Icon size={20} name={"list-ol"} color={"white"}></Icon> */}
-                    <View style={{ marginLeft: 15 }} >
+                    <Icon size={20} name={"info-circle"} color={"white"}></Icon>
+                    <View style={{ marginLeft: 10 }} >
                         <Text style={{ fontSize: 20, fontWeight: "600", color: "white" }}>{taskParam.title}</Text>
                     </View>
                 </View>
 
                 <View style={{ ...commonStyle.rowAlignment, marginTop: 10 }}>
                     <Icon size={16} name={"user-friends"} color={"white"}></Icon>
-                    <View style={{ marginLeft: 15 }} >
+                    <View style={{ marginLeft: 10 }} >
                         <Text style={{ fontSize: 16, fontWeight: "600", color: "white" }}>{taskParam.group.name}</Text>
                     </View>
                 </View>

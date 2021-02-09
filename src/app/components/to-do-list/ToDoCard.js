@@ -3,7 +3,7 @@ import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-
 import moment from "moment";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import commonStyle from '../../styles/commonStyle';
-import { CheckBox } from 'react-native-elements';
+import { Badge, CheckBox } from 'react-native-elements';
 import CodeUtil from '../../utils/code/CodeUtil';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -29,7 +29,6 @@ const styles = StyleSheet.create({
         borderRadius: 0,
         borderRightWidth: 0,
         backgroundColor: "white"
-
     },
     detailBtnContainer: {
         flex: 1,
@@ -41,14 +40,14 @@ const styles = StyleSheet.create({
         backgroundColor: "white"
 
     },
-    timerContainer:{
+    timerContainer: {
         borderTopLeftRadius: 7,
         borderTopRightRadius: 0,
         height: 20,
         width: 200,
         justifyContent: "center",
         borderLeftWidth: 1, borderRightWidth: 1, borderTopWidth: 1,
-        
+
     },
     statusTextContainer: {
         borderTopLeftRadius: 0,
@@ -80,7 +79,7 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
     const isEndStatus = useCallback((status) => {
         return (status === CodeUtil.TASK_STATUS.END)
     });
-    const goTaskDetail = useCallback(()=>{
+    const goTaskDetail = useCallback(() => {
         navigation.navigate("TaskDetailScreen", { task });
     })
     const changeTaskStatus = useCallback((task) => {
@@ -106,8 +105,8 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
     return (
 
 
-        <View style={{ flexDirection: "column", ...commonStyle.shodow }}>  
-            
+        <View style={{ flexDirection: "column", ...commonStyle.shodow }}>
+
             {/*-------------------------------------------------
               * 01) status Label 
               * ----------------------------------------------*/}
@@ -119,7 +118,7 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
                     ...styles.timerContainer
                 }}>
                     <Text style={{ textAlign: "center" }}>
-                        <Icon name="calendar-check"/>
+                        <Icon name="calendar-check" />
                         {"  "}
                         {endTimeText}
                     </Text>
@@ -155,30 +154,44 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
                   * ----------------------------------------------*/}
                 <CheckBox
                     containerStyle={{ ...styles.checkBoxContainer, borderColor: task.group.color, }}
-                    textStyle={{
-                        fontSize: 16,
-                        textDecorationLine: isEndStatus(task.status) ? 'line-through' : null,
-                        color: task.status === CodeUtil.TASK_STATUS.END ? CodeUtil.TASK_STATUS_COLOR.TODO:null
-                    }}
                     checkedColor={commonStyle.oneBackxgroundColor}
                     checked={isEndStatus(task.status) ? true : false}
-                    title={task.title}
+                    title={
+                        <View style={{flexDirection:"row"}}>
+                        <Text style={{
+                            fontSize: 16,
+                            marginLeft:5,
+                            fontWeight: "600",
+                            textDecorationLine: isEndStatus(task.status) ? 'line-through' : null,
+                            color: task.status === CodeUtil.TASK_STATUS.END ? CodeUtil.TASK_STATUS_COLOR.TODO : null
+                        }}>{task.title}
+                        
+                         </Text>
+                         {/* <Badge 
+                            status={"success"}
+                            containerStyle={{ top: -5, right: -4 }}
+                            value={<Icon name={"stopwatch"} color={"white"}/>}/> */}
+                         </View>
+                    }
+
                     onPress={() => changeTaskStatus(task)}
                 />
-
                 {/*-------------------------------------------------
                   * 02-3) Go Detail Button Container (...)
                   * ----------------------------------------------*/}
-                <View 
+                <View
                     onTouchStart={goTaskDetail}
                     style={{
-                            ...styles.detailBtnContainer,
-                            borderColor: task.group.color,
-                            borderTopColor: CodeUtil.getTaskColorByStatus(task.status) }}>
-                    <View style={{ borderBottomLeftRadius:10
-                                    //,borderLeftWidth:0.5
-                                    //borderLeftColor:CodeUtil.getTaskColorByStatus(task.status) 
-                                    ,justifyContent: "center", flex: 1, alignItems: "center" }}>
+                        ...styles.detailBtnContainer,
+                        borderColor: task.group.color,
+                        borderTopColor: CodeUtil.getTaskColorByStatus(task.status)
+                    }}>
+                    <View style={{
+                        borderBottomLeftRadius: 10
+                        //,borderLeftWidth:0.5
+                        //borderLeftColor:CodeUtil.getTaskColorByStatus(task.status) 
+                        , justifyContent: "center", flex: 1, alignItems: "center"
+                    }}>
                         <View style={{ ...commonStyle.columnCenterAlignment, justifyContent: "center" }}>
                             <Icon name="ellipsis-h" size={15} color={"#bec5d1"} />
                         </View>

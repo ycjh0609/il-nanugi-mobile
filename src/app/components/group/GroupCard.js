@@ -6,6 +6,7 @@ import commonStyle from '../../styles/commonStyle';
 import CommonAvartar from '../common/CommonAvartar';
 import CommonBtn from '../common/CommonBtn';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import StringUtil from '../../utils/string/StringUtil';
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2021.01.22
@@ -68,7 +69,7 @@ const GroupCard = ({ navigation,group, title }) => {
                 <View style={styles.groupAvatarContainer}>
                     <CommonBtn onPress={() => navigation.navigate("GroupDetailScreen",{group})} style={commonStyle.shodow}
                         btnStyle={{ btnSize: 70, type: 0, btnBackgroundColor: group.color }}
-                        titleStyle={{ name: createGroupName(group.name) }} />
+                        titleStyle={{ name: StringUtil.createSummarizeName(group.name) }} />
                 </View>
                 {/* (right) group avatar container */}
                 <View style={styles.groupIntroContainer}>
@@ -82,7 +83,7 @@ const GroupCard = ({ navigation,group, title }) => {
                         {/* 3명의 아바타만 나옴*/}
                         {group.participants.filter((p, idx) => idx < AVATAR_VIEW_CNT).map((participant, idx) => (
                             <View key={"participant-" + idx} style={{ marginRight: 5 }}>
-                                <CommonAvartar title={createGroupName(participant.name)} />
+                                <CommonAvartar title={createGroupName(participant.name,true)} />
                             </View>
                         ))}
                         {/* 3명 초과의 참여자가 있으면 ... 아바타로 대체 */}
