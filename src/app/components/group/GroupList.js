@@ -1,23 +1,17 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { StyleSheet, Text, View, Button, Group } from "react-native";
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { SearchBar } from 'react-native-elements';
 import _ from "lodash";
-
 import { Icon } from 'react-native-elements';
-
 import ToolBar from "./ToolBar"
 import GroupCard from "./GroupCard"
-
 import commonStyle from '../../styles/commonStyle';
-import CommonAvartar from '../common/CommonAvartar';
-import CommonBtn from '../common/CommonBtn';
-import { SearchBar } from 'react-native-elements';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.30
  * Edit By     : kwak ji hoon 
  * Description : SimpleBoard
  *----------------------------------------------------------------------------------*/
-
 const styles = StyleSheet.create({
     container: {
         margin: 20
@@ -51,9 +45,8 @@ const GroupList = ({ navigation, groupsState }) => {
         if (!searchText|| searchText ==null || searchText.trim().length == 0){
             setReCollocatedCards(groupsState.groups);
         }else{
-            let temp = groupsState.groups
-            .filter((group) => {
-                return group.name.indexOf(searchText) > -1 ? true : false;
+            let temp = groupsState.groups.filter((group) => {
+                return group.name.indexOf(searchText) > -1;
             })
             setReCollocatedCards(temp);
         }

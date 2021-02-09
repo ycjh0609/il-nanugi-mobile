@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { StyleSheet, Text, View, Animated, Image } from "react-native";
 import commonStyle from '../../styles/commonStyle';
+import CodeUtil from '../../utils/code/CodeUtil';
 import CommonBtn from '../common/CommonBtn';
 
 /*------------------------------------------------------------------------------------
@@ -77,7 +78,7 @@ const HomeDashboard = ({ items,navigation }) => {
     useEffect(() => {
         setRemainTaskCnt(items.tasks.length);
         setJoinedGroupCnt(items.groups.length);
-        let temp = items.tasks.filter((t) => t.status == "E").length / items.tasks.length * 100;
+        let temp = items.tasks.filter((t) => t.status == CodeUtil.TASK_STATUS.END).length / items.tasks.length * 100;
         setPercentage(parseInt(temp));
     }, [items]);
 

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View } from "react-native";
+import CommonAvartar from '../components/common/CommonAvartar';
+import commonStyle from '../styles/commonStyle';
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.26 
@@ -34,8 +36,15 @@ const TaskDetailScreen = () => {
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <View >
-            <Text >TaskDetailScreen</Text>
+        <View style={{margin:20}}>
+            <View>
+                <Text style={{fontSize:18}}>MEMBERS</Text>
+                <View style={{flexDirection:"row"}}>
+                    <CommonAvartar/>
+                    <CommonAvartar/>
+                    <CommonAvartar/>
+                </View>
+            </View>
         </View>
     )
 }
