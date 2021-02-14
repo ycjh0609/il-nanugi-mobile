@@ -9,6 +9,7 @@ import CodeUtil from '../../utils/code/CodeUtil';
 import commonStyle from '../../styles/commonStyle';
 import { Badge } from 'react-native-elements';
 import Icon from "react-native-vector-icons/FontAwesome5";
+import StringUtil from '../../utils/string/StringUtil';
 
 
 /*------------------------------------------------------------------------------------
@@ -25,13 +26,8 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-function createGroupName(name) {
-    if (name.split(" ").length == 1) {
-        return name.split(" ")[0].substring(0, 2);
-    } else if (name.split(" ").length > 1) {
-        return name.split(" ")[0].substring(0, 1) + "" + name.split(" ")[1].substring(0, 1);
-    }
-}
+
+ 
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
@@ -46,7 +42,7 @@ const TaskList = ({ navigation, tasksState, sortType, filterBy, getTaskUpdater, 
                         sortType={sortType}
                         navigation={navigation}
                         updateTask={getTaskUpdater(task)}
-                        groupName={createGroupName(task.group.name)} />
+                        groupName={StringUtil.createSummarizeName(task.group.name)} />
                 )
             })}
         </View>

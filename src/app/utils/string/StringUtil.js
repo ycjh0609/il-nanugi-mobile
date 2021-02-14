@@ -13,7 +13,7 @@ const StringUtil = {
         name = upperCase(name);
         let temp = name.split(" ").map(n=>trim(n)) ;
         if (temp.length == 1) {
-            return temp.substring(0, 2);
+            return temp[0].substring(0, 2);
         } else if (temp.length > 1) {
             return temp[0].substring(0, 1) + space + temp[1].substring(0, 1);
         }
