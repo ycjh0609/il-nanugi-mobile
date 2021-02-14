@@ -18,7 +18,9 @@ const CodeUtil ={
     TASK_STATUS_COLOR:{
         TODO:"#999793",DOING:"#f5ad42",END:commonStyle.oneTextColor
     },
-
+    TASK_STATUS_CARD_BACK_COLOR :{
+        TODO: "", DOING: "#dde8ed", END: ""
+    },
 
     /*---------------------------------------*/
     //3) GROUP

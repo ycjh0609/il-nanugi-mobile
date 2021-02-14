@@ -32,12 +32,6 @@ const styles = StyleSheet.create({
  * 03) React
  *----------------------------------------------------------------------------------*/
 const TaskList = ({ navigation, tasksState, sortType, filterBy, getTaskUpdater, title }) => {
-
-
-    let jsonString = tasksState.tasks.filter(filterBy)
-    console.log("##################################")
-    console.log("##################################")
-    console.log(JSON.stringify(jsonString,null,2))
     return (
         <View>
             {tasksState.tasks.filter(filterBy).map((task, idx) => {
