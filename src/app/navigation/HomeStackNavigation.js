@@ -63,18 +63,20 @@ const TaskDetailHeaderOptions = ({ route }) => {
         headerTitle:()=>(
             <View style={commonStyle.columnCenterAlignment}>
                 <View style={{ ...commonStyle.rowAlignment }}>
-                    <Icon size={20} name={"info-circle"} color={"white"}></Icon>
-                    <View style={{ marginLeft: 10 }} >
+                    <View style={{ marginRight: 10 }} >
                         <Text style={{ fontSize: 20, fontWeight: "600", color: "white" }}>{taskParam.title}</Text>
                     </View>
+                    <TouchableOpacity>
+                        <Icon size={20} name={"edit"} color={"white"}></Icon>
+                    </TouchableOpacity>
                 </View>
 
-                <View style={{ ...commonStyle.rowAlignment, marginTop: 10 }}>
+                {/* <View style={{ ...commonStyle.rowAlignment, marginTop: 10 }}>
                     <Icon size={16} name={"user-friends"} color={"white"}></Icon>
                     <View style={{ marginLeft: 10 }} >
                         <Text style={{ fontSize: 16, fontWeight: "600", color: "white" }}>{taskParam.group.name}</Text>
                     </View>
-                </View>
+                </View> */}
             </View>
         )
 
