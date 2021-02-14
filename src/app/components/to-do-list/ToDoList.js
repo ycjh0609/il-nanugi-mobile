@@ -27,12 +27,17 @@ const styles = StyleSheet.create({
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
 
- 
+
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
 const TaskList = ({ navigation, tasksState, sortType, filterBy, getTaskUpdater, title }) => {
 
+
+    let jsonString = tasksState.tasks.filter(filterBy)
+    console.log("##################################")
+    console.log("##################################")
+    console.log(JSON.stringify(jsonString,null,2))
     return (
         <View>
             {tasksState.tasks.filter(filterBy).map((task, idx) => {
@@ -155,8 +160,8 @@ const ToDoList = ({ navigation, items, setItems }) => {
                         <View>
                             {items.groups.map((group, idx) => {
                                 let groupName = group.name;
-                                let filterByGroupId = (t) => t.groupId === group.id;
-
+                                let filterByGroupId = (t) => t.group.id === group.id;
+                                
                                 return (
                                     <View key={"task-set-" + idx}>
                                         <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', margin: 10 }}>
