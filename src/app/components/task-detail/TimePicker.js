@@ -19,6 +19,32 @@ import { isNil } from 'lodash';
  * 01) Styles
  *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
+    container: {
+        borderRadius: 10
+        , borderTopRightRadius: 0
+        , borderWidth: .3
+    },
+    yearTitleContainer: {
+        flexDirection: 'row', justifyContent: 'flex-end', marginTop: -20,
+    },
+    yearTitle: {
+        width: 70
+        , padding: 2
+
+        , borderWidth: .3
+        , borderBottomWidth: 0
+        , borderTopLeftRadius: 5
+        , borderTopRightRadius: 5
+    }
+    , cardContainer: {
+        flexDirection: "row", justifyContent: "center"
+    }
+    , timePickerContainer: {
+
+    }
+    , btnContainer: {
+        flexDirection: "column", justifyContent: "center"
+    }
 
 });
 
@@ -54,19 +80,29 @@ const TimePicker = ({ timeState }) => {
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <View>
-            <View style={{
-                flexDirection: 'row', justifyContent: 'flex-end',marginTop:-20,
-            }}>
-                <View style={{width:70
-                            ,padding:2
-                            ,borderTopLeftRadius:5
-                            ,borderTopRightRadius:5
-                            ,backgroundColor:CodeUtil.TASK_STATUS_CARD_BACK_COLOR.DOING}}>
-                    <Text style={{ textAlign:"center" }}>{time.getFullYear()}년</Text>
+        <View style={{
+            ...styles.container, backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.END
+            , borderColor: CodeUtil.TASK_STATUS_COLOR.END
+        }}>
+            {/*------------------------------ 
+              1) year title
+              ------------------------------*/}
+            <View style={styles.yearTitleContainer}>
+                <View style={{
+                    ...styles.yearTitle
+                    , borderColor: CodeUtil.TASK_STATUS_COLOR.END
+                    , backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.END
+                }}>
+                    <Text style={{ textAlign: "center" }}>{time.getFullYear()}년</Text>
                 </View>
             </View>
-            <Animated.View style={{ height: containerHeight, flexDirection: "row", justifyContent: "center", backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.DOING, borderRadius: 10,borderTopRightRadius:0 }}>
+            {/*------------------------------ 
+              2) card contaienr
+              ------------------------------*/}
+            <Animated.View style={{ height: containerHeight, ...styles.cardContainer }}>
+                {/*------------------------------ 
+                  2-1) time picker
+                ------------------------------*/}
                 <View onTouchStart={() => setCanEdit(true)} style={{ flex: 7, justifyContent: "center" }}>
                     <DatePicker
                         style={{
@@ -74,27 +110,29 @@ const TimePicker = ({ timeState }) => {
                         }}
                         locale={"ko"}
                         mode={"datetime"}
+                        minuteInterval={5}
                         date={time}
                         onDateChange={changeTime}
                     />
                 </View>
+                {/*------------------------------ 
+                  2-2) edit, save button
+                 ------------------------------*/}
                 <View style={{ flex: 1, flexDirection: "row" }}>
-                    <View style={{ flexDirection: "column", justifyContent: "center" }}>
+                    <View style={styles.btnContainer}>
                         <TouchableOpacity onPress={() => setCanEdit(!canEdit)}>
-                            <View style={{ justifyContent: "center", flexDirection: "row" }}>
-                                {canEdit &&
-                                    <ShakingIcon size={20} name={"save"} />
-                                }
-                                {!canEdit &&
-                                    <Icon size={20} name={"edit"} />
-                                }
-                            </View>
-                            <Text style={{ fontSize: 12, marginTop: 3 }}>{canEdit ? "저장" : "편집"}</Text>
+                            {canEdit &&
+                                <ShakingIcon size={22} name={"save"} />
+                            }
+                            {!canEdit &&
+                                <Icon size={20} name={"edit"} />
+                            }
+                            <Text style={{ fontSize: 12, marginTop: 5 }}>{canEdit ? "저장" : "편집"}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </Animated.View>
-            
+
         </View>
     )
 }

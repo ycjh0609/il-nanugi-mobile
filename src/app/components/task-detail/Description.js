@@ -7,6 +7,8 @@ import DatePicker from 'react-native-date-picker'
 import Icon from "react-native-vector-icons/FontAwesome5";
 import ShakingIcon from "../common/ShakingIcon"
 import CodeUtil from '../../utils/code/CodeUtil';
+import { Input } from 'react-native-elements';
+import { TextInput } from 'react-native-gesture-handler';
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2021.02.13 
@@ -18,7 +20,15 @@ import CodeUtil from '../../utils/code/CodeUtil';
  * 01) Styles
  *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
+    cardContainer: {
+        flexDirection: "row", justifyContent: "center"
+        , borderRadius: 10
+        , borderWidth: .3
 
+    },
+    btnContainer: {
+        flexDirection: "column", justifyContent: "center"
+    }
 });
 
 /*------------------------------------------------------------------------------------
@@ -32,37 +42,47 @@ const Description = ({ descriptionState }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-   const containerHeight = useRef(new Animated.Value(60)).current;
-   const [canEdit, setCanEdit] = useState(false);
-  
+    const containerHeight = useRef(new Animated.Value(60)).current;
+    const [canEdit, setCanEdit] = useState(false);
+
     useEffect(() => {
-       Animated.timing(containerHeight, {
-           toValue: canEdit ? 60 : 60,
-           duration: 300,
-           useNativeDriver: false
-       }).start();
-   }, [canEdit]);
+        Animated.timing(containerHeight, {
+            toValue: canEdit ? 60 : 60,
+            duration: 300,
+            useNativeDriver: false
+        }).start();
+    }, [canEdit]);
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
         <View>
-            <Animated.View style={{ height: containerHeight, flexDirection: "row", justifyContent: "center", backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.DOING, borderRadius: 10, borderTopRightRadius: 0 }}>
-                <View onTouchStart={() => setCanEdit(true)} style={{ flex: 7, justifyContent: "center" }}>
-                   
+            <Animated.View style={{
+                height: containerHeight, backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.END
+                , ...styles.cardContainer, borderColor: CodeUtil.TASK_STATUS_COLOR.END
+            }}>
+                <View onTouchStart={() => setCanEdit(true)} style={{ flex: 7,flexDirection:"row", justifyContent: "center",padding:20 }}>
+                    <TextInput
+                        placeholder={"설명없음"}
+                        style={{
+                            width:"100%"  
+                        }}
+                        
+                    />
                 </View>
+                {/*------------------------------ 
+                  2-2) edit, save button
+                 ------------------------------*/}
                 <View style={{ flex: 1, flexDirection: "row" }}>
-                    <View style={{ flexDirection: "column", justifyContent: "center" }}>
+                    <View style={styles.btnContainer}>
                         <TouchableOpacity onPress={() => setCanEdit(!canEdit)}>
-                            <View style={{ justifyContent: "center", flexDirection: "row" }}>
-                                {canEdit &&
-                                    <ShakingIcon size={20} name={"save"} />
-                                }
-                                {!canEdit &&
-                                    <Icon size={20} name={"edit"} />
-                                }
-                            </View>
-                            <Text style={{ fontSize: 12, marginTop: 3 }}>{canEdit ? "저장" : "편집"}</Text>
+                            {canEdit &&
+                                <ShakingIcon size={22} name={"save"} />
+                            }
+                            {!canEdit &&
+                                <Icon size={20} name={"edit"} />
+                            }
+                            <Text style={{ fontSize: 12, marginTop: 5 }}>{canEdit ? "저장" : "편집"}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -7,7 +7,7 @@ export default globalConfig = {
     },
     axios:{
         ENV:"LOCAL",
-        BASE_HOST:"http://localhost:9999",
+        BASE_HOST:"http://localhost:8080",
         TIME_OUT: 3000
     }
 
