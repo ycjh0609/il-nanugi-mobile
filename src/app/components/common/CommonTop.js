@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { Alert } from 'react-native';
 
 import { deleteStoreWatcher, useStoreState } from '../../utils/store/commonStore';
@@ -7,6 +7,7 @@ import CommonAvartar from '../common/CommonAvartar';
 import commonStyle from '../../styles/commonStyle';
 import CommonBtn from '../common/CommonBtn';
 import commonConfig from '../../config/commonConfig';
+import { BottomSheet, Overlay } from 'react-native-elements';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.26 
  * Edit By     : kwak ji hoon 
@@ -59,7 +60,10 @@ const styles = StyleSheet.create({
         width:8,
         borderRadius:8*2,
         margin:4
-    }
+    },
+
+    loading: {
+      }
 });
 
 /*------------------------------------------------------------------------------------
@@ -77,6 +81,7 @@ const HomeTop = ({}) => {
     const _onPressAlarmBtn = useCallback(()=>{
         Alert.alert("alram")
     });
+   
     /*--------------------------------`-----------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
@@ -95,7 +100,6 @@ const HomeTop = ({}) => {
                     <CommonBtn onPress={_onPressAlarmBtn} btnStyle={{btnSize:40,type:0}} iconStyle={{name:"md-bulb"}}/>
                 </View>
             </View>
-           
         </View>
     )
 }

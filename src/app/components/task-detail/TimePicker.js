@@ -9,6 +9,8 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import ShakingIcon from "../common/ShakingIcon"
 import CodeUtil from '../../utils/code/CodeUtil';
 import { isNil } from 'lodash';
+import { Button } from 'react-native-elements';
+import commonStyle from '../../styles/commonStyle';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2021.02.13 
  * Edit By     : kwak ji hoon 
@@ -20,21 +22,10 @@ import { isNil } from 'lodash';
  *----------------------------------------------------------------------------------*/
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 10
-        , borderTopRightRadius: 0
-        , borderWidth: .3
-    },
-    yearTitleContainer: {
-        flexDirection: 'row', justifyContent: 'flex-end', marginTop: -20,
-    },
-    yearTitle: {
-        width: 70
-        , padding: 2
-
-        , borderWidth: .3
-        , borderBottomWidth: 0
-        , borderTopLeftRadius: 5
-        , borderTopRightRadius: 5
+        borderRadius: 30
+        
+        
+       
     }
     , cardContainer: {
         flexDirection: "row", justifyContent: "center"
@@ -55,12 +46,12 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const TimePicker = ({ timeState }) => {
+const TimePicker = ({ timeState,onCancle }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    const containerHeight = useRef(new Animated.Value(70)).current;
-    const [canEdit, setCanEdit] = useState(false);
+    const containerHeight = useRef(new Animated.Value(165)).current;
+    const [canEdit, setCanEdit] = useState(true);
     const [time, setTime] = useState(new Date());
 
     const changeTime = useCallback((date) => {
@@ -70,32 +61,18 @@ const TimePicker = ({ timeState }) => {
         setTime(moment(timeState.time, 'YYYYMMDDhhmm').toDate())
     }, [timeState]);
     useEffect(() => {
-        Animated.timing(containerHeight, {
-            toValue: canEdit ? 115 : 70,
-            duration: 300,
-            useNativeDriver: false
-        }).start();
+        if (!canEdit){
+            timeState.setTime(moment(time).format("YYYYMMDDhhmm"));
+            onCancle();
+        }
     }, [canEdit]);
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
         <View style={{
-            ...styles.container, backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.END
-            , borderColor: CodeUtil.TASK_STATUS_COLOR.END
+            ...styles.container, backgroundColor: "#dcdce3",height:200
         }}>
-            {/*------------------------------ 
-              1) year title
-              ------------------------------*/}
-            <View style={styles.yearTitleContainer}>
-                <View style={{
-                    ...styles.yearTitle
-                    , borderColor: CodeUtil.TASK_STATUS_COLOR.END
-                    , backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.END
-                }}>
-                    <Text style={{ textAlign: "center" }}>{time.getFullYear()}년</Text>
-                </View>
-            </View>
             {/*------------------------------ 
               2) card contaienr
               ------------------------------*/}
@@ -106,7 +83,7 @@ const TimePicker = ({ timeState }) => {
                 <View onTouchStart={() => setCanEdit(true)} style={{ flex: 7, justifyContent: "center" }}>
                     <DatePicker
                         style={{
-                            height: canEdit ? 120 : 80
+                            height: 160
                         }}
                         locale={"ko"}
                         mode={"datetime"}
@@ -133,6 +110,7 @@ const TimePicker = ({ timeState }) => {
                 </View>
             </Animated.View>
 
+            <Button title={"취소"} containerStyle={{backgroundColor:commonStyle.backgroundColor}} onPress={onCancle}/>
         </View>
     )
 }

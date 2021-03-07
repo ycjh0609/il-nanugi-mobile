@@ -51,7 +51,7 @@ const MainTabNavigation = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
@@ -73,11 +73,13 @@ const MainTabNavigation = ({ route, navigation }) => {
                 options={{
                     tabBarLabel: '',
                 }}
+                initialParams={route.params}
             />
             <MainTab.Screen name="Group" component={GroupNavigation}
                 options={{
                     tabBarLabel: '',
                 }}
+                initialParams={route.params}
             />
             <MainTab.Screen name="ilPlus" component={Blank}
                 options={{

@@ -32,14 +32,14 @@ const styles = StyleSheet.create({
 const HomeStack = createStackNavigator();
 const TaskDetailHeaderOptions = ({ route }) => {
     //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
-    
+
     //태스크 하나 불러와야함(todo)
     const taskParam = route.params.task;
     const forFade = ({ current }) => ({
         cardStyle: {
-          opacity: current.progress,
+            opacity: current.progress,
         },
-      });
+    });
 
     return {
         title: taskParam.title,
@@ -55,12 +55,12 @@ const TaskDetailHeaderOptions = ({ route }) => {
         },
         headerBackTitle: "할일",
         headerTintColor: '#fff',
-        cardStyleInterpolator: forFade, 
+        cardStyleInterpolator: forFade,
         headerTitleStyle: {
             fontSize: 20,
             fontWeight: 'bold',
         },
-        headerTitle:()=>(
+        headerTitle: () => (
             <View style={commonStyle.columnCenterAlignment}>
                 <View style={{ ...commonStyle.rowAlignment }}>
                     <View style={{ marginRight: 10 }} >
@@ -70,13 +70,6 @@ const TaskDetailHeaderOptions = ({ route }) => {
                         <Icon size={20} name={"edit"} color={"white"}></Icon>
                     </TouchableOpacity>
                 </View>
-
-                {/* <View style={{ ...commonStyle.rowAlignment, marginTop: 10 }}>
-                    <Icon size={16} name={"user-friends"} color={"white"}></Icon>
-                    <View style={{ marginLeft: 10 }} >
-                        <Text style={{ fontSize: 16, fontWeight: "600", color: "white" }}>{taskParam.group.name}</Text>
-                    </View>
-                </View> */}
             </View>
         )
 
@@ -89,18 +82,13 @@ const HomeStackNavigation = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
-    useEffect(() => {
-        const unsubscribe = navigation.addListener("transitionStart", (e) => {
-            console.log("123123")
-        })
-        return unsubscribe;
-    }, [navigation])
+   
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <HomeStack.Navigator initialRouteName={"ToDoListScreen"}>
-            <HomeStack.Screen name="ToDoListScreen" component={ToDoListScreen} options={{ headerShown: false }} />
+        <HomeStack.Navigator initialRouteName={"ToDoListScreen"} >
+            <HomeStack.Screen name="ToDoListScreen"  component={ToDoListScreen} options={{ headerShown: false }} />
             <HomeStack.Screen name="TaskDetailScreen" component={TaskDetailScreen} options={TaskDetailHeaderOptions} />
         </HomeStack.Navigator>
     )

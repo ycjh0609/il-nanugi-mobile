@@ -27,13 +27,13 @@ const styles = StyleSheet.create({
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
 
-function getGroups(){
+function getGroups() {
     let temp = [
-        {id:1,name:"일 나누기 개발",color:"#32a85d",participants:[{userid:1,name:"곽지훈"},{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}]  },
-        {id:2,name:"Sweet Home",color:"#a88132",participants:[{userId:2,name:"Tina Kim"},{userId:3,name:"Choi Flower"}]   },
-        {id:3,name:"경영과학 2조",color:"#32a89c" ,participants:[{userid:1,name:"곽지훈"},{userId:3,name:"Choi Flower"}]    },
-        {id:4,name:"개인 프로젝트",color:"#7f71e3" ,participants:[{userId:3,name:"Choi Flower"}]   },
-        {id:5,name:"To Do List",color:"#3266a8" ,participants:[{userid:1,name:"곽지훈"}]  }
+        { id: 1, name: "일 나누기 개발", color: "#32a85d", participants: [{ userid: 1, name: "곽지훈" }, { userId: 2, name: "Tina Kim" }, { userId: 3, name: "Choi Flower" }] },
+        { id: 2, name: "Sweet Home", color: "#a88132", participants: [{ userId: 2, name: "Tina Kim" }, { userId: 3, name: "Choi Flower" }] },
+        { id: 3, name: "경영과학 2조", color: "#32a89c", participants: [{ userid: 1, name: "곽지훈" }, { userId: 3, name: "Choi Flower" }] },
+        { id: 4, name: "개인 프로젝트", color: "#7f71e3", participants: [{ userId: 3, name: "Choi Flower" }] },
+        { id: 5, name: "To Do List", color: "#3266a8", participants: [{ userid: 1, name: "곽지훈" }] }
     ]
     return temp;
 }
@@ -45,28 +45,46 @@ const GroupListScreen = ({ route, navigation }) => {
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
-    const [groups,setGroups] = useState([]);
+    const [groups, setGroups] = useState([]);
 
-    const fetchData = useCallback(()=>{
-        (async ()=>{
-            try{
-                let g= await GroupService.getMyGroups();
-                setGroups(g.data.data);
-            }catch(e){
+
+    /*-------------------------------------------------------------------------------
+    * 03-2) fetch Methods
+    *-------------------------------------------------------------------------------*/
+    const initializeData = useCallback(() => {
+        (async () => {
+            try {
+                let fetchedMyGroups = (await fetchMyGroups()).data.contents;
+                setGroups(fetchedMyGroups);
+            } catch (e) {
                 setGroups(getGroups());
             }
-        })();   
+        })();
+    });
+    const fetchMyGroups = useCallback(() => {
+        return GroupService.getMyGroups();
     })
-    useEffect(fetchData, []);
-    
+
     /*-------------------------------------------------------------------------------
-    * 03-2) View
+    * 03-3) Hooks Effects
+    *-------------------------------------------------------------------------------*/
+    useEffect(initializeData, []);
+    useEffect(()=>{
+        console.log("!@#!@FG$#HQF#G$H%#F")
+        console.log("!@#!@FG$#HQF#G$H%#F")
+        console.log(route.params)
+        console.log("!@#!@FG$#HQF#G$H%#F")
+        console.log("!@#!@FG$#HQF#G$H%#F")
+    })
+
+    /*-------------------------------------------------------------------------------
+    * 03-4) View
     *-------------------------------------------------------------------------------*/
     return (
         <View>
             <CommonTop />
             {/* <GroupDashboard items={{tasks,groups}} /> */}
-            <GroupList navigation={navigation} groupsState={{groups,setGroups}}/>
+            <GroupList navigation={navigation} groupsState={{ groups, setGroups }} />
         </View>
     )
 }

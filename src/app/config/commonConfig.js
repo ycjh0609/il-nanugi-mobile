@@ -10,7 +10,5 @@ export default globalConfig = {
         BASE_HOST:"http://localhost:8080",
         TIME_OUT: 3000
     }
-
     
-
 }

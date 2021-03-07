@@ -14,13 +14,14 @@ const commonAxios = axios.create({
 /**************************************************************************/
 /* Interceptors  */
 /**************************************************************************/
+
 /* at request */
 commonAxios.interceptors.request.use(
     (config) => {
         if (commonConfig.axios.ENV == 'LOCAL' || commonConfig.axios.ENV == 'DEV') {
             printRequestDebug(config);
         }
-
+        
         return config;
     },
     (error) => {
@@ -59,6 +60,26 @@ commonAxios.interceptors.response.use(
 /**************************************************************************/
 /* Custom Functions  */
 /**************************************************************************/
+const customConsole = (text,type) =>{
+    if (!type){
+        console.log(`\x1b[36m${text}\x1b[0m`);
+    }
+    if (type == 0){ //FgRed
+        console.log(`\x1b[31m${text}\x1b[0m`);
+    }
+    if (type == 1){ //FgGreen
+        console.log(`\x1b[32m${text}\x1b[0m`);
+    }
+    if (type == 2){ //FgYellow
+        console.log(`\x1b[33m${text}\x1b[0m`);
+    }
+}
+/*
+FgRed = "\x1b[31m"
+FgGreen = "\x1b[32m"
+FgYellow = "\x1b[33m"
+FgBlue = "\x1b[34m"
+*/
 function printErrorDebug(error) {
     console.warn(
         `############### COMMON AXIOS ERROR START ############# [ ${new Date()
@@ -79,28 +100,30 @@ function printErrorDebug(error) {
 }
 
 function printRequestDebug(config) {
-    console.log(
+
+    customConsole(
         `############### COMMON AXIOS REQ START ############# [ ${new Date()
             .toLocaleString('en-US')
-            .split(', ')} ]`,
+            .split(', ')} ]`,1
     );
-    console.log('(REQ) URL           : ', config.url);
-    console.log('(REQ) METHOD        : ', config.method);
-    console.log('(REQ) HEADERS       : ', config.headers);
-    console.log('(REQ) BODY          : ', config.data);
-    console.log('############### COMMON AXIOS REQ END ###############');
+    
+    customConsole(`(REQ) URL           :  ${config.url    }`,1);
+    customConsole(`(REQ) METHOD        :  ${config.method }`,1);
+    customConsole(`(REQ) HEADERS       :  ${JSON.stringify(config.headers)}`,1);
+    customConsole(`(REQ) BODY          :  ${JSON.stringify(config.data   )}`,1);
+    customConsole('############### COMMON AXIOS REQ END ###############',1);
 }
 
 function printResponseDebug(response) {
-    console.log(
+    customConsole(
         `############### COMMON AXIOS RES START ############# [ ${new Date()
             .toLocaleString('en-US')
-            .split(', ')} ]`,
+            .split(', ')} ]`,2
     );
-    console.log('(RES) URL          : ', response.config.url);
-    console.log('(RES) DATA         : ', response.data);
-    console.log('(RES) HTTP_STATUS  : ', response.status);
-    console.log('############### COMMON AXIOS RES END ###############');
+    customConsole(`(RES) URL          :  ${response.config.url}`,2);
+    customConsole(`(RES) DATA         :  ${JSON.stringify(response.data  )}`,2);
+    customConsole(`(RES) HTTP_STATUS  :  ${JSON.stringify(response.status)}`,2);
+    customConsole(`############### COMMON AXIOS RES END ###############`,2);
 }
 
 export default commonAxios;

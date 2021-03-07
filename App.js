@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from "./src/app/containers/LoginScreen";
 import MainTabNavigation from "./src/app/navigation/MainTabNavigation";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Overlay } from 'react-native-elements';
+import { ActivityIndicator } from 'react-native';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
  * Edit By     : kwak ji hoon 
@@ -28,7 +30,6 @@ const App = () => {
   *-------------------------------------------------------------------------------*/
   const [initialScreenName,setInitialScreenName] = useState("MainTabNavigation");
 
-
   return (
     <NavigationContainer>
       <AppStack.Navigator initialRouteName={INITINIAL_ROUTE_NAME}>
@@ -46,6 +47,9 @@ const App = () => {
           options={{ headerShown: false }}
         />
       </AppStack.Navigator>
+
+
+
     </NavigationContainer>
   );
 }

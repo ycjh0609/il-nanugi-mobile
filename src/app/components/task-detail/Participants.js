@@ -17,9 +17,6 @@ import CodeUtil from '../../utils/code/CodeUtil';
 const styles = StyleSheet.create({
     cardContainer: {
         flexDirection: "row", justifyContent: "center"
-        , borderRadius: 10
-        , borderWidth: .3
-
     },
     btnContainer: {
         flexDirection: "column", justifyContent: "center"
@@ -33,7 +30,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 03) React
  *----------------------------------------------------------------------------------*/
-const Participants = ({ participantsState }) => {
+const Participants = ({ participantsState,onPressAddParticipant }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -42,28 +39,28 @@ const Participants = ({ participantsState }) => {
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
-        <View style={{ ...styles.cardContainer,backgroundColor: CodeUtil.TASK_STATUS_CARD_BACK_COLOR.END,borderColor:CodeUtil.TASK_STATUS_COLOR.END }}>
+        <View style={{ ...styles.cardContainer}}>
             <View style={{flex:7}}>
-            <ScrollView horizontal style={{ flexDirection: "row", padding: 10 }}>
+            <ScrollView horizontal style={{ flexDirection: "row",paddingLeft:5,paddingRight:5 }}>
                 {participantsState.participants.map((p, idx) => {
                     return (
                         <View key={"participants-" + idx} style={{ flexDirection: "column", alignItems: "center", marginRight: 15 }}>
                             <View>
-                                <Avatar rounded size={45} overlayContainerStyle={{ backgroundColor: "#b0b3b8" }} title={StringUtil.createSummarizeName(p.name)} />
+                                <Avatar rounded size={50} overlayContainerStyle={{ backgroundColor: "#b0b3b8" }} title={StringUtil.createSummarizeName(p.name)} />
                                 {idx === 0 &&
                                     <Badge containerStyle={{ position: "absolute", top: 0, right: -4 }} status="success" />
                                 }
                             </View>
-                            <Text style={{ fontSize: 12, textAlign: "center", marginTop: 3 }}>{p.name}</Text>
+                            <Text style={{ fontSize: 14, textAlign: "center", marginTop: 3 }}>{p.name}</Text>
                         </View>
                     )
                 })
                 }
             </ScrollView>
             </View>
-            <View style={{ flex: 1, flexDirection: "row" }}>
+            <View style={{ flex: 1, flexDirection: "row",justifyContent:"center" }}>
                 <View style={styles.btnContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={onPressAddParticipant}>
                         <Icon size={20} name={"ellipsis-h"} />
                         <Text style={{ fontSize: 12, marginTop: 5 }}>{"더보기"}</Text>
                     </TouchableOpacity>

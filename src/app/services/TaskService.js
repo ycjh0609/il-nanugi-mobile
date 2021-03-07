@@ -25,8 +25,7 @@ import {getStoreItem} from "../utils/store/commonStore";
 
 */
 const TaskService = {
-
-    
+    presentVersion:"",
     /*-------------------------------------------------------------------------------
     * 1) Requests
     *-------------------------------------------------------------------------------*/
@@ -63,12 +62,12 @@ const TaskService = {
      * @param {Object} task {id, ... }
      * @returns task
      */
-    updateTask: (task) =>{
-        return commonAxios.put(`/tasks/${task.id}`,task)
+    updateTask: (task,taskId) =>{
+        return commonAxios.put(`/tasks/${taskId}`,task)
     },
     /**
      * 그룹을 삭제한다.
-     * @param {Number} groupId 
+     * @param {Number} taskId 
      * @returns task
      */
     deleteTask: (taskId) =>{
@@ -86,6 +85,33 @@ const TaskService = {
         return commonAxios.get(`/tasks/me`);
     },
 
+
+    addInterceptor: (beforeCallback,afterCallback)=>{
+        commonAxios.interceptors.request.use(
+            (config) => {
+                beforeCallback();
+                return config;
+            },
+            (error) => {
+                beforeCallback();
+                return Promise.reject(error);
+            },
+        );
+
+        commonAxios.interceptors.response.use(
+            (response) => {
+                afterCallback();
+                return response;
+            },
+            (error) => {
+                afterCallback();
+                return Promise.reject(error);
+            },
+        );
+        
+
+        
+    }
 }
 
 export default TaskService;

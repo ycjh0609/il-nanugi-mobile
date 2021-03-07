@@ -53,6 +53,8 @@ const ToDoList = ({ navigation, items, setItems }) => {
     *-------------------------------------------------------------------------------*/
     const [sortType, setSortType] = useState(0);
     const [reCollacatedTasks, setReCollacatedTasks] = useState([]);
+    
+    
     /***************************
     * 렌더링 될 각 카드에 전달할 각 카드 setter 생성 
     ***************************/
@@ -73,9 +75,6 @@ const ToDoList = ({ navigation, items, setItems }) => {
         if (status === CodeUtil.TASK_STATUS.DOING) return 1;
         if (status === CodeUtil.TASK_STATUS.END) return 2;
     })
-    useEffect(function handleMount() {
-        setReCollacatedTasks(items.tasks)
-    }, [])
     /***************************
      * 정렬순서 변경 hook (ToolBar 에서 sortType이 변경되면 setTask가 실행됨을 알고있어야함)
     ***************************/
@@ -93,13 +92,22 @@ const ToDoList = ({ navigation, items, setItems }) => {
             setReCollacatedTasks(_.sortBy([...items.tasks], ["groupId", "endTime"]));
         }
     }, [sortType, items.tasks]);
+    
+    useEffect(() => {
+        setReCollacatedTasks(items.tasks)
+    }, [])
+    
+
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
         <View style={styles.container}>
             {/* 01. title and toolbar */}
+            
             <ToolBar sortState={{ sortType, setSortType }} itemStates={{ items, setItems }} />
+            
             {/* 02. List */}
             <ScrollView>
                 <View style={{ marginBottom: 550 }}>
@@ -110,6 +118,7 @@ const ToDoList = ({ navigation, items, setItems }) => {
                                 filterBy={() => true} />
                         </View>
                     }
+                    
                     {/* 02-2. 업무 상태별 리스트 */}
                     {sortType === CodeUtil.TASK_SORT_TYPE.BY_STATUS &&
                         <View>

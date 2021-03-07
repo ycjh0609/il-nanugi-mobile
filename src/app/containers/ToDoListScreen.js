@@ -7,9 +7,13 @@ import HomeTop from "../components/home/HomeTop";
 import ToDoDashboard from "../components/to-do-list/ToDoDashboard";
 import ToDoList from "../components/to-do-list/ToDoList";
 import CommonTop from "../components/common/CommonTop"
+import CommonLoadingActivity from "../components/common/CommonLoadingActivity"
+
 import GroupService from "../services/GroupService"
 import TaskService from "../services/TaskService"
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import LocalCache from '../services/LocalCache';
+import { Alert } from 'react-native';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
  * Edit By     : Kwak ji hoon 
@@ -52,35 +56,67 @@ function getGroups(){
  *----------------------------------------------------------------------------------*/
 const ToDoListScreen = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
-    * 03-1) Hooks
+    * 03-1) Hooks Variables
     *-------------------------------------------------------------------------------*/
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
     const [tasks,setTasks] = useState([]);
     const [groups,setGroups] = useState([]);
-
-    const fetchData = useCallback(()=>{
+    const [loadingVisible,setLoadingVisible] = useState(false);
+    /*-------------------------------------------------------------------------------
+    * 03-2) fetch Methods
+    *-------------------------------------------------------------------------------*/
+    const initializeData = useCallback(()=>{
         (async ()=>{
             try{
-                let groupsRes= await GroupService.getMyGroups();
-                let tasksRes= await TaskService.getMyTasks();
-                setGroups(groupsRes.data.data);
-                setTasks(tasksRes.data.data);
+
+                setLoadingVisible(true);
+                let fetchedMyTasks= (await fetchMyTasks()).data.contents;
+                let fetchedMyGroups= (await fetchMyGroups()).data.contents;
+                setTasks(fetchedMyTasks);
+                setGroups(fetchedMyGroups);
             }catch(e){
                 setTasks(getTasks());
                 setGroups(getGroups());
+            }finally{
+                setTimeout(()=>{
+                    setLoadingVisible(false);
+                },100)
             }
         })();   
+    });
+    const fetchMyTasks = useCallback(()=>{
+        return TaskService.getMyTasks();
     })
-    useEffect(fetchData, []);
+    const fetchMyGroups = useCallback(()=>{
+        return GroupService.getMyGroups();
+    })
+
+
+
     
+    /*-------------------------------------------------------------------------------
+    * 03-3) Hooks Effects
+    *-------------------------------------------------------------------------------*/
+    //useEffect(initializeData, []);
+    useEffect(()=>{
+        //hash값으로 버전 체크 후 업데이트 하도록 하자
+        let unsubscribe = navigation.addListener('focus', () => {
+            initializeData();
+        });
+        return  unsubscribe;
+    },[navigation])
+    useEffect(()=>{
+        
+    },[])
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
     return (
         <View>
-            <CommonTop />
+            <CommonTop/>
             <ToDoDashboard navigation={navigation} items={{tasks,groups}} />
             <ToDoList items={{tasks,groups}} setItems={{setTasks,setGroups}} navigation={navigation} />
+            <CommonLoadingActivity isVisible={loadingVisible}/>
         </View>
     )
 }

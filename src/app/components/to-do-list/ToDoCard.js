@@ -5,7 +5,7 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 import commonStyle from '../../styles/commonStyle';
 import { Badge, CheckBox } from 'react-native-elements';
 import CodeUtil from '../../utils/code/CodeUtil';
-
+import TaskService from "../../services/TaskService"
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 /*------------------------------------------------------------------------------------
@@ -91,14 +91,15 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
         } else if (status === CodeUtil.TASK_STATUS.END) {
             status = CodeUtil.TASK_STATUS.TODO;
         }
-        updateTask({ ...task, status });
+        TaskService.updateTask({ ...task, status }, task.id).then((res) => {
+            updateTask({ ...task, status });
+        });
     })
-
-
     useEffect(function handleEndTimeText() {
         let temp = moment(task.endTime, 'YYYYMMDDhhmm').format('YY년 MM월 DD일 hh:mm');
         setEndTimeText(temp);
     }, [task])
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
@@ -157,21 +158,21 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
                     checkedColor={commonStyle.oneBackxgroundColor}
                     checked={isEndStatus(task.status) ? true : false}
                     title={
-                        <View style={{flexDirection:"row"}}>
-                        <Text style={{
-                            fontSize: 16,
-                            marginLeft:5,
-                            fontWeight: "600",
-                            textDecorationLine: isEndStatus(task.status) ? 'line-through' : null,
-                            color: task.status === CodeUtil.TASK_STATUS.END ? CodeUtil.TASK_STATUS_COLOR.TODO : null
-                        }}>{task.title}
-                        
-                         </Text>
-                         {/* <Badge 
+                        <View style={{ flexDirection: "row" }}>
+                            <Text style={{
+                                fontSize: 16,
+                                marginLeft: 5,
+                                fontWeight: "600",
+                                textDecorationLine: isEndStatus(task.status) ? 'line-through' : null,
+                                color: task.status === CodeUtil.TASK_STATUS.END ? CodeUtil.TASK_STATUS_COLOR.TODO : null
+                            }}>{task.title}
+
+                            </Text>
+                            {/* <Badge 
                             status={"success"}
                             containerStyle={{ top: -5, right: -4 }}
                             value={<Icon name={"stopwatch"} color={"white"}/>}/> */}
-                         </View>
+                        </View>
                     }
 
                     onPress={() => changeTaskStatus(task)}
