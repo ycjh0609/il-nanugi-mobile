@@ -6,6 +6,7 @@ import commonStyle from "../styles/commonStyle";
 import commonConfig from "../config/commonConfig";
 import { useStoreState, defineStoreItem, deleteStoreWatcher } from '../utils/store/commonStore';
 import LoginCardContainer from '../components/login/LoginCardContainer';
+
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27 
  * Edit By     : kwak ji hoon 
@@ -81,6 +82,9 @@ const LoginScreen = ({ route, navigation }) => {
         }
     }, [userInfo]);
 
+
+
+    
 
     /*-------------------------------------------------------------------------------
     * 03-2) View

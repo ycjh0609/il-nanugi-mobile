@@ -2,7 +2,9 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { ActivityIndicator, Alert, StyleSheet, Text, View, Animated } from "react-native";
 import LoginCard from './LoginCard';
 import _ from 'lodash';
-import { deleteStoreWatcher, useStoreState } from '../../utils/store/commonStore'
+import { deleteStoreWatcher, useStoreState } from '../../utils/store/commonStore';
+
+import OAuthService from "../../services/OAuthService";
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.30
  * Edit By     : kwak ji hoon 
@@ -57,6 +59,15 @@ const LoginCardContainer = ({ }) => {
     const NAVER = useCallback(() => {
         setUserInfo({ name: "Kwak Tom" ,id:1})
     });
+
+    const googleSignIn = async()=>{
+        console.log("start")
+        await OAuthService.registConfigure();
+        await OAuthService.siginIn();
+    }
+
+
+
     /*-------------------------------------------------------------------------------
     * 03-2) View
     *-------------------------------------------------------------------------------*/
@@ -65,7 +76,7 @@ const LoginCardContainer = ({ }) => {
             <Animated.View style={{ marginTop: containerMarginTop, ...styles.container }}>
 
                 <LoginCard iconName="md-subway" title="NAVER" color="green" onPress={NAVER} ></LoginCard>
-                <LoginCard iconName="md-swap" title="KAKAO" color="#f7ce16"></LoginCard>
+                <LoginCard iconName="md-swap" title="KAKAO" color="#f7ce16" onPress={googleSignIn}></LoginCard>
                 <LoginCard iconName="logo-google" title="Google" color="white"></LoginCard>
                 <LoginCard iconName="logo-facebook" title="FaceBook" color="#2469e0"></LoginCard>
 
