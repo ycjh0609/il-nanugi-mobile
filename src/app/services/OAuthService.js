@@ -11,7 +11,7 @@ const OAuthService = {
 
     GoogleSignin.configure({
       iosClientId: '768423864259-5qfatkm1krf5gshogpldfa4ik4odves2.apps.googleusercontent.com',
-      webClientId: '768423864259-5qfatkm1krf5gshogpldfa4ik4odves2.apps.googleusercontent.com',
+      webClientId: '768423864259-v9lakmtgqmcgep7lvmptqoke85sci84u.apps.googleusercontent.com',
       offlineAccess: false
     })
     //com.googleusercontent.apps.768423864259-5qfatkm1krf5gshogpldfa4ik4odves2
@@ -30,7 +30,7 @@ const OAuthService = {
       console.log(userInfo);
 
       let aa = await commonAxios.post("http://localhost:8080/loginSuccess",userInfo)
-      
+
 
       console.log(aa);
 
