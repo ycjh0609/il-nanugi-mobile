@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
 * 03) React
 *----------------------------------------------------------------------------------*/
-const CommonAvartar = ({ containerStyle,overlayContainerStyle, size, title, onPress, onLongPress,titleStyle }) => {
+const CommonAvartar = ({ containerStyle,overlayContainerStyle, size, title,photo, onPress, onLongPress,titleStyle }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -51,13 +51,11 @@ const CommonAvartar = ({ containerStyle,overlayContainerStyle, size, title, onPr
                 onAccessoryPress={() => alert("onAccessoryPress")}
                 onLongPress={onLongPress}
                 onPress={onPress}
-                
                 overlayContainerStyle={overlayContainerStyle}
-                placeholderStyle={{}}
                 rounded
                 showAccessory
                 size={size ? size: "small"}
-                source={{ uri: "https://www.google.com/search?q=anything+image&client=safari&rls=en&sxsrf=ALeKk00TYIrn18YnXWz0e1SAfpnh5vxvHg:1607433259677&tbm=isch&source=iu&ictx=1&fir=7OqzUxRaQDgK2M%252Ctug9DXJEB-r_SM%252C_&vet=1&usg=AI4_-kS9H_5QhBHY15JN1kTBDLnIPRC0Cg&sa=X&ved=2ahUKEwjLssXDu77tAhXWEqYKHYwzAC4Q9QF6BAgJEAE#imgrc=7OqzUxRaQDgK2M" }}
+                source={{ uri: photo}}
                 title={title ? title : "T"}
                 titleStyle={titleStyle? titleStyle : {color:commonStyle.oneTextInColor,fontWeight:"700"}}
             />
