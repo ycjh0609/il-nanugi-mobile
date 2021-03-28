@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-native";
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import CenterTabBtn from "../components/main-navigation/CenterTapBtn"
+import CenterTabBtn from "../components/main-navigation/CenterTapBtn";
 import ChatScreen from '../containers/ChatScreen';
 import GroupScreen from '../containers/GroupScreen';
 import SettingScreen from '../containers/SettingScreen';
@@ -84,7 +84,7 @@ const MainTabNavigation = ({ route, navigation }) => {
             <MainTab.Screen name="ilPlus" component={Blank}
                 options={{
                     tabBarLabel: '',
-                    tabBarButton: (props) => <CenterTabBtn {...props} />
+                    tabBarButton: (props) => <CenterTabBtn {...props} navigation={navigation}  />
                 }}
             />
             <MainTab.Screen name="Chat" component={ChatScreen}

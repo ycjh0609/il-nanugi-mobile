@@ -99,7 +99,10 @@ const CenterTabBtn = (props) => {
     const toggleBtnActivate = useCallback(() => {
         setBtnActivate(!btnActivate);
     });
-
+    const btnCreateTask = useCallback(()=>{
+        props.navigation.navigate("Home", { routeName:"CreateTaskScreen" });
+        setBtnActivate(false);
+    })
     useEffect(function handleAnimationAfterBtnClick() {
 
         if (btnActivate) {
@@ -147,7 +150,7 @@ const CenterTabBtn = (props) => {
                             <View style={{ width: "48%" }}>
                                 <TouchableOpacity
                                     style={styles.leftInnerBtn}
-                                    onPress={() => Alert.alert("left")} >
+                                    onPress={() => btnCreateTask()} >
                                     <View style={{ flex: 1, ...commonStyle.rowCenter }}>
                                         <View style={commonStyle.columnCenterAlignment}>
                                             <Text style={styles.subBtnTitle}>1 + </Text>

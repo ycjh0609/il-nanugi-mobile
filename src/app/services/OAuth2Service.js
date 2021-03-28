@@ -17,11 +17,21 @@ const OAuth2Service = {
             //todo: pass result to ap server !!
             //const user = await XXXService.passResult();
 
-            const temp = await commonAxios.post("/login");
-
+            const res = await commonAxios.post("/login",signInResult);
+            
+            //set Authorization
+            commonAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+            
+            const signedUser = (await commonAxios.get("/accounts")).data;
+            
+            
+            console.log("!@@RT$#%YW#R@ER#T$Y%U^$Y#TR@E!R#T$Y%U^$Y#T@R!R#T$Y%")
+            console.log("!@@RT$#%YW#R@ER#T$Y%U^$Y#TR@E!R#T$Y%U^$Y#T@R!R#T$Y%")
+            console.log(signedUser)
+            console.log("!@@RT$#%YW#R@ER#T$Y%U^$Y#TR@E!R#T$Y%U^$Y#T@R!R#T$Y%")
+            console.log("!@@RT$#%YW#R@ER#T$Y%U^$Y#TR@E!R#T$Y%U^$Y#T@R!R#T$Y%")
 
             const user = signInResult.user; // 임시 (현재 구글만 가능함)
-            
             user.thirdPartyCode = thirdPartyCode;
 
             Object.defineProperty(this, "currentUser", { writable : false, value: user });
