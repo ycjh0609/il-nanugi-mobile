@@ -60,13 +60,12 @@ const LoginCardContainer = ({ }) => {
 
     const signIn = useCallback((thirdPartyCode)=>{
         OAuth2Service.signIn(thirdPartyCode)
-        .then((res)=>{
-            console.log("loginContainer: success",res)
-
-            setUserInfo(res);
-        }).catch((e)=>{
-            console.log("loginContainer: error", e)
-        });
+            .then((res)=>{
+                console.log("loginContainer: success",res)
+                setUserInfo(res);
+            }).catch((e)=>{
+                console.log("loginContainer: error", e)
+            });
     });
 
 
