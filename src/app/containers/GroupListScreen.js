@@ -11,6 +11,7 @@ import GroupService from "../services/GroupService"
 import TaskService from "../services/TaskService"
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import GroupList from '../components/group/GroupList';
+import CommonLoadingActivity from '../components/common/CommonLoadingActivity';
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2021.01.22
  * Edit By     : Kwak ji hoon 
@@ -46,7 +47,7 @@ const GroupListScreen = ({ route, navigation }) => {
     *-------------------------------------------------------------------------------*/
     const [userInfo, setUserInfo] = useStoreState("userInfo", useState);
     const [groups, setGroups] = useState([]);
-
+    const [loadingVisible,setLoadingVisible] = useState(false);
 
     /*-------------------------------------------------------------------------------
     * 03-2) fetch Methods
@@ -54,10 +55,15 @@ const GroupListScreen = ({ route, navigation }) => {
     const initializeData = useCallback(() => {
         (async () => {
             try {
+                setLoadingVisible(true);
                 let fetchedMyGroups = (await fetchMyGroups()).data.contents;
                 setGroups(fetchedMyGroups);
             } catch (e) {
                 setGroups(getGroups());
+            }finally{
+                setTimeout(()=>{
+                    setLoadingVisible(false);
+                },100)
             }
         })();
     });
@@ -68,14 +74,16 @@ const GroupListScreen = ({ route, navigation }) => {
     /*-------------------------------------------------------------------------------
     * 03-3) Hooks Effects
     *-------------------------------------------------------------------------------*/
-    useEffect(initializeData, []);
     useEffect(()=>{
-        console.log("!@#!@FG$#HQF#G$H%#F")
-        console.log("!@#!@FG$#HQF#G$H%#F")
-        console.log(route.params)
-        console.log("!@#!@FG$#HQF#G$H%#F")
-        console.log("!@#!@FG$#HQF#G$H%#F")
-    })
+        //hash값으로 버전 체크 후 업데이트 하도록 하자
+        let unsubscribe = navigation.addListener('focus', () => {
+            initializeData();
+        });
+        return  unsubscribe;
+    },[navigation])
+    useEffect(()=>{
+        
+    },[])
 
     /*-------------------------------------------------------------------------------
     * 03-4) View
@@ -85,6 +93,7 @@ const GroupListScreen = ({ route, navigation }) => {
             <CommonTop />
             {/* <GroupDashboard items={{tasks,groups}} /> */}
             <GroupList navigation={navigation} groupsState={{ groups, setGroups }} />
+            <CommonLoadingActivity isVisible={loadingVisible}/>
         </View>
     )
 }
