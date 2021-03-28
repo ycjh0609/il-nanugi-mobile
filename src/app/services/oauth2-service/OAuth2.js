@@ -29,7 +29,7 @@ class OAuth2{
             default: throw new Error("UnSupported ThirdParty");
         }
     }
-    async signIn(){
+    signIn(){
         return this.service.siginIn();
     }
 }
