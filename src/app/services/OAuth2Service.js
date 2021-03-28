@@ -20,7 +20,7 @@ const OAuth2Service = {
             const res = await commonAxios.post("/login",signInResult);
             
             //set Authorization
-            commonAxios.defaults.headers.common['Authorization'] = `Bearer ${res.data.token}`;
+            commonAxios.defaults.headers['Authorization'] = `Bearer ${res.data.token}`;
             
             const signedUser = (await commonAxios.get("/accounts")).data;
             
