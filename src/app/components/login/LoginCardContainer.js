@@ -3,8 +3,10 @@ import { ActivityIndicator, Alert, StyleSheet, Text, View, Animated } from "reac
 import LoginCard from './LoginCard';
 import _ from 'lodash';
 import { deleteStoreWatcher, useStoreState } from '../../utils/store/commonStore';
+ 
+import OAuth2Service from "../../services/OAuth2Service";
+import {OAUTH2_THIRD_PARTY} from "../../services/oauth2-service/OAuth2";
 
-import OAuthService from "../../services/OAuthService";
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.30
  * Edit By     : kwak ji hoon 
@@ -55,17 +57,17 @@ const LoginCardContainer = ({ }) => {
         }
     }, [userInfo]);
 
-    //todo
-    const NAVER = useCallback(() => {
-        setUserInfo({ name: "Kwak Tom" ,id:1})
+
+    const signIn = useCallback((thirdPartyCode)=>{
+        OAuth2Service.signIn(thirdPartyCode)
+        .then((res)=>{
+            console.log("loginContainer: success",res)
+
+            setUserInfo(res);
+        }).catch((e)=>{
+            console.log("loginContainer: error", e)
+        });
     });
-
-    const googleSignIn = async()=>{
-        console.log("start")
-        await OAuthService.registConfigure();
-        await OAuthService.siginIn();
-    }
-
 
 
     /*-------------------------------------------------------------------------------
@@ -75,10 +77,10 @@ const LoginCardContainer = ({ }) => {
         return (
             <Animated.View style={{ marginTop: containerMarginTop, ...styles.container }}>
 
-                <LoginCard iconName="md-subway" title="NAVER" color="green" onPress={NAVER} ></LoginCard>
-                <LoginCard iconName="md-swap" title="KAKAO" color="#f7ce16" onPress={googleSignIn}></LoginCard>
-                <LoginCard iconName="logo-google" title="Google" color="white"></LoginCard>
-                <LoginCard iconName="logo-facebook" title="FaceBook" color="#2469e0"></LoginCard>
+                <LoginCard iconName="md-subway" title="NAVER" color="green" onPress={()=>signIn(OAUTH2_THIRD_PARTY.Naver)} ></LoginCard>
+                <LoginCard iconName="md-swap" title="KAKAO" color="#f7ce16" onPress={()=>signIn(OAUTH2_THIRD_PARTY.Kakao)}></LoginCard>
+                <LoginCard iconName="logo-google" title="Google" color="white" onPress={()=>signIn(OAUTH2_THIRD_PARTY.Google)}></LoginCard>
+                <LoginCard iconName="logo-facebook" title="FaceBook" color="#2469e0"onPress={()=>signIn(OAUTH2_THIRD_PARTY.FaceBook)} > </LoginCard>
 
             </Animated.View>
         )
