@@ -92,6 +92,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
             },100)
         }
     }
+
     const getTaskOne = useCallback((taskId)=>{
         return TaskService.getTaskOne(taskId);
     })
@@ -104,6 +105,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
             callback(res.data);
         });
     })
+
     const changeTaskStatus = useCallback(() => {
         let status = task.status;
         if (status === CodeUtil.TASK_STATUS.TODO) {
@@ -116,7 +118,6 @@ const TaskDetailScreen = ({ route, navigation }) => {
         updateTaskProp("status",status,(task)=>{
             setTask(task)
         });
-
     })
 
 

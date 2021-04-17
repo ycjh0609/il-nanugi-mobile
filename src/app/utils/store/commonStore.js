@@ -53,7 +53,7 @@ const commonStore = {
 
 
 /**
- * 공통 Store 에서 setState 를 삭제한다 (Component 가 umounted 된 후에는 적절히 삭제하는게 좋음)
+ * 공통 Store 에서 setState 를 삭제한다 (Component 가 unmounted 된 후에는 적절히 삭제하는게 좋음)
  *
  * @param setState {Function} 지우려는 dispatchAction
  * @return void

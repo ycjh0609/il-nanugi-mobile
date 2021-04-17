@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
 * 03) React
 *----------------------------------------------------------------------------------*/
-const CommonAvartar = ({ containerStyle,overlayContainerStyle, size, title,photo, onPress, onLongPress,titleStyle }) => {
+const CommonAvartar = ({ containerStyle,overlayContainerStyle, size, title,profileUrl, onPress, onLongPress,titleStyle }) => {
     /*-------------------------------------------------------------------------------
     * 03-1) Hooks
     *-------------------------------------------------------------------------------*/
@@ -55,7 +55,7 @@ const CommonAvartar = ({ containerStyle,overlayContainerStyle, size, title,photo
                 rounded
                 showAccessory
                 size={size ? size: "small"}
-                source={{ uri: photo}}
+                source={{ uri: profileUrl}}
                 title={title ? title : "T"}
                 titleStyle={titleStyle? titleStyle : {color:commonStyle.oneTextInColor,fontWeight:"700"}}
             />

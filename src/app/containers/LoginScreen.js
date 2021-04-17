@@ -68,6 +68,8 @@ const LoginScreen = ({ route, navigation }) => {
      * 01) 유저정보 체크 Hook (유저 정보가 생성되면 initialTabName 으로 전환)
     ***************************/
     useEffect(() => {
+
+
         let timer;
         if (!_.isEmpty(userInfo)) {
             let initialTabName = "HomeNavigatorScreen"; // 임시로 하드코딩 처리        

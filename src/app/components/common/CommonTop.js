@@ -93,7 +93,7 @@ const HomeTop = ({}) => {
                     <Text style={styles.logoText}>{commonConfig.brand.logo}</Text>
                 </View>
                 <View style={styles.userNameContainer}>
-                    <CommonAvartar title={userInfo.name.substring(0,1)} photo={userInfo.photo} />
+                    <CommonAvartar title={userInfo.name.substring(0,1)} profileUrl={userInfo.profileUrl} />
                     <Text style={styles.userNameText}>{userInfo.name}</Text>
                 </View>
                 <View style={styles.alramBtnContainer}>

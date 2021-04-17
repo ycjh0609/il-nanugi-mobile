@@ -34,8 +34,8 @@ const GoogleOAuth2 = {
         ...CLIENT_KEY,
         offlineAccess: false
       })
-      
       await GoogleSignin.hasPlayServices();
+
       let signInResult =  await await GoogleSignin.signIn();
       return signInResult; // return userInfo
 

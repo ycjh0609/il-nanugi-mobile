@@ -43,10 +43,7 @@ const LoginCardContainer = ({ }) => {
     const containerMarginTop = useRef(new Animated.Value(100)).current;
     const indicatorMarginTop = useRef(new Animated.Value(350)).current;
 
-    /***************************
-     * 유저정보 Hook 을 이용해서 로그인 컨테이너 animation
-    ***************************/
-    useEffect(function handleAnimationByUserInfo() {
+    function handleAnimationByUserInfo() {
         if (_.isEmpty(userInfo)) {
             animateMarginTop(containerMarginTop, 250);
         } else {
@@ -55,7 +52,21 @@ const LoginCardContainer = ({ }) => {
         return () => {
             deleteStoreWatcher(setUserInfo);
         }
-    }, [userInfo]);
+    }
+    /***************************
+     * 이미 유저정보를 들고있는 상태로  로그인 화면에 오면 로그인 시키자!
+     * !! (중요) 그럴일은 없지만 그냥 넣은거임
+    ***************************/
+    useEffect(function alreadlySignedIn(){
+        if (!_.isEmpty(userInfo)) { // isNotEmpty
+            handleAnimationByUserInfo();
+        }
+    })
+
+    /***************************
+     * 유저정보 Hook 을 이용해서 로그인 컨테이너 animation
+    ***************************/
+    useEffect(handleAnimationByUserInfo, [userInfo]);
 
 
     const signIn = useCallback((thirdPartyCode)=>{
