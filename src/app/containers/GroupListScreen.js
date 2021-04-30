@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
 /*------------------------------------------------------------------------------------
  * 02) Static Variables
  *----------------------------------------------------------------------------------*/
-
 function getGroups() {
     let temp = [
         { id: 1, name: "일 나누기 개발", color: "#32a85d", participants: [{ userid: 1, name: "곽지훈" }, { userId: 2, name: "Tina Kim" }, { userId: 3, name: "Choi Flower" }] },
@@ -67,6 +66,7 @@ const GroupListScreen = ({ route, navigation }) => {
             }
         })();
     });
+
     const fetchMyGroups = useCallback(() => {
         return GroupService.getMyGroups();
     })
@@ -81,6 +81,7 @@ const GroupListScreen = ({ route, navigation }) => {
         });
         return  unsubscribe;
     },[navigation])
+    
     useEffect(()=>{
         
     },[])

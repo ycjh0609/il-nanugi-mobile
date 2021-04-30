@@ -9,11 +9,9 @@ import moment from "moment";
 import Description from '../components/task-detail/Description';
 import Participants from '../components/task-detail/Participants';
 import TaskService from '../services/TaskService';
-import { WebView } from 'react-native-webview';
 import { Badge, BottomSheet,ButtonGroup,Input,Overlay } from 'react-native-elements';
 import { Button } from 'react-native-elements';
 import CommonLoadingActivity from '../components/common/CommonLoadingActivity';
-
 
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.26 
@@ -64,7 +62,6 @@ const TaskDetailScreen = ({ route, navigation }) => {
     const [endTime, setEndTime] = useState("");
     const [description, setDescription] = useState("");
     const [participants, setParticipants] = useState([]);
-
     const [editType,setEditType] = useState(0);
 
     /*-------------------------------------------------------------------------------
@@ -179,20 +176,25 @@ const TaskDetailScreen = ({ route, navigation }) => {
                         </View>
                     </View>
 
-                    <View style={{marginTop:10}}></View>
+                   
                     
                     {/*------------------------------ 
                         2) Row 3 => 메모
                     ------------------------------*/}
+                    
+                    {/* 
+                     <View style={{marginTop:10}}></View>
                     <SubTitle title={"설명"} iconName={"paper-plane"} />
                     <TouchableOpacity onPress={()=>setEditType(1)} style={{padding:5}}>
                         <Text >
                         애국가(愛國歌)는 대한민국의 국가이다. 1919년 안창호에 의해 대한민국 
                         임시 정부에서 스코틀랜드 민요인 〈작별〉에 삽입해서 부르기 시작하다가 1935년 한국의 ...
                         </Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> 
+                     <View style={{marginTop:15,marginBottom:20,borderBottomWidth:2,borderColor:"#cdcdd4"}}></View>
+                    */}
                     
-                    <View style={{marginTop:15,marginBottom:20,borderBottomWidth:2,borderColor:"#cdcdd4"}}></View>
+                   
                     
                     {/*------------------------------ 
                         3) Row 3 => 참여중인 멤버
@@ -238,8 +240,8 @@ const TaskDetailScreen = ({ route, navigation }) => {
                     <View style={{marginTop:15,marginBottom:15,borderBottomWidth:2,borderColor:"#cdcdd4"}}></View>
                   
 
-                    <SubTitle title={"히스토리"} iconName={"list-ol"} />
-
+                    <SubTitle title={"히스토리 20"} iconName={"list-ol"} />
+                    <ScrollView style={{height:250}}>
                     {["E", "D", "D", "T", "E"].map((v,i) => {
                         return (
                             <View key={i} style={{ height: 40,flexDirection: "row", borderRadius: 10, marginBottom: 15 }}>
@@ -255,13 +257,13 @@ const TaskDetailScreen = ({ route, navigation }) => {
                             </View>
                         )
                     })}
+                    <View style={{height:50}}></View>
+                    </ScrollView>
                 </View>
             </ScrollView>
 
-            <BottomSheet onBackdropPress={()=>setEditType(0)} isVisible={editType == 2 ? true:false} containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)' }}>
-                <View onTouchStart={()=>setEditType(2)}>
-                    
-                </View>
+            <BottomSheet onBackdropPress={()=>setEditType(0)} isVisible={editType == 2 ? true:false} containerStyle={{ backgroundColor: 'white' }}>
+                
             </BottomSheet>
 
             <BottomSheet isVisible={editType == 3 ? true:false} title="asdf" containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)',height:200 }}>
@@ -271,12 +273,14 @@ const TaskDetailScreen = ({ route, navigation }) => {
             </BottomSheet>
 
 
-            <BottomSheet isVisible={editType == 4 ? true:false} title="asdf" containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)' ,height:200}}>
-                <View style={{}} onTouchStart={()=>setEditType(4)}>
+            <BottomSheet  widthOverlay={false} isVisible={editType == 4 ? true:false} title="asdf" containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)' ,height:200}}>
+                <View >
                     <TimePicker onCancle={()=>setEditType(0)} timeState={{time:endTime,setTime: setEndTime}} />
                 </View>
             </BottomSheet>
 
+
+            {/* 설명 수정 */}
             <Overlay overlayStyle={{borderRadius:20,marginBottom:200}} isVisible={editType == 1 ? true:false} onBackdropPress={()=>setEditType(0)}>
                 <View style={{width:Dimensions.get("window").width*0.8,height:350,flexDirection:"column",padding:20}}>
                     
@@ -285,7 +289,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
                   
                     <ScrollView style={{padding:5}}>
                         <TextInput autoFocus={true} multiline = {true} style={{height:200}} value={`애국가(愛國歌)는 대한민국의 국가이다. 1919년 안창호에 의해 대한민국 
-                        임시 정부에서 스코틀랜드 민요인 〈작별〉에 삽입해서 부르기 시작하다가 1935년 한국의 ...`}>
+                        임시22 정부에서 스코틀랜드 민요인 〈작별〉에 삽입해서 부르기 시작하다가 1935년 한국의 ...`}>
                         
                         </TextInput>
                     </ScrollView>

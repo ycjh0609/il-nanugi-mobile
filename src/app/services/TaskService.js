@@ -58,7 +58,7 @@ const TaskService = {
         return commonAxios.post(`/tasks`,task)
     },
     /**
-     * Task 내역을 업데이트 한다.
+     * Task 내역을 업데이트 한다. (부분 수정가능)
      * @param {Object} task {id, ... }
      * @returns task
      */
