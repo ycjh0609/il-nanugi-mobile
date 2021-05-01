@@ -100,7 +100,7 @@ const CenterTabBtn = (props) => {
         setBtnActivate(!btnActivate);
     });
     const btnCreateTask = useCallback(()=>{
-        props.navigation.navigate("Home", { routeName:"CreateTaskScreen" });
+        props.navigation.navigate("Home", { routeName:"CreateTaskScreen",routeParams:{task:{title:"",status:"T",isNew:true} }})
         setBtnActivate(false);
     })
     useEffect(function handleAnimationAfterBtnClick() {

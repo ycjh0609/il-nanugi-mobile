@@ -7,7 +7,7 @@ import TimePicker from '../components/task-detail/TimePicker';
 import _ from 'lodash';
 import moment from "moment";
 import Description from '../components/task-detail/Description';
-import Participants from '../components/task-detail/Participants';
+import TaskParticipants from '../components/task-detail/TaskParticipants';
 import TaskService from '../services/TaskService';
 import { Badge, BottomSheet,ButtonGroup,Input,Overlay } from 'react-native-elements';
 import { Button } from 'react-native-elements';
@@ -200,7 +200,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
                         3) Row 3 => 참여중인 멤버
                     ------------------------------*/}
                     <SubTitle title={"참여중인 멤버"} iconName={"users-cog"} />
-                    <Participants onPressAddParticipant={()=>setEditType(2)} participantsState={{ participants, setDescription }} />
+                    <TaskParticipants task={task} participantsState={{ participants, setParticipants }} />
                 
                     <View style={{marginTop:15,marginBottom:15,borderBottomWidth:2,borderColor:"#cdcdd4"}}></View>
                     
@@ -262,10 +262,7 @@ const TaskDetailScreen = ({ route, navigation }) => {
                 </View>
             </ScrollView>
 
-            <BottomSheet onBackdropPress={()=>setEditType(0)} isVisible={editType == 2 ? true:false} containerStyle={{ backgroundColor: 'white' }}>
-                
-            </BottomSheet>
-
+           
             <BottomSheet isVisible={editType == 3 ? true:false} title="asdf" containerStyle={{ backgroundColor: 'rgba(0.5, 0.25, 0, 0.2)',height:200 }}>
                 <View style={{}} onTouchStart={()=>setEditType(3)}>
                     <TimePicker onCancle={()=>setEditType(0)} timeState={{time:startTime,setTime: setStartTime}} />

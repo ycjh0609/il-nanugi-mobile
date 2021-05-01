@@ -18,6 +18,7 @@ const TaskService = {
     },
     /**
      * Task에 담당자를 추가한다.
+     * /tasks/{taskId}/users
      * @param {*} participant {userId, taskId, roleType}
      * @returns participant
      */

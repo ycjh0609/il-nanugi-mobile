@@ -42,10 +42,29 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
 
     //태스크 하나 불러와야함(todo)
     let task = route.params.task;
-    let taskTitle = task ? task.title : "";
+    let taskTitle = task ? task.title : ""; //origin title
     let taskStatus = task ? task.status : "";
+    let canModify = (route.params.canModify == true)||task.isNew; // undifine
 
-    let canModify = route.params.canModify == true; // undifine
+
+    const taskCreator = ()=>{
+        task.startTime = "202102060000";
+        task.groupId = 1;
+        TaskService.createTask(task).then(res=>{
+            console.log("!@#$%R!ERQWT#")
+        })
+    }
+    // center 와 rigth 에서 모두 업데이트 될 수 있도록 처리해야함 !!
+    const taskTitleUpdator = (updatedTitle)=>{
+        if (!task) return;
+        if (taskTitle !== updatedTitle){
+            TaskService.updateTask({title:updatedTitle},task.id).then((res)=>{
+                navigation.navigate("TaskDetailScreen", { taks:res.data,canModify:false });
+            });
+        }else {
+            navigation.navigate("TaskDetailScreen", { task,canModify:!canModify });
+        }
+    } 
 
     return {
         title: taskTitle,
@@ -72,14 +91,10 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
         headerRight: () => {
            
             const refreshHeader = useCallback(() => {
-               
-                // center 와 right 연동이 쉽지않네 ..
-                if (taskTitle !== task.title){
-                    TaskService.updateTask({title:task.title},task.id).then((res)=>{
-                        navigation.navigate("TaskDetailScreen", { taks:res.data,canModify:!canModify });
-                    });
-                }else {
-                    navigation.navigate("TaskDetailScreen", { task,canModify:!canModify });
+                if (task.isNew){
+                    taskCreator();
+                }else{
+                    taskTitleUpdator(task.title);
                 }
             })
             return (
@@ -105,13 +120,15 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
             useEffect(()=>{
                 task.title = modifyingTitle;
             },[modifyingTitle]);
-            
+
+         
+
             return (
                 <View style={{ alignContent: "center" }}>
                     {canModify &&
                         <TextInput value={modifyingTitle} 
                         maxLength={15}
-                        onBlur={text => setModifyingTitle(text)}
+                        onBlur={()=>taskTitleUpdator(modifyingTitle)}
                         onChangeText={text => setModifyingTitle(text)} 
                         autoFocus={true} style={{ fontSize: 20, fontWeight: "600", color: "white" }} />
                     }
@@ -135,8 +152,12 @@ const HomeStackNavigation = ({ route, navigation }) => {
 
     useEffect(() => {
         if (route.params.routeName) {
-            navigation.navigate(route.params.routeName)
+            let params = {};
+            if (route.params.routeParams) params =route.params.routeParams;
+
+            navigation.navigate(route.params.routeName,params)
         }
+        
     }, [route.params])
     /*-------------------------------------------------------------------------------
     * 03-2) View

@@ -4,7 +4,7 @@ import { ActivityIndicator, Alert, Button, StyleSheet, Text, View } from "react-
 const CreateTaskScreen = ({ route, navigation }) => {
 
     useEffect(()=>{
-        console.log(navigation)
+        
     })
 
     return <View></View>;
