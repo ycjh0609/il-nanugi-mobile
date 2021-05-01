@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, Text, View } from "react-native";
 import { createStackNavigator } from '@react-navigation/stack';
 import Icon from "react-native-vector-icons/FontAwesome5";
 import { Alert } from 'react-native';
@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
  *----------------------------------------------------------------------------------*/
 const HomeStack = createStackNavigator();
 
-
 const TaskDetailHeaderOptions = ({ route, navigation }) => {
     //https://reactnavigation.org/docs/stack-navigator#navigationoptions-used-by-stacknavigator
 
@@ -45,9 +44,8 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
     let task = route.params.task;
     let taskTitle = task ? task.title : "";
     let taskStatus = task ? task.status : "";
-    let taskId = task ? task.id : "";
 
-    let canModify = route.params.canModify == true; // undifined
+    let canModify = route.params.canModify == true; // undifine
 
     return {
         title: taskTitle,
@@ -72,25 +70,25 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
             fontWeight: 'bold',
         },
         headerRight: () => {
-            const [canModify,setCanModify] = useState(false);
            
-            const goTaskDetail = useCallback(() => {
-                
-                navigation.navigate("TaskDetailScreen", { task,canModify:!canModify });
+            const refreshHeader = useCallback(() => {
+               
+                // center 와 right 연동이 쉽지않네 ..
+                if (taskTitle !== task.title){
+                    TaskService.updateTask({title:task.title},task.id).then((res)=>{
+                        navigation.navigate("TaskDetailScreen", { taks:res.data,canModify:!canModify });
+                    });
+                }else {
+                    navigation.navigate("TaskDetailScreen", { task,canModify:!canModify });
+                }
             })
-            const changeTaskTitle = () => {
-                
-                TaskService.updateTask({ title: "test 입니다." }, taskId).then((res) => {
-
-                });
-            }
             return (
                 <View>
-                    <TouchableOpacity onPress={goTaskDetail}>
+                    <TouchableOpacity onPress={refreshHeader}>
                         <View style={{ ...commonStyle.columnCenterAlignment }}>
                             <View style={{ ...commonStyle.rowAlignment }}>
                                 {canModify  &&
-                                    <ShakingIcon size={100} name={"edit"} color={"white"}></ShakingIcon>
+                                    <ShakingIcon size={20} name={"edit"} color={"white"}></ShakingIcon>
                                 }
                                 {!canModify  &&
                                     <Icon size={20} name={"edit"} color={"white"}></Icon>
@@ -103,13 +101,19 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
             )
         },
         headerTitle: () => {
-
+            const [modifyingTitle,setModifyingTitle] = useState(task.title);
+            useEffect(()=>{
+                task.title = modifyingTitle;
+            },[modifyingTitle]);
+            
             return (
                 <View style={{ alignContent: "center" }}>
                     {canModify &&
-                        <TextInput style={{ fontSize: 20, fontWeight: "600", color: "white" }}>
-                            {taskTitle} {canModify}
-                        </TextInput>
+                        <TextInput value={modifyingTitle} 
+                        maxLength={15}
+                        onBlur={text => setModifyingTitle(text)}
+                        onChangeText={text => setModifyingTitle(text)} 
+                        autoFocus={true} style={{ fontSize: 20, fontWeight: "600", color: "white" }} />
                     }
                     {!canModify &&
                         <Text style={{ fontSize: 20, fontWeight: "600", color: "white" }}>

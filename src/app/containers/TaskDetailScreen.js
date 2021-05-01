@@ -95,9 +95,9 @@ const TaskDetailScreen = ({ route, navigation }) => {
     })
 
     const updateTaskProp = useCallback((propName, data,callback) => {
-        let updated = {...task};
+        let updated = {};
         updated[propName] = data;
-        TaskService.updateTask(updated,updated.id).then((res)=>{
+        TaskService.updateTask(updated,task.id).then((res)=>{
             navigation.navigate("TaskDetailScreen", { task: res.data });
             callback(res.data);
         });

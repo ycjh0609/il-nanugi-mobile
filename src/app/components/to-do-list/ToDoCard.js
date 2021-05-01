@@ -91,8 +91,8 @@ const ToDoCard = ({ navigation, task, updateTask, groupName, sortType }) => {
         } else if (status === CodeUtil.TASK_STATUS.END) {
             status = CodeUtil.TASK_STATUS.TODO;
         }
-        TaskService.updateTask({ ...task, status }, task.id).then((res) => {
-            updateTask({ ...task, status });
+        TaskService.updateTask({ status }, task.id).then((res) => {
+            updateTask(res.data);
         });
     })
     useEffect(function handleEndTimeText() {
