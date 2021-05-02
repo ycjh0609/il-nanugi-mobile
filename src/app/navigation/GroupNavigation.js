@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View } from "react-native";
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {StyleSheet} from "react-native";
+import {createStackNavigator} from '@react-navigation/stack';
 import GroupListScreen from '../containers/GroupListScreen';
 import GroupDetailScreen from '../containers/GroupDetailScreen';
 //import GroupDetailOptions from "./screen-options/GroupDetailOptions";
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2020.12.27
- * Edit By     : kwak ji hoon 
+ * Edit By     : kwak ji hoon
  * Description : Honme Stack Screen
  *----------------------------------------------------------------------------------*/
 
@@ -28,10 +28,12 @@ const GroupDetailOptions = ({ route }) => {
           opacity: current.progress,
         },
       });
+
+    let {group} = route.params;
     return {
-        title: route.params.group.name,
+        title: group.name,
         headerStyle: {
-            backgroundColor: route.params.group.color,
+            backgroundColor: group.color,
             height: 120
         },
         headerLeftContainerStyle: {

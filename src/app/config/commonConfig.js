@@ -1,5 +1,3 @@
-
-
 export default globalConfig = {
     brand:{
         kr:"일 나누기",
@@ -10,5 +8,5 @@ export default globalConfig = {
         BASE_HOST:"http://localhost:8080",
         TIME_OUT: 3000
     }
-    
+
 }

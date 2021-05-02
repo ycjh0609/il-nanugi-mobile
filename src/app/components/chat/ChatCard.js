@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {Text} from "react-native-elements";
 
 /*------------------------------------------------------------------------------------
@@ -44,14 +44,15 @@ const ChatCard = ({title}) => {
   * 03-2) View
   *-------------------------------------------------------------------------------*/
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      style={styles.container}>
       <View style={styles.preview}>
-
       </View>
       <View style={styles.title}>
         <Text>{title}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 export default ChatCard;

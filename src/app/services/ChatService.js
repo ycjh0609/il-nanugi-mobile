@@ -17,8 +17,8 @@ const ChatService = {
    * @param {Object} group
    * @returns group
    */
-  createChattingRoom:(data) =>{
-    return commonAxios.post(`/chat/rooms`,data)
+  createChattingRoom: (data) => {
+    return commonAxios.post(`/chat/rooms`, data)
   },
 
   /*-------------------------------------------------------------------------------
@@ -31,6 +31,21 @@ const ChatService = {
   getMyChatRooms: () => {
     //let userInfo = getStoreItem("userInfo");
     return commonAxios.get(`/chat/rooms/me`);
+  },
+  /**
+   *
+   */
+
+  /*-------------------------------------------------------------------------------
+   * 3) Action Requests
+   *-------------------------------------------------------------------------------*/
+  /**
+   * 내가 참여중인 채팅방 리스트를 조회힌다 (back-end signedUser 를 이용)
+   * @returns chat
+   */
+  enterChatRooms: (id) => {
+    //let userInfo = getStoreItem("userInfo");
+    return commonAxios.get(`/chat/enter/${id}`);
   },
   /**
    *

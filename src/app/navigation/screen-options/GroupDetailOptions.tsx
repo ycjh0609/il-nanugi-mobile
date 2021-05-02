@@ -1,17 +1,25 @@
+import React from 'react';
+import {StackScreenProps} from "@react-navigation/stack";
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { StyleSheet, Text, View } from "react-native";
 /*------------------------------------------------------------------------------------
  * Edit Date   : 2021.01.26
- * Edit By     : kwak ji hoon 
+ * Edit By     : kwak ji hoon
  * Description : GroupDetail Stack Screen Options
  * https://reactnavigation.org/docs/headers/
  *----------------------------------------------------------------------------------*/
+export type GroupList = {
+    GroupDetailScreen: { screen: string, group: any }
+}
 
-const GroupDetailOptions = ({ route }) => {
+interface GroupDetailOptionsProps {
 
+}
+
+const GroupDetailOptions: React.FC<GroupDetailOptionsProps
+    & StackScreenProps<GroupList, 'GroupDetailScreen'>> = ({route, navigation}) => {
+    const {group} = route.params
     return {
-        title: route.params.group.name,
+        title: group.name,
         headerStyle: {
             backgroundColor: '#f4511e',
         },
