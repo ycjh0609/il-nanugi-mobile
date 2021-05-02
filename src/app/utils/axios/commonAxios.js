@@ -87,6 +87,8 @@ function printErrorDebug(error) {
             .split(', ')} ]`,
     );
     if (error.response) {
+
+        console.warn('(ERR) URL        : ', error.response._url);
         console.warn('(ERR) DATA       : ', error.response.data);
         console.warn('(ERR) STAUTS     : ', error.response.status);
         console.warn('(ERR) HEADERS    : ', error.response.header);
