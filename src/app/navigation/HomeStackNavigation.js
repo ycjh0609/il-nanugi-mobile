@@ -44,27 +44,27 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
     let task = route.params.task;
     let taskTitle = task ? task.title : ""; //origin title
     let taskStatus = task ? task.status : "";
-    let canModify = (route.params.canModify == true)||task.isNew; // undifine
+    let canModify = (route.params.canModify == true) || task.isNew; // undifine
 
 
-    const taskCreator = ()=>{
-        task.startTime = "202102060000";
-        task.groupId = 1;
-        TaskService.createTask(task).then(res=>{
-            console.log("!@#$%R!ERQWT#")
+    const taskCreator = () => {
+
+        TaskService.createTask(task).then(res => {
+            navigation.navigate("TaskDetailScreen", { taks: res.data, canModify: false });
         })
     }
     // center 와 rigth 에서 모두 업데이트 될 수 있도록 처리해야함 !!
-    const taskTitleUpdator = (updatedTitle)=>{
-        if (!task) return;
-        if (taskTitle !== updatedTitle){
-            TaskService.updateTask({title:updatedTitle},task.id).then((res)=>{
-                navigation.navigate("TaskDetailScreen", { taks:res.data,canModify:false });
+    const taskTitleUpdator = (updatedTitle) => {
+        
+        if (!task || !task.id) return;
+        if (taskTitle !== updatedTitle) {
+            TaskService.updateTask({ title: updatedTitle }, task.id).then((res) => {
+                navigation.navigate("TaskDetailScreen", { taks: res.data, canModify: false });
             });
-        }else {
-            navigation.navigate("TaskDetailScreen", { task,canModify:!canModify });
+        } else {
+            navigation.navigate("TaskDetailScreen", { task, canModify: !canModify });
         }
-    } 
+    }
 
     return {
         title: taskTitle,
@@ -89,11 +89,11 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
             fontWeight: 'bold',
         },
         headerRight: () => {
-           
+
             const refreshHeader = useCallback(() => {
-                if (task.isNew){
+                if (task.isNew) {
                     taskCreator();
-                }else{
+                } else {
                     taskTitleUpdator(task.title);
                 }
             })
@@ -102,11 +102,9 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
                     <TouchableOpacity onPress={refreshHeader}>
                         <View style={{ ...commonStyle.columnCenterAlignment }}>
                             <View style={{ ...commonStyle.rowAlignment }}>
-                                {canModify  &&
-                                    <ShakingIcon size={20} name={"edit"} color={"white"}></ShakingIcon>
-                                }
-                                {!canModify  &&
-                                    <Icon size={20} name={"edit"} color={"white"}></Icon>
+                                {canModify
+                                    ? <ShakingIcon size={20} name={"edit"} color={"white"}></ShakingIcon>
+                                    : <Icon size={20} name={"edit"} color={"white"}></Icon>
                                 }
                             </View>
                         </View>
@@ -116,27 +114,23 @@ const TaskDetailHeaderOptions = ({ route, navigation }) => {
             )
         },
         headerTitle: () => {
-            const [modifyingTitle,setModifyingTitle] = useState(task.title);
-            useEffect(()=>{
+            const [modifyingTitle, setModifyingTitle] = useState(task.title);
+            useEffect(() => {
                 task.title = modifyingTitle;
-            },[modifyingTitle]);
-
-         
-
+            }, [modifyingTitle]);
             return (
                 <View style={{ alignContent: "center" }}>
-                    {canModify &&
-                        <TextInput value={modifyingTitle} 
-                        maxLength={15}
-                        onBlur={()=>taskTitleUpdator(modifyingTitle)}
-                        onChangeText={text => setModifyingTitle(text)} 
-                        autoFocus={true} style={{ fontSize: 20, fontWeight: "600", color: "white" }} />
-                    }
-                    {!canModify &&
-                        <Text style={{ fontSize: 20, fontWeight: "600", color: "white" }}>
+                    {canModify
+                        ? ( <TextInput value={modifyingTitle}
+                            maxLength={15}
+                            onBlur={() => taskTitleUpdator(modifyingTitle)}
+                            onChangeText={text => setModifyingTitle(text)}
+                            autoFocus={true} style={{ fontSize: 20, fontWeight: "600", color: "white" }} />)
+                        : ( <Text style={{ fontSize: 20, fontWeight: "600", color: "white" }}>
                             {taskTitle}
-                        </Text>
+                            </Text>)
                     }
+
                 </View>
             )
         }
@@ -153,11 +147,11 @@ const HomeStackNavigation = ({ route, navigation }) => {
     useEffect(() => {
         if (route.params.routeName) {
             let params = {};
-            if (route.params.routeParams) params =route.params.routeParams;
+            if (route.params.routeParams) params = route.params.routeParams;
 
-            navigation.navigate(route.params.routeName,params)
+            navigation.navigate(route.params.routeName, params)
         }
-        
+
     }, [route.params])
     /*-------------------------------------------------------------------------------
     * 03-2) View
